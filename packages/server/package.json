@@ -2,10 +2,17 @@
   "name": "@agentdraw/server",
   "version": "0.1.0",
   "type": "module",
+  "description": "Local HTTP server for AgentDraw.",
+  "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "web-dist"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "bundle:web": "rm -rf web-dist && cp -R ../../apps/web/dist web-dist",
     "dev": "tsx src/dev.ts",
     "typecheck": "pnpm --filter @agentdraw/scene build && tsc -p tsconfig.json --noEmit"
   },
@@ -15,5 +22,16 @@
   },
   "devDependencies": {
     "tsx": "^4.22.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/chenhg5/agentdraw.git",
+    "directory": "packages/server"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -67,6 +67,38 @@ const palettes = {
     accent2: "#CFEE30",
     accent3: "#5E4A88",
   },
+  "raw-grid": {
+    canvas: "#FFFFFF",
+    ink: "#0A0A0A",
+    panel: "#F8F8F8",
+    accent: "#0A0A0A",
+    accent2: "#F2D4CF",
+    accent3: "#5B5B5B",
+  },
+  "bold-poster": {
+    canvas: "#FFFFFF",
+    ink: "#1C1410",
+    panel: "#FFF1EF",
+    accent: "#D8000F",
+    accent2: "#F4C7C1",
+    accent3: "#5A2A23",
+  },
+  "soft-editorial": {
+    canvas: "#ECE9DC",
+    ink: "#202018",
+    panel: "#FFFFFF",
+    accent: "#E2A8CE",
+    accent2: "#C9DA4F",
+    accent3: "#8A786A",
+  },
+  "block-frame": {
+    canvas: "#FFFDF5",
+    ink: "#000000",
+    panel: "#FFFFFF",
+    accent: "#FE90E8",
+    accent2: "#C0F7FE",
+    accent3: "#FCC715",
+  },
 };
 
 const examples = [
@@ -78,6 +110,10 @@ const examples = [
   ["examples/theme-roadmap-mint.agentdraw.json", buildRoadmapMint],
   ["examples/theme-customer-journey.agentdraw.json", buildCustomerJourney],
   ["examples/theme-research-synthesis.agentdraw.json", buildResearchSynthesis],
+  ["examples/theme-raw-grid.agentdraw.json", buildRawGrid],
+  ["examples/theme-bold-poster.agentdraw.json", buildBoldPoster],
+  ["examples/theme-soft-editorial.agentdraw.json", buildSoftEditorial],
+  ["examples/theme-block-frame.agentdraw.json", buildBlockFrame],
 ];
 
 await mkdir("examples", { recursive: true });
@@ -392,6 +428,132 @@ function buildResearchSynthesis() {
   return scene("Research Synthesis Wall", "violet-marker", elements, { roughness: 1 });
 }
 
+function buildRawGrid() {
+  const p = palettes["raw-grid"];
+  const elements = [
+    text("title", 70, 54, 560, 42, "Scene Quality Matrix", 36, p.ink),
+    text("subtitle", 74, 106, 710, 24, "A strict grid for checking generated boards before a human opens them.", 17, p.accent3),
+    rect("frame", 44, 36, 1188, 650, "transparent", p.ink, 2),
+    rect("head", 92, 164, 990, 52, p.ink, p.ink, 0),
+    text("head-a", 122, 181, 180, 18, "CHECK", 16, "#FFFFFF"),
+    text("head-b", 390, 181, 220, 18, "FAILURE MODE", 16, "#FFFFFF"),
+    text("head-c", 720, 181, 280, 18, "REPAIR ACTION", 16, "#FFFFFF"),
+  ];
+  const rows = [
+    ["01", "text overflow", "widen box or wrap line"],
+    ["02", "connector crosses label", "reroute with elbow path"],
+    ["03", "unintentional overlap", "move card or mark shadow"],
+    ["04", "off-center label", "align text group"],
+  ];
+  rows.forEach((row, index) => {
+    const y = 216 + index * 78;
+    elements.push(
+      rect(`grid-row-${index}`, 92, y, 990, 78, index % 2 ? p.panel : p.accent2, p.ink, 2),
+      text(`grid-num-${index}`, 122, y + 24, 54, 24, row[0], 22, p.ink, "center", "middle"),
+      text(`grid-mode-${index}`, 390, y + 28, 220, 20, row[1], 18, p.ink),
+      text(`grid-action-${index}`, 720, y + 28, 300, 20, row[2], 18, p.accent3),
+    );
+  });
+  elements.push(
+    rect("grid-footer", 92, 566, 990, 44, p.ink, p.ink, 0),
+    text("grid-footer-text", 124, 579, 926, 18, "The design stays sharp because every generated scene gets checked before replay.", 16, "#FFFFFF", "center", "middle"),
+  );
+  return scene("Scene Quality Matrix", "raw-grid", elements, { roundness: "sharp" });
+}
+
+function buildBoldPoster() {
+  const p = palettes["bold-poster"];
+  const elements = [
+    rect("frame", 44, 36, 1188, 650, "transparent", p.ink, 4),
+    rect("red-slab", 76, 64, 420, 190, p.accent, p.ink, 4),
+    text("title", 106, 78, 356, 150, "DESIGN\nSYSTEMS\nWIN", 42, "#FFFFFF", "center", "middle"),
+    text("subtitle", 560, 76, 620, 78, "Agent diagrams improve when style files define layout,\ntype, components, and repair rules.", 22, p.ink),
+  ];
+  const proofs = [
+    ["01", "Typography", "sizes, rhythm, hierarchy"],
+    ["02", "Components", "cards, strips, shadows"],
+    ["03", "Validation", "overflow, routes, overlap"],
+  ];
+  proofs.forEach((proof, index) => {
+    const x = 110 + index * 340;
+    const y = 340;
+    elements.push(
+      rect(`proof-${index}`, x, y, 270, 150, index === 1 ? p.panel : p.accent2, p.ink, 4),
+      text(`proof-num-${index}`, x + 24, y + 24, 54, 26, proof[0], 24, p.accent),
+      text(`proof-title-${index}`, x + 24, y + 62, 210, 26, proof[1], 25, p.ink),
+      text(`proof-body-${index}`, x + 24, y + 106, 214, 20, proof[2], 17, p.accent3),
+    );
+  });
+  elements.push(
+    rect("poster-strip", 560, 192, 522, 52, p.panel, p.ink, 3),
+    text("poster-strip-text", 590, 208, 462, 18, "Not another palette swap.", 18, p.accent, "center", "middle"),
+    arrow("poster-flow", 482, 160, 76, 52, p.ink, 4),
+  );
+  return scene("Design Systems Win", "bold-poster", elements, { roundness: "sharp" });
+}
+
+function buildSoftEditorial() {
+  const p = palettes["soft-editorial"];
+  const elements = [
+    text("title", 72, 56, 570, 42, "Product Discovery Board", 38, p.ink),
+    text("subtitle", 76, 108, 660, 24, "A soft editorial synthesis of interviews, signals, priorities, and next moves.", 17, p.accent3),
+    rect("frame", 44, 36, 1188, 650, "transparent", p.accent3, 2),
+    rect("feature", 90, 176, 404, 300, p.panel, p.panel, 0, { roundness: true }),
+    rect("feature-accent", 120, 208, 126, 10, p.accent, p.accent, 0),
+    text("feature-title", 122, 238, 330, 76, "Users trust diagrams\nwhen they can edit them", 27, p.ink),
+    text("feature-body", 124, 338, 318, 70, "Editable output changes\nthe conversation from\nreview to collaboration.", 18, p.accent3),
+  ];
+  const notes = [
+    ["Signals", "manual edits\nafter replay", 570, 184, p.accent],
+    ["Friction", "style choice too vague", 846, 184, p.panel],
+    ["Priority", "design systems first", 570, 378, p.accent2],
+    ["Next Move", "builder recipes", 846, 378, p.panel],
+  ];
+  notes.forEach(([title, body, x, y, fill], index) => {
+    elements.push(
+      rect(`soft-note-${index}`, x, y, 226, 126, fill, p.ink, 2, { roundness: true }),
+      text(`soft-title-${index}`, x + 24, y + 22, 174, 24, title, 22, p.ink),
+      text(`soft-body-${index}`, x + 24, y + 66, 174, 38, body, 16, p.accent3),
+    );
+  });
+  elements.push(
+    rect("soft-strip", 138, 556, 882, 42, p.accent2, p.accent2, 0, { roundness: true }),
+    text("soft-strip-text", 172, 568, 812, 18, "A gentle layout can still be rigorous: short text, stable spacing, clear decisions.", 16, p.ink, "center", "middle"),
+  );
+  return scene("Product Discovery Board", "soft-editorial", elements);
+}
+
+function buildBlockFrame() {
+  const p = palettes["block-frame"];
+  const elements = [
+    text("title", 70, 54, 430, 48, "Maker Mode Map", 42, p.ink),
+    text("subtitle", 74, 112, 620, 24, "A playful block-frame board for creative agent workflows.", 18, p.ink),
+    rect("frame", 44, 36, 1188, 650, "transparent", p.ink, 4),
+  ];
+  const blocks = [
+    ["Prompt", "intent\nassets", 118, 202, p.accent],
+    ["Sketch", "layout\nstyle", 394, 174, p.accent2],
+    ["Replay", "watch\nrepair", 670, 236, p.accent3],
+    ["Ship", "edit\nexport", 946, 184, p.panel],
+  ];
+  blocks.forEach(([title, body, x, y, fill], index) => {
+    shadow(`blockframe-shadow-${index}`, elements, x, y, 196, 142, index % 2 ? p.accent : p.ink, 12);
+    elements.push(
+      rect(`blockframe-${index}`, x, y, 196, 142, fill, p.ink, 4, { roundness: true }),
+      text(`blockframe-title-${index}`, x + 26, y + 24, 144, 28, title, 27, p.ink, "center", "middle"),
+      text(`blockframe-body-${index}`, x + 38, y + 78, 120, 40, body, 18, p.ink, "center", "middle"),
+    );
+    if (index < blocks.length - 1) {
+      elements.push(arrow(`blockframe-flow-${index}`, x + 204, y + 72, 66, index % 2 ? 42 : -34, p.ink, 4));
+    }
+  });
+  elements.push(
+    rect("blockframe-bottom", 176, 536, 846, 58, p.accent2, p.ink, 4, { roundness: true }),
+    text("blockframe-bottom-text", 208, 552, 782, 20, "Hard shadows are real shapes, so the final board stays editable.", 18, p.ink, "center", "middle"),
+  );
+  return scene("Maker Mode Map", "block-frame", elements, { roughness: 1 });
+}
+
 function scene(title, styleId, elements, overrides = {}) {
   const p = palettes[styleId];
   return {
@@ -401,7 +563,7 @@ function scene(title, styleId, elements, overrides = {}) {
     title,
     styleId,
     providerId: "excalidraw",
-    updatedAt: new Date().toISOString(),
+    updatedAt: "2026-07-04T00:00:00.000Z",
     elements,
     appState: {
       viewBackgroundColor: p.canvas,

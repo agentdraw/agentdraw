@@ -1,10 +1,16 @@
 {
-  "name": "@agentdraw/cli",
+  "name": "agentdraw",
   "version": "0.1.0",
   "type": "module",
+  "description": "Local-first editable whiteboard workspace for coding agents.",
+  "license": "MIT",
   "bin": {
     "agentdraw": "dist/index.js"
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "tsx src/index.ts",
@@ -16,5 +22,23 @@
   },
   "devDependencies": {
     "tsx": "^4.22.3"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/chenhg5/agentdraw.git",
+    "directory": "packages/cli"
+  },
+  "keywords": [
+    "agent",
+    "whiteboard",
+    "excalidraw",
+    "diagram",
+    "cli"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Product Discovery Board preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="0" width="1260" height="722" fill="#ECE9DC"/>
+<text x="72" y="94" fill="#202018" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700" text-anchor="start"><tspan x="72" dy="0">Product Discovery Board</tspan></text>
+<text x="76" y="125" fill="#8A786A" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="76" dy="0">A soft editorial synthesis of interviews, signals, priorities, and next moves.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="0" fill="none" stroke="#8A786A" stroke-width="2"/>
+<rect x="90" y="176" width="404" height="300" rx="12" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="0"/>
+<rect x="120" y="208" width="126" height="10" rx="0" fill="#E2A8CE" stroke="#E2A8CE" stroke-width="0"/>
+<text x="122" y="265" fill="#202018" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" text-anchor="start"><tspan x="122" dy="0">Users trust diagrams</tspan><tspan x="122" dy="33.75">when they can edit them</tspan></text>
+<text x="124" y="356" fill="#8A786A" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="124" dy="0">Editable output changes</tspan><tspan x="124" dy="22.5">the conversation from</tspan><tspan x="124" dy="22.5">review to collaboration.</tspan></text>
+<rect x="570" y="184" width="226" height="126" rx="10.08" fill="#E2A8CE" stroke="#202018" stroke-width="2"/>
+<text x="594" y="228" fill="#202018" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="594" dy="0">Signals</tspan></text>
+<text x="594" y="266" fill="#8A786A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="594" dy="0">manual edits</tspan><tspan x="594" dy="20">after replay</tspan></text>
+<rect x="846" y="184" width="226" height="126" rx="10.08" fill="#FFFFFF" stroke="#202018" stroke-width="2"/>
+<text x="870" y="228" fill="#202018" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="870" dy="0">Friction</tspan></text>
+<text x="870" y="266" fill="#8A786A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="870" dy="0">style choice too vague</tspan></text>
+<rect x="570" y="378" width="226" height="126" rx="10.08" fill="#C9DA4F" stroke="#202018" stroke-width="2"/>
+<text x="594" y="422" fill="#202018" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="594" dy="0">Priority</tspan></text>
+<text x="594" y="460" fill="#8A786A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="594" dy="0">design systems first</tspan></text>
+<rect x="846" y="378" width="226" height="126" rx="10.08" fill="#FFFFFF" stroke="#202018" stroke-width="2"/>
+<text x="870" y="422" fill="#202018" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="870" dy="0">Next Move</tspan></text>
+<text x="870" y="460" fill="#8A786A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="870" dy="0">builder recipes</tspan></text>
+<rect x="138" y="556" width="882" height="42" rx="4" fill="#C9DA4F" stroke="#C9DA4F" stroke-width="0"/>
+<text x="578" y="583" fill="#202018" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="578" dy="0">A gentle layout can still be rigorous: short text, stable spacing, clear decisions.</tspan></text>
+</svg>

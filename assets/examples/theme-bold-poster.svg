@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Design Systems Win preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="0" width="1260" height="722" fill="#FFFFFF"/>
+<rect x="44" y="36" width="1188" height="650" rx="0" fill="none" stroke="#1C1410" stroke-width="4"/>
+<rect x="76" y="64" width="420" height="190" rx="0" fill="#D8000F" stroke="#1C1410" stroke-width="4"/>
+<text x="284" y="116.25" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" text-anchor="middle"><tspan x="284" dy="0">DESIGN</tspan><tspan x="284" dy="52.5">SYSTEMS</tspan><tspan x="284" dy="52.5">WIN</tspan></text>
+<text x="560" y="98" fill="#1C1410" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="560" dy="0">Agent diagrams improve when style files define layout,</tspan><tspan x="560" dy="27.5">type, components, and repair rules.</tspan></text>
+<rect x="110" y="340" width="270" height="150" rx="0" fill="#F4C7C1" stroke="#1C1410" stroke-width="4"/>
+<text x="134" y="388" fill="#D8000F" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="start"><tspan x="134" dy="0">01</tspan></text>
+<text x="134" y="427" fill="#1C1410" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="start"><tspan x="134" dy="0">Typography</tspan></text>
+<text x="134" y="463" fill="#5A2A23" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="134" dy="0">sizes, rhythm, hierarchy</tspan></text>
+<rect x="450" y="340" width="270" height="150" rx="0" fill="#FFF1EF" stroke="#1C1410" stroke-width="4"/>
+<text x="474" y="388" fill="#D8000F" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="start"><tspan x="474" dy="0">02</tspan></text>
+<text x="474" y="427" fill="#1C1410" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="start"><tspan x="474" dy="0">Components</tspan></text>
+<text x="474" y="463" fill="#5A2A23" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="474" dy="0">cards, strips, shadows</tspan></text>
+<rect x="790" y="340" width="270" height="150" rx="0" fill="#F4C7C1" stroke="#1C1410" stroke-width="4"/>
+<text x="814" y="388" fill="#D8000F" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="start"><tspan x="814" dy="0">03</tspan></text>
+<text x="814" y="427" fill="#1C1410" font-family="Inter, Arial, sans-serif" font-size="25" font-weight="700" text-anchor="start"><tspan x="814" dy="0">Validation</tspan></text>
+<text x="814" y="463" fill="#5A2A23" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="814" dy="0">overflow, routes, overlap</tspan></text>
+<rect x="560" y="192" width="522" height="52" rx="0" fill="#FFF1EF" stroke="#1C1410" stroke-width="3"/>
+<text x="821" y="223.75" fill="#D8000F" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="821" dy="0">Not another palette swap.</tspan></text>
+<path d="M 482 160 L 558 212" fill="none" stroke="#1C1410" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+</svg>

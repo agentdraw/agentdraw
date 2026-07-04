@@ -1,4 +1,5 @@
 import http, { type IncomingMessage, type ServerResponse } from "node:http";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sirv from "sirv";
@@ -121,5 +122,9 @@ const sendJson = (response: ServerResponse, statusCode: number, payload: unknown
 
 const defaultWebDistDir = () => {
   const currentDir = path.dirname(fileURLToPath(import.meta.url));
+  const packagedDist = path.resolve(currentDir, "../web-dist");
+  if (existsSync(packagedDist)) {
+    return packagedDist;
+  }
   return path.resolve(currentDir, "../../../apps/web/dist");
 };

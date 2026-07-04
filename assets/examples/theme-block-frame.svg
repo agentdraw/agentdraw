@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Maker Mode Map preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="0" width="1260" height="722" fill="#FFFDF5"/>
+<text x="70" y="96" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" text-anchor="start"><tspan x="70" dy="0">Maker Mode Map</tspan></text>
+<text x="74" y="130" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="74" dy="0">A playful block-frame board for creative agent workflows.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="0" fill="none" stroke="#000000" stroke-width="4"/>
+<rect x="130" y="214" width="196" height="142" rx="0" fill="#000000" stroke="#000000" stroke-width="0"/>
+<rect x="118" y="202" width="196" height="142" rx="11.36" fill="#FE90E8" stroke="#000000" stroke-width="4"/>
+<text x="216" y="250.125" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle"><tspan x="216" dy="0">Prompt</tspan></text>
+<text x="216" y="295.5" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="216" dy="0">intent</tspan><tspan x="216" dy="22.5">assets</tspan></text>
+<path d="M 322 274 L 388 240" fill="none" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="406" y="186" width="196" height="142" rx="0" fill="#FE90E8" stroke="#FE90E8" stroke-width="0"/>
+<rect x="394" y="174" width="196" height="142" rx="11.36" fill="#C0F7FE" stroke="#000000" stroke-width="4"/>
+<text x="492" y="222.125" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle"><tspan x="492" dy="0">Sketch</tspan></text>
+<text x="492" y="267.5" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="492" dy="0">layout</tspan><tspan x="492" dy="22.5">style</tspan></text>
+<path d="M 598 246 L 664 288" fill="none" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="682" y="248" width="196" height="142" rx="0" fill="#000000" stroke="#000000" stroke-width="0"/>
+<rect x="670" y="236" width="196" height="142" rx="11.36" fill="#FCC715" stroke="#000000" stroke-width="4"/>
+<text x="768" y="284.125" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle"><tspan x="768" dy="0">Replay</tspan></text>
+<text x="768" y="329.5" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="768" dy="0">watch</tspan><tspan x="768" dy="22.5">repair</tspan></text>
+<path d="M 874 308 L 940 274" fill="none" stroke="#000000" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="958" y="196" width="196" height="142" rx="0" fill="#FE90E8" stroke="#FE90E8" stroke-width="0"/>
+<rect x="946" y="184" width="196" height="142" rx="11.36" fill="#FFFFFF" stroke="#000000" stroke-width="4"/>
+<text x="1044" y="232.125" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle"><tspan x="1044" dy="0">Ship</tspan></text>
+<text x="1044" y="277.5" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="1044" dy="0">edit</tspan><tspan x="1044" dy="22.5">export</tspan></text>
+<rect x="176" y="536" width="846" height="58" rx="4.64" fill="#C0F7FE" stroke="#000000" stroke-width="4"/>
+<text x="599" y="568.75" fill="#000000" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="599" dy="0">Hard shadows are real shapes, so the final board stays editable.</tspan></text>
+</svg>
