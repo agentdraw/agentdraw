@@ -1,6 +1,7 @@
 node_modules
 dist
 web-dist
+packages/cli/designs
 .agentdraw
 .DS_Store
 *.log

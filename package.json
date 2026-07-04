@@ -6,7 +6,7 @@
   "license": "MIT",
   "packageManager": "pnpm@11.9.0",
   "scripts": {
-    "build": "pnpm --filter @agentdraw/styles build && pnpm --filter @agentdraw/scene build && pnpm --filter @agentdraw/server build && pnpm --filter @aidraw/agentdraw build && pnpm --filter @agentdraw/web build && pnpm --filter @aidraw/agentdraw bundle:web",
+    "build": "pnpm --filter @agentdraw/styles build && pnpm --filter @agentdraw/scene build && pnpm --filter @agentdraw/server build && pnpm --filter @aidraw/agentdraw build && pnpm --filter @agentdraw/web build && pnpm --filter @aidraw/agentdraw bundle:web && pnpm --filter @aidraw/agentdraw bundle:designs",
     "dev": "pnpm --parallel --filter @agentdraw/server --filter @agentdraw/web dev",
     "typecheck": "pnpm -r typecheck",
     "agentdraw": "pnpm --filter @aidraw/agentdraw start",

@@ -11,6 +11,7 @@ import {
   type SceneValidationIssue,
 } from "@agentdraw/scene";
 import { startAgentDrawServer } from "@agentdraw/server";
+import { styles, styleGroups } from "@agentdraw/styles";
 
 const VERSION = readPackageVersion();
 const DEFAULT_PORT = 3927;
@@ -51,6 +52,11 @@ type DoctorOptions = GlobalOptions;
 
 type SchemaOptions = GlobalOptions & {
   commandPath: string[];
+};
+
+type GuideOptions = GlobalOptions & {
+  topic: string;
+  detail?: string;
 };
 
 type ValidationSummary = {
@@ -127,6 +133,9 @@ const main = async () => {
       return;
     case "doctor":
       await doctorCommand(parseDoctorOptions(args, context.globals));
+      return;
+    case "guide":
+      await guideCommand(parseGuideOptions(args, context.globals));
       return;
     case "schema":
       await schemaCommand(parseSchemaOptions(args, context.globals));
@@ -280,6 +289,11 @@ const schemaCommand = async (options: SchemaOptions) => {
   writeOutput(schema, formatSchemaText(schema), options);
 };
 
+const guideCommand = async (options: GuideOptions) => {
+  const payload = guidePayload(options.topic, options.detail);
+  writeOutput(payload, formatGuideText(options.topic, options.detail), options);
+};
+
 const parseGlobalOptions = (argv: string[]): CommandContext => {
   const globals: GlobalOptions = {
     cwd: process.env.INIT_CWD ?? process.cwd(),
@@ -387,6 +401,23 @@ const parseDoctorOptions = (args: string[], globals: GlobalOptions): DoctorOptio
     });
   }
   return globals;
+};
+
+const parseGuideOptions = (args: string[], globals: GlobalOptions): GuideOptions => {
+  const values = parseCommandFlags(args, { booleanFlags: [], valueFlags: [] });
+  assertNoUnknownFlags(values.unknownFlags, "guide");
+  if (values.positionals.length > 2) {
+    throw new CliError("too_many_arguments", "The guide command accepts at most two arguments.", {
+      exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Run: agentdraw help guide",
+      input: { args },
+    });
+  }
+  return {
+    ...globals,
+    topic: values.positionals[0] ?? "workflow",
+    detail: values.positionals[1],
+  };
 };
 
 const parseSchemaOptions = (args: string[], globals: GlobalOptions): SchemaOptions => {
@@ -558,6 +589,224 @@ const formatDoctorText = (payload: {
 
 const formatSchemaText = (schema: unknown) => JSON.stringify(schema, null, 2);
 
+const guidePayload = (topic: string, detail?: string) => {
+  switch (topic) {
+    case "workflow":
+      return {
+        topic,
+        runtime: "Use npx @aidraw/agentdraw@latest or a global agentdraw install.",
+        steps: [
+          "Understand the board purpose, audience, density, and tone.",
+          "Run agentdraw guide styles --json and choose one style id.",
+          "Run agentdraw guide style <style-id> to load the selected design system.",
+          "Create or patch a .agentdraw.json scene with editable primitives.",
+          "Run agentdraw validate <file> --format json and repair reported element ids.",
+          "Run agentdraw open <file> --no-open and return the printed local URL.",
+        ],
+        commands: {
+          help: "agentdraw --help",
+          schema: "agentdraw schema --json",
+          styles: "agentdraw guide styles --json",
+          style: "agentdraw guide style system-formal",
+          validate: "agentdraw validate .agentdraw/board.agentdraw.json --format json",
+          open: "agentdraw open .agentdraw/board.agentdraw.json --no-open",
+        },
+      };
+    case "scene":
+      return {
+        topic,
+        envelope: {
+          type: "agentdraw/scene",
+          version: 1,
+          title: "System map",
+          styleId: "system-formal",
+          providerId: "excalidraw",
+          elements: [],
+          appState: {},
+          files: {},
+        },
+        notes: [
+          "The scene is editable output, not a screenshot.",
+          "Use editable text, rectangles, ellipses, diamonds, arrows, and lines.",
+          "Keep style guidance in the design system, not as extra metadata in the scene.",
+        ],
+      };
+    case "rules":
+      return {
+        topic,
+        rules: [
+          "Do not make screenshots when an editable board is expected.",
+          "Do not use a style as a palette swap; follow its typography, layout, components, and avoid rules.",
+          "Keep text editable and generously sized.",
+          "Run validation before opening or delivering the scene.",
+          "Mark intentional shadows or decorative shapes with customData.role set to shadow or decoration.",
+        ],
+      };
+    case "styles":
+      return {
+        topic,
+        defaultStyleId: "system-formal",
+        count: styles.length,
+        groups: styleGroups.map((group) => ({
+          level: group.level,
+          styles: group.styles.map(styleSummary),
+        })),
+        heuristics: [
+          "Formal and square: system-formal, boardroom, blueprint-formal, raw-grid, neo-grid-bold.",
+          "Editorial and refined: grove, editorial-forest, macchiato, reading-room, linen-cut.",
+          "Journey or customer experience: coral, berry-pop, soft-editorial, confetti-wedge.",
+          "Playful roadmap or maker energy: mint-brut, crayon-stack, block-frame, pin-and-paper.",
+          "Bold launch or campaign board: riso-brut, bold-poster, riptide-cobalt, burst-panel.",
+          "Research synthesis: violet-marker, reading-room, soft-editorial, jade-lens.",
+        ],
+      };
+    case "style":
+      if (!detail) {
+        throw new CliError("missing_argument", "Style id is required.", {
+          exitCode: EXIT_USAGE_ERROR,
+          suggestion: "Run: agentdraw guide styles --json",
+        });
+      }
+      return {
+        topic,
+        style: readStyleGuide(detail),
+      };
+    default:
+      throw new CliError("unknown_guide_topic", `Unknown guide topic: ${topic}`, {
+        exitCode: EXIT_USAGE_ERROR,
+        suggestion: "Run: agentdraw help guide",
+        input: { topic },
+      });
+  }
+};
+
+const formatGuideText = (topic: string, detail?: string) => {
+  if (topic === "style") {
+    if (!detail) {
+      guidePayload(topic, detail);
+    }
+    return readStyleGuide(detail!).markdown;
+  }
+
+  if (topic === "styles") {
+    return [
+      "# AgentDraw Design Catalog",
+      "",
+      `AgentDraw includes ${styles.length} agent-readable design systems. Pick by audience, density, and tone, then load the selected design with \`agentdraw guide style <style-id>\`.`,
+      "",
+      ...styleGroups.flatMap((group) => [
+        `## ${titleCase(group.level)}`,
+        "",
+        "| Style | Best For / Character |",
+        "| --- | --- |",
+        ...group.styles.map((style) => `| \`${style.id}\` | ${style.vibe} |`),
+        "",
+      ]),
+      "## Heuristics",
+      "",
+      "- Formal and square: `system-formal`, `boardroom`, `blueprint-formal`, `raw-grid`, `neo-grid-bold`.",
+      "- Editorial and refined: `grove`, `editorial-forest`, `macchiato`, `reading-room`, `linen-cut`.",
+      "- Journey or customer experience: `coral`, `berry-pop`, `soft-editorial`, `confetti-wedge`.",
+      "- Playful roadmap or maker energy: `mint-brut`, `crayon-stack`, `block-frame`, `pin-and-paper`.",
+      "- Bold launch or campaign board: `riso-brut`, `bold-poster`, `riptide-cobalt`, `burst-panel`.",
+      "- Research synthesis: `violet-marker`, `reading-room`, `soft-editorial`, `jade-lens`.",
+    ].join("\n");
+  }
+
+  if (topic === "scene") {
+    const sceneGuide = guidePayload("scene") as {
+      envelope: Record<string, unknown>;
+    };
+    return [
+      "# AgentDraw Scene Contract",
+      "",
+      "Use this editable scene envelope:",
+      "",
+      "```json",
+      JSON.stringify(sceneGuide.envelope, null, 2),
+      "```",
+      "",
+      "The scene is the editable output. The design system is guidance for creating it, not extra metadata that must be embedded in the file.",
+    ].join("\n");
+  }
+
+  if (topic === "rules") {
+    const rulesGuide = guidePayload("rules") as { rules: string[] };
+    return [
+      "# AgentDraw Hard Rules",
+      "",
+      ...rulesGuide.rules.map((rule) => `- ${rule}`),
+    ].join("\n");
+  }
+
+  const workflowGuide = guidePayload("workflow") as { steps: string[] };
+  return [
+    "# AgentDraw Agent Workflow",
+    "",
+    "Use the npm runtime. Agents do not need to import AgentDraw; use it as a local executable tool.",
+    "",
+    "```bash",
+    "npx @aidraw/agentdraw@latest --help",
+    "npx @aidraw/agentdraw@latest guide styles --json",
+    "npx @aidraw/agentdraw@latest guide style system-formal",
+    "```",
+    "",
+    "Workflow:",
+    "",
+    ...workflowGuide.steps.map((step, index) => `${index + 1}. ${step}`),
+  ].join("\n");
+};
+
+const styleSummary = (style: (typeof styles)[number]) => ({
+  id: style.id,
+  name: style.name,
+  level: style.level,
+  formality: style.formality,
+  vibe: style.vibe,
+  palette: style.palette,
+});
+
+const readStyleGuide = (styleId: string) => {
+  const style = styles.find((candidate) => candidate.id === styleId);
+  if (!style) {
+    throw new CliError("unknown_style", `Unknown style id: ${styleId}`, {
+      exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Run: agentdraw guide styles --json",
+      input: { styleId },
+    });
+  }
+  return {
+    ...styleSummary(style),
+    markdown: readDesignMarkdown(style.id),
+  };
+};
+
+const readDesignMarkdown = (styleId: string) => {
+  const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+  const candidates = [
+    path.resolve(packageRoot, "designs", styleId, "design.md"),
+    path.resolve(packageRoot, "../styles/designs", styleId, "design.md"),
+  ];
+  for (const candidate of candidates) {
+    try {
+      return readFileSync(candidate, "utf8");
+    } catch {
+      // Try the next candidate; packaged and source layouts differ.
+    }
+  }
+  throw new CliError("style_guide_missing", `Missing design guide for style: ${styleId}`, {
+    exitCode: EXIT_GENERAL_ERROR,
+    suggestion: "Reinstall @aidraw/agentdraw, then run: agentdraw doctor",
+    input: { styleId },
+  });
+};
+
+const titleCase = (input: string) =>
+  input
+    .split("-")
+    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
+    .join(" ");
+
 const printHelp = (command: string | undefined, options: GlobalOptions) => {
   const text = helpText(command);
   if (outputFormat({ ...options, format: options.format ?? "text" }) === "json") {
@@ -584,6 +833,7 @@ const helpText = (command: string | undefined) => {
         "  init       Create a scene file without starting the editor.",
         "  validate   Validate one or more scene files.",
         "  doctor     Check local runtime details.",
+        "  guide      Print agent workflow, scene, rules, styles, or style guides.",
         "  schema     Print command schemas for agents.",
         "  help       Show help for a command.",
         "  version    Print the CLI version.",
@@ -663,6 +913,23 @@ const helpText = (command: string | undefined) => {
         "",
         "Usage:",
         "  agentdraw doctor",
+      ].join("\n");
+    case "guide":
+      return [
+        "Print AgentDraw agent guidance from the installed CLI version.",
+        "",
+        "Examples:",
+        "  agentdraw guide",
+        "  agentdraw guide styles --json",
+        "  agentdraw guide style system-formal",
+        "  agentdraw guide scene",
+        "  agentdraw guide rules",
+        "",
+        "Usage:",
+        "  agentdraw guide [workflow|styles|style|scene|rules] [style-id]",
+        "",
+        "Notes:",
+        "  Use this from SKILL.md so the installed skill stays thin and the CLI provides current guidance.",
       ].join("\n");
     case "schema":
       return [
@@ -745,6 +1012,28 @@ const commandSchema = (commandPath: string[]) => {
         { name: "--json", type: "boolean", required: false },
       ],
       examples: ["agentdraw schema", "agentdraw schema open --json"],
+    },
+    guide: {
+      description: "Print agent workflow, scene contract, hard rules, style catalog, or one style guide.",
+      usage: "agentdraw guide [workflow|styles|style|scene|rules] [style-id]",
+      arguments: [
+        {
+          name: "topic",
+          required: false,
+          default: "workflow",
+          values: ["workflow", "styles", "style", "scene", "rules"],
+        },
+        { name: "style-id", required: false },
+      ],
+      flags: [
+        { name: "--format", type: "enum", values: ["json", "text"], required: false },
+        { name: "--json", type: "boolean", required: false },
+      ],
+      examples: [
+        "agentdraw guide",
+        "agentdraw guide styles --json",
+        "agentdraw guide style system-formal",
+      ],
     },
   };
 

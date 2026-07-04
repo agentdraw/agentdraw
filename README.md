@@ -14,6 +14,38 @@ added later without replacing the whole app.
 
 Powered by [Excalidraw](https://github.com/excalidraw/excalidraw).
 
+## Install
+
+Recommended: ask your coding agent to install both the CLI and the skill.
+
+```text
+Install AgentDraw:
+npm install -g @aidraw/agentdraw
+npx skills add chenhg5/agentdraw --skill agentdraw -g -y
+```
+
+Agent bootstrap URL:
+
+```text
+https://raw.githubusercontent.com/chenhg5/agentdraw/main/INSTALL.md
+```
+
+For human CLI-only usage:
+
+```bash
+npm install -g @aidraw/agentdraw
+agentdraw --help
+agentdraw guide
+```
+
+No global install:
+
+```bash
+npx @aidraw/agentdraw@latest open board.agentdraw.json --no-open
+```
+
+See [INSTALL.md](./INSTALL.md) for agent-specific install options.
+
 ## Gallery
 
 AgentDraw examples are real editable scene files. The images below are generated previews for the
@@ -106,7 +138,7 @@ engineering problems:
 Run directly from npm:
 
 ```bash
-npx @aidraw/agentdraw open board.agentdraw.json --no-open
+npx @aidraw/agentdraw@latest open board.agentdraw.json --no-open
 ```
 
 Or use the repo:
@@ -136,6 +168,7 @@ Discover commands:
 ```bash
 pnpm agentdraw --help
 pnpm agentdraw schema open --json
+pnpm agentdraw guide styles --json
 ```
 
 Open a board:
@@ -292,9 +325,13 @@ pnpm build
 
 ## Agent Skill
 
-Agents should start from [`SKILL.md`](./SKILL.md), use [`CATALOG.md`](./CATALOG.md) to choose a
-design system, then read the selected `packages/styles/designs/<style-id>/design.md` before
-generating a scene.
+Agents should install [`skills/agentdraw/SKILL.md`](./skills/agentdraw/SKILL.md), then use the CLI
+for version-matched guidance:
+
+```bash
+agentdraw guide styles --json
+agentdraw guide style system-formal --format text
+```
 
 Run the web app and API in development mode:
 

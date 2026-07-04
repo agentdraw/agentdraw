@@ -10,7 +10,7 @@ agentdraw open board.agentdraw.json --no-open
 Or run without installing:
 
 ```bash
-npx @aidraw/agentdraw open board.agentdraw.json --no-open
+npx @aidraw/agentdraw@latest open board.agentdraw.json --no-open
 ```
 
 Commands:
@@ -20,6 +20,7 @@ agentdraw --help
 agentdraw open [file] [--host 127.0.0.1] [--port 3927] [--open|--no-open]
 agentdraw init [file]
 agentdraw validate <file...> [--format json|text]
+agentdraw guide [workflow|styles|style|scene|rules] [style-id]
 agentdraw schema [command] [--json]
 agentdraw doctor
 ```
