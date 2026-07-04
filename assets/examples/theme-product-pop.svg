@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Onboarding Momentum Map preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="0" width="1260" height="722" fill="#EFF1F5"/>
+<text x="70" y="92" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700" text-anchor="start"><tspan x="70" dy="0">Onboarding Momentum Map</tspan></text>
+<text x="74" y="123" fill="#5D6D7E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="74" dy="0">A friendly product board for stages, signals, owner actions, and next bets.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="12" fill="none" stroke="#DCE2EA" stroke-width="2"/>
+<rect x="96" y="254" width="1000" height="92" rx="7.36" fill="#DCE2EA" stroke="#DCE2EA" stroke-width="0"/>
+<rect x="122" y="202" width="190" height="128" rx="10.24" fill="#FFFFFF" stroke="#566573" stroke-width="2"/>
+<text x="217" y="245.25" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="middle"><tspan x="217" dy="0">Signup</tspan></text>
+<text x="217" y="285" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="217" dy="0">source</tspan><tspan x="217" dy="20">intent</tspan></text>
+<path d="M 316 266 L 366 360" fill="none" stroke="#566573" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="366" y="296" width="190" height="128" rx="10.24" fill="#73D1C8" stroke="#566573" stroke-width="2"/>
+<text x="461" y="339.25" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="middle"><tspan x="461" dy="0">First Value</tspan></text>
+<text x="461" y="379" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="461" dy="0">template</tspan><tspan x="461" dy="20">preview</tspan></text>
+<path d="M 560 360 L 610 266" fill="none" stroke="#566573" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="610" y="202" width="190" height="128" rx="10.24" fill="#FFFFFF" stroke="#566573" stroke-width="2"/>
+<text x="705" y="245.25" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="middle"><tspan x="705" dy="0">Team Invite</tspan></text>
+<text x="705" y="285" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="705" dy="0">share</tspan><tspan x="705" dy="20">review</tspan></text>
+<path d="M 804 266 L 854 360" fill="none" stroke="#566573" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="854" y="296" width="190" height="128" rx="10.24" fill="#FCD34D" stroke="#566573" stroke-width="2"/>
+<text x="949" y="339.25" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="middle"><tspan x="949" dy="0">Upgrade</tspan></text>
+<text x="949" y="379" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="949" dy="0">limit</tspan><tspan x="949" dy="20">ROI</tspan></text>
+<rect x="176" y="538" width="820" height="54" rx="4.32" fill="#FFFFFF" stroke="#566573" stroke-width="2"/>
+<text x="586" y="569.375" fill="#2D3748" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="586" dy="0">Use teal for progress, yellow for the one next bet, and keep the lane readable.</tspan></text>
+</svg>

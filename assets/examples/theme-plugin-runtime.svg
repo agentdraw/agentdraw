@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Agent Plugin Runtime preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="0" width="1260" height="722" fill="#FBFAF7"/>
+<text x="74" y="61" fill="#275CAD" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" text-anchor="start"><tspan x="74" dy="0">PLUGIN RUNTIME</tspan></text>
+<text x="72" y="116" fill="#202124" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="700" text-anchor="start"><tspan x="72" dy="0">Agent Plugin Runtime</tspan></text>
+<text x="76" y="149" fill="#626A73" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="76" dy="0">A warm document board for explaining local tools, manifests, permissions, and execution flow.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="12" fill="none" stroke="#E2DFD8" stroke-width="2"/>
+<rect x="76" y="188" width="204" height="390" rx="12" fill="#F2EFE8" stroke="#E2DFD8" stroke-width="1"/>
+<text x="98" y="227" fill="#202124" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="98" dy="0">Contents</tspan></text>
+<rect x="96" y="244" width="164" height="32" rx="4" fill="none" stroke="transparent" stroke-width="1"/>
+<text x="112" y="267" fill="#4C545F" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="start"><tspan x="112" dy="0">Manifest</tspan></text>
+<rect x="96" y="292" width="164" height="32" rx="4" fill="none" stroke="transparent" stroke-width="1"/>
+<text x="112" y="315" fill="#4C545F" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="start"><tspan x="112" dy="0">Install</tspan></text>
+<rect x="96" y="340" width="164" height="32" rx="4" fill="#E8EEFB" stroke="#C9D6EE" stroke-width="1"/>
+<text x="112" y="363" fill="#275CAD" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="start"><tspan x="112" dy="0">Run loop</tspan></text>
+<rect x="96" y="388" width="164" height="32" rx="4" fill="none" stroke="transparent" stroke-width="1"/>
+<text x="112" y="411" fill="#4C545F" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="start"><tspan x="112" dy="0">Permissions</tspan></text>
+<rect x="96" y="436" width="164" height="32" rx="4" fill="none" stroke="transparent" stroke-width="1"/>
+<text x="112" y="459" fill="#4C545F" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="start"><tspan x="112" dy="0">Export</tspan></text>
+<rect x="340" y="216" width="190" height="164" rx="12" fill="#E8EEFB" stroke="#E2DFD8" stroke-width="1"/>
+<rect x="362" y="234" width="84" height="28" rx="4" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1"/>
+<text x="404" y="252.875" fill="#275CAD" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" text-anchor="middle"><tspan x="404" dy="0">01</tspan></text>
+<text x="435" y="292.875" fill="#202124" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="500" text-anchor="middle"><tspan x="435" dy="0">Manifest</tspan></text>
+<text x="435" y="334.25" fill="#626A73" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="435" dy="0">commands</tspan><tspan x="435" dy="18.75">skill hooks</tspan></text>
+<path d="M 530 282 L 584 282" fill="none" stroke="#275CAD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="584" y="216" width="190" height="164" rx="12" fill="#E7F6EF" stroke="#E2DFD8" stroke-width="1"/>
+<rect x="606" y="234" width="84" height="28" rx="4" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1"/>
+<text x="648" y="252.875" fill="#1E7B58" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" text-anchor="middle"><tspan x="648" dy="0">02</tspan></text>
+<text x="679" y="292.875" fill="#202124" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="500" text-anchor="middle"><tspan x="679" dy="0">Sandbox</tspan></text>
+<text x="679" y="334.25" fill="#626A73" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="679" dy="0">files + net</tspan><tspan x="679" dy="18.75">secret rules</tspan></text>
+<path d="M 774 282 L 828 282" fill="none" stroke="#275CAD" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="828" y="216" width="190" height="164" rx="12" fill="#FFF3D8" stroke="#E2DFD8" stroke-width="1"/>
+<rect x="850" y="234" width="84" height="28" rx="4" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1"/>
+<text x="892" y="252.875" fill="#946200" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" text-anchor="middle"><tspan x="892" dy="0">03</tspan></text>
+<text x="923" y="292.875" fill="#202124" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="500" text-anchor="middle"><tspan x="923" dy="0">Runtime</tspan></text>
+<text x="923" y="334.25" fill="#626A73" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="923" dy="0">spawn</tspan><tspan x="923" dy="18.75">stream events</tspan></text>
+<rect x="340" y="434" width="678" height="94" rx="7.5200000000000005" fill="#F5F7FC" stroke="#CDD9F0" stroke-width="1"/>
+<rect x="340" y="434" width="6" height="94" rx="0" fill="#275CAD" stroke="#275CAD" stroke-width="0"/>
+<text x="370" y="471" fill="#202124" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500" text-anchor="start"><tspan x="370" dy="0">Design rule</tspan></text>
+<text x="370" y="498" fill="#626A73" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="370" dy="0">Explain ownership and sequence</tspan><tspan x="370" dy="20">before implementation details.</tspan></text>
+<rect x="340" y="560" width="678" height="42" rx="4" fill="#FFFFFF" stroke="#E2DFD8" stroke-width="1"/>
+<text x="675" y="585.625" fill="#202124" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="675" dy="0">Open locally -&gt; inspect result -&gt; edit on canvas -&gt; export SVG or PNG</tspan></text>
+</svg>

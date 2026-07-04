@@ -2007,11 +2007,15 @@ const guidePayload = (topic: string, detail?: string) => {
           "Do not silently choose system-formal as a default. It is only appropriate for precise architecture, platform, and system diagrams.",
           "If you choose a style without asking, state the reason in one sentence before generating.",
           "Formal and square: system-formal, boardroom, blueprint-formal, raw-grid, neo-grid-bold.",
-          "Editorial and refined: grove, editorial-forest, macchiato, reading-room, linen-cut.",
+          "Technical documentation: runtime-doc, slate-notes, manual-cream, inkline, blueprint-formal.",
+          "Incident and root-cause analysis: incident-dark, boardroom, raw-grid, inkline.",
+          "High-energy technical systems: neon-grid, blueprint-formal, raw-grid.",
+          "Friendly product planning: soft-pop, coral, mint-brut, pin-and-paper.",
+          "Editorial and refined: grove, editorial-forest, espresso-paper, archive-shelf, linen-cut.",
           "Journey or customer experience: coral, berry-pop, soft-editorial, confetti-wedge.",
           "Playful roadmap or maker energy: mint-brut, crayon-stack, block-frame, pin-and-paper.",
           "Bold launch or campaign board: riso-brut, bold-poster, riptide-cobalt, burst-panel.",
-          "Research synthesis: violet-marker, reading-room, soft-editorial, jade-lens.",
+          "Research synthesis: violet-marker, archive-shelf, soft-editorial, jade-lens.",
         ],
       };
     case "style":
@@ -2114,11 +2118,15 @@ const formatGuideText = (topic: string, detail?: string) => {
       "## Heuristics",
       "",
       "- Formal and square: `system-formal`, `boardroom`, `blueprint-formal`, `raw-grid`, `neo-grid-bold`.",
-      "- Editorial and refined: `grove`, `editorial-forest`, `macchiato`, `reading-room`, `linen-cut`.",
+      "- Technical documentation: `runtime-doc`, `slate-notes`, `manual-cream`, `inkline`, `blueprint-formal`.",
+      "- Incident and root-cause analysis: `incident-dark`, `boardroom`, `raw-grid`, `inkline`.",
+      "- High-energy technical systems: `neon-grid`, `blueprint-formal`, `raw-grid`.",
+      "- Friendly product planning: `soft-pop`, `coral`, `mint-brut`, `pin-and-paper`.",
+      "- Editorial and refined: `grove`, `editorial-forest`, `espresso-paper`, `archive-shelf`, `linen-cut`.",
       "- Journey or customer experience: `coral`, `berry-pop`, `soft-editorial`, `confetti-wedge`.",
       "- Playful roadmap or maker energy: `mint-brut`, `crayon-stack`, `block-frame`, `pin-and-paper`.",
       "- Bold launch or campaign board: `riso-brut`, `bold-poster`, `riptide-cobalt`, `burst-panel`.",
-      "- Research synthesis: `violet-marker`, `reading-room`, `soft-editorial`, `jade-lens`.",
+      "- Research synthesis: `violet-marker`, `archive-shelf`, `soft-editorial`, `jade-lens`.",
     ].join("\n");
   }
 

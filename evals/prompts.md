@@ -18,7 +18,7 @@ Create an editable incident response board for a payment outage. Show severity i
 assignment, customer impact, mitigation, rollback, comms, and postmortem outputs. It should feel
 like an operating review board, not a playful brainstorm.
 
-Expected style candidates: `boardroom`, `system-formal`, `macchiato`.
+Expected style candidates: `boardroom`, `system-formal`, `espresso-paper`.
 
 ## AD-EVAL-003: Customer Journey Signals
 
@@ -34,7 +34,7 @@ Create an editable research synthesis wall for 12 interview notes about why team
 AI tools. Cluster insights, show tensions, mark surprising quotes as editable text, and end with
 three design principles. It should look like a designed synthesis wall, not a spreadsheet.
 
-Expected style candidates: `violet-marker`, `reading-room`, `soft-editorial`.
+Expected style candidates: `violet-marker`, `archive-shelf`, `soft-editorial`.
 
 ## AD-EVAL-005: Roadmap Tradeoff Map
 
@@ -58,7 +58,7 @@ Create an editable executive decision matrix comparing whether a startup should 
 partner for a whiteboard canvas provider. Include criteria, weighted scores, risks, and a final
 recommendation. Make it boardroom-ready.
 
-Expected style candidates: `boardroom`, `long-table`, `monochrome`.
+Expected style candidates: `boardroom`, `long-table`, `inkline`.
 
 ## AD-EVAL-008: Content Launch Room
 

@@ -79,40 +79,80 @@ produced the look.
 <td width="50%"><a href="./packages/styles/designs/blueprint-formal/design.md"><img src="./assets/examples/theme-message-bus.svg" alt="Multi-Agent Message Bus preview" /></a><br />
 <sub><a href="./packages/styles/designs/blueprint-formal/design.md"><b>Message Bus</b></a> · multi-agent coordination</sub>
 </td>
+<td width="50%"><a href="./packages/styles/designs/runtime-doc/design.md"><img src="./assets/examples/theme-plugin-runtime.svg" alt="Agent Plugin Runtime preview" /></a><br />
+<sub><a href="./packages/styles/designs/runtime-doc/design.md"><b>Plugin Runtime</b></a> · technical document explainer</sub>
+</td>
+</tr>
+<tr>
+<td width="50%"><a href="./packages/styles/designs/slate-notes/design.md"><img src="./assets/examples/theme-spec-notes.svg" alt="Product Spec Notes preview" /></a><br />
+<sub><a href="./packages/styles/designs/slate-notes/design.md"><b>Spec Notes</b></a> · clean product spec board</sub>
+</td>
+<td width="50%"><a href="./packages/styles/designs/manual-cream/design.md"><img src="./assets/examples/theme-runbook-manual.svg" alt="Repair Runbook preview" /></a><br />
+<sub><a href="./packages/styles/designs/manual-cream/design.md"><b>Repair Runbook</b></a> · retro instruction manual</sub>
+</td>
+</tr>
+<tr>
 <td width="50%"><a href="./packages/styles/designs/riso-brut/design.md"><img src="./assets/examples/theme-launch-room.svg" alt="Launch Room Loop preview" /></a><br />
 <sub><a href="./packages/styles/designs/riso-brut/design.md"><b>Launch Room</b></a> · editorial growth loop</sub>
 </td>
-</tr>
-<tr>
 <td width="50%"><a href="./packages/styles/designs/grove/design.md"><img src="./assets/examples/theme-strategy-grove.svg" alt="Quarterly Strategy Map preview" /></a><br />
 <sub><a href="./packages/styles/designs/grove/design.md"><b>Strategy Grove</b></a> · quarterly operating map</sub>
 </td>
+</tr>
+<tr>
 <td width="50%"><a href="./packages/styles/designs/mint-brut/design.md"><img src="./assets/examples/theme-roadmap-mint.svg" alt="Creator Tool Roadmap preview" /></a><br />
 <sub><a href="./packages/styles/designs/mint-brut/design.md"><b>Roadmap Mint</b></a> · playful product roadmap</sub>
 </td>
-</tr>
-<tr>
 <td width="50%"><a href="./packages/styles/designs/coral/design.md"><img src="./assets/examples/theme-customer-journey.svg" alt="Customer Journey Signals preview" /></a><br />
 <sub><a href="./packages/styles/designs/coral/design.md"><b>Customer Journey</b></a> · activation signal map</sub>
 </td>
+</tr>
+<tr>
 <td width="50%"><a href="./packages/styles/designs/violet-marker/design.md"><img src="./assets/examples/theme-research-synthesis.svg" alt="Research Synthesis Wall preview" /></a><br />
 <sub><a href="./packages/styles/designs/violet-marker/design.md"><b>Research Synthesis</b></a> · interview clustering board</sub>
 </td>
+<td width="50%"><a href="./packages/styles/designs/archive-shelf/design.md"><img src="./assets/examples/theme-knowledge-shelf.svg" alt="Knowledge Shelf Map preview" /></a><br />
+<sub><a href="./packages/styles/designs/archive-shelf/design.md"><b>Knowledge Shelf</b></a> · catalog-card research map</sub>
+</td>
 </tr>
 <tr>
+<td width="50%"><a href="./packages/styles/designs/inkline/design.md"><img src="./assets/examples/theme-spec-ledger.svg" alt="Spec Ledger preview" /></a><br />
+<sub><a href="./packages/styles/designs/inkline/design.md"><b>Spec Ledger</b></a> · severe technical memo</sub>
+</td>
+<td width="50%"><a href="./packages/styles/designs/espresso-paper/design.md"><img src="./assets/examples/theme-executive-brief.svg" alt="Executive Brief Board preview" /></a><br />
+<sub><a href="./packages/styles/designs/espresso-paper/design.md"><b>Executive Brief</b></a> · warm decision one-pager</sub>
+</td>
+</tr>
+<tr>
+<td width="50%"><a href="./packages/styles/designs/incident-dark/design.md"><img src="./assets/examples/theme-cache-incident.svg" alt="KV Cache Incident Report preview" /></a><br />
+<sub><a href="./packages/styles/designs/incident-dark/design.md"><b>Cache Incident</b></a> · dark RCA report</sub>
+</td>
+<td width="50%"><a href="./packages/styles/designs/neon-grid/design.md"><img src="./assets/examples/theme-signal-grid.svg" alt="Runtime Signal Grid preview" /></a><br />
+<sub><a href="./packages/styles/designs/neon-grid/design.md"><b>Signal Grid</b></a> · high-energy event map</sub>
+</td>
+</tr>
+<tr>
+<td width="50%"><a href="./packages/styles/designs/soft-pop/design.md"><img src="./assets/examples/theme-product-pop.svg" alt="Onboarding Momentum Map preview" /></a><br />
+<sub><a href="./packages/styles/designs/soft-pop/design.md"><b>Product Pop</b></a> · friendly onboarding map</sub>
+</td>
 <td width="50%"><a href="./packages/styles/designs/raw-grid/design.md"><img src="./assets/examples/theme-raw-grid.svg" alt="Scene Quality Matrix preview" /></a><br />
 <sub><a href="./packages/styles/designs/raw-grid/design.md"><b>Raw Grid</b></a> · strict validation matrix</sub>
 </td>
+</tr>
+<tr>
 <td width="50%"><a href="./packages/styles/designs/bold-poster/design.md"><img src="./assets/examples/theme-bold-poster.svg" alt="Design Systems Win preview" /></a><br />
 <sub><a href="./packages/styles/designs/bold-poster/design.md"><b>Bold Poster</b></a> · high-impact design thesis</sub>
 </td>
-</tr>
-<tr>
 <td width="50%"><a href="./packages/styles/designs/soft-editorial/design.md"><img src="./assets/examples/theme-soft-editorial.svg" alt="Product Discovery Board preview" /></a><br />
 <sub><a href="./packages/styles/designs/soft-editorial/design.md"><b>Soft Editorial</b></a> · research and discovery board</sub>
 </td>
+</tr>
+<tr>
 <td width="50%"><a href="./packages/styles/designs/block-frame/design.md"><img src="./assets/examples/theme-block-frame.svg" alt="Maker Mode Map preview" /></a><br />
 <sub><a href="./packages/styles/designs/block-frame/design.md"><b>BlockFrame</b></a> · playful maker workflow</sub>
+</td>
+<td width="50%"><a href="./packages/styles/designs/long-table/design.md"><img src="./assets/examples/theme-meeting-ledger.svg" alt="Operating Meeting Ledger preview" /></a><br />
+<sub><a href="./packages/styles/designs/long-table/design.md"><b>Meeting Ledger</b></a> · warm action table</sub>
 </td>
 </tr>
 </table>
@@ -164,7 +204,7 @@ open for a human to edit.
 - Restricted SVG importer for `rect`, `circle`, `ellipse`, `line`, `polyline`, `polygon`, `text/tspan`, groups,
   and arrow markers.
 - Excalidraw-based editable canvas.
-- 38 bundled styles, including formal diagram styles and palettes adapted from
+- 44 bundled styles, including formal diagram styles and palettes adapted from
   `beautiful-feishu-whiteboard`.
 - CLI for opening and validating scenes.
 - Machine-readable design contracts for palette, typography, geometry, spacing, connector rules,
@@ -350,13 +390,14 @@ Formal styles:
 
 Additional palette presets are grouped as:
 
-- restrained: `avocado-press`, `grove`, `jade-lens`, `long-table`, `macchiato`, `monochrome`,
-  `papier-bleu`, `reading-room`, `salmon-stamp`
+- restrained: `archive-shelf`, `avocado-press`, `espresso-paper`, `grove`, `inkline`, `jade-lens`,
+  `long-table`, `manual-cream`, `papier-bleu`, `runtime-doc`, `salmon-stamp`, `slate-notes`
 - balanced: `apricot-arc`, `berry-pop`, `bold-poster`, `checker-bloom`, `cobalt-bloom`, `coral`,
-  `cut-bloom`, `editorial-forest`, `lime-slab`, `linen-cut`, `pin-and-paper`, `raw-grid`,
-  `riptide-cobalt`, `soft-editorial`, `violet-marker`
+  `cut-bloom`, `editorial-forest`, `incident-dark`, `lime-slab`, `linen-cut`, `pin-and-paper`,
+  `raw-grid`, `riptide-cobalt`, `soft-editorial`, `soft-pop`, `violet-marker`
 - bold: `block-frame`, `burst-panel`, `confetti-wedge`, `court-press`, `crayon-stack`,
-  `grove-block`, `mint-brut`, `neo-grid-bold`, `riso-brut`, `specimen-bold`, `stencil-tablet`
+  `grove-block`, `mint-brut`, `neo-grid-bold`, `neon-grid`, `riso-brut`, `specimen-bold`,
+  `stencil-tablet`
 
 High-formality styles render with square geometry, zero roughness, sans text, and elbow-style
 defaults. Low-formality styles keep a more hand-drawn Excalidraw feel.

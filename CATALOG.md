@@ -1,6 +1,6 @@
 # AgentDraw Design Catalog
 
-AgentDraw includes 38 agent-readable design systems. Pick by audience, density, and tone, then read the linked `design.md` before generating the scene.
+AgentDraw includes 44 agent-readable design systems. Pick by audience, density, and tone, then read the linked `design.md` before generating the scene.
 
 ## Restrained
 
@@ -9,14 +9,17 @@ AgentDraw includes 38 agent-readable design systems. Pick by audience, density, 
 | [System Formal](./packages/styles/designs/system-formal/design.md) | product diagrams, architecture, workflows | square, precise, low ornament |
 | [Boardroom](./packages/styles/designs/boardroom/design.md) | incidents, operating reviews, decisions | executive command board |
 | [Blueprint Formal](./packages/styles/designs/blueprint-formal/design.md) | event buses, protocols, systems | blue technical blueprint |
+| [Runtime Doc](./packages/styles/designs/runtime-doc/design.md) | SDK guides, runtime explainers, plugin systems | warm technical document |
+| [Slate Notes](./packages/styles/designs/slate-notes/design.md) | product specs, planning notes | clean slate document |
+| [Manual Cream](./packages/styles/designs/manual-cream/design.md) | runbooks, install guides, procedures | retro instruction manual |
 | [Avocado Press](./packages/styles/designs/avocado-press/design.md) | onboarding, product explainers | clean blue and lime duotone |
 | [Grove](./packages/styles/designs/grove/design.md) | strategy, research, planning | parchment and forest editorial |
 | [Jade Lens](./packages/styles/designs/jade-lens/design.md) | service maps, customer insights | calm minimal green |
 | [Long Table](./packages/styles/designs/long-table/design.md) | comparisons, agendas, long lists | warm ruled table |
-| [Macchiato](./packages/styles/designs/macchiato/design.md) | executive maps, premium summaries | warm monochrome |
-| [Monochrome](./packages/styles/designs/monochrome/design.md) | specs, governance, plain diagrams | text-first minimal |
+| [Espresso Paper](./packages/styles/designs/espresso-paper/design.md) | executive maps, premium summaries | warm executive paper |
+| [Inkline](./packages/styles/designs/inkline/design.md) | specs, governance, plain diagrams | text-first minimal |
 | [Papier Bleu](./packages/styles/designs/papier-bleu/design.md) | conceptual explainers | airy artful blue |
-| [Reading Room](./packages/styles/designs/reading-room/design.md) | knowledge maps, research notes | literary institutional |
+| [Archive Shelf](./packages/styles/designs/archive-shelf/design.md) | knowledge maps, research notes | catalog-card institutional |
 | [Salmon Stamp](./packages/styles/designs/salmon-stamp/design.md) | compact guides, friendly flows | clean stamped poster |
 
 ## Balanced
@@ -36,6 +39,8 @@ AgentDraw includes 38 agent-readable design systems. Pick by audience, density, 
 | [Pin & Paper](./packages/styles/designs/pin-and-paper/design.md) | collaborative plans | paper cards and pins |
 | [Raw Grid](./packages/styles/designs/raw-grid/design.md) | specs, matrices, issue maps | sharp digital grid |
 | [Riptide Cobalt](./packages/styles/designs/riptide-cobalt/design.md) | bold strategy, launch narratives | low-density cobalt poster |
+| [Incident Dark](./packages/styles/designs/incident-dark/design.md) | root-cause reports, evidence timelines | dark operational report |
+| [Soft Pop](./packages/styles/designs/soft-pop/design.md) | onboarding, journey maps, team plans | friendly product board |
 | [Soft Editorial](./packages/styles/designs/soft-editorial/design.md) | user research, synthesis | gentle magazine layout |
 | [Violet Marker](./packages/styles/designs/violet-marker/design.md) | clustering, research walls | bright marker notes |
 
@@ -50,6 +55,7 @@ AgentDraw includes 38 agent-readable design systems. Pick by audience, density, 
 | [Crayon Stack](./packages/styles/designs/crayon-stack/design.md) | education, maker flows | primary-color stacked cards |
 | [Grove Block](./packages/styles/designs/grove-block/design.md) | brand systems, strategy | flat confident green |
 | [Mint Brut](./packages/styles/designs/mint-brut/design.md) | roadmaps, creator tools | candy brutalist cards |
+| [Neon Grid](./packages/styles/designs/neon-grid/design.md) | event streams, observability, security flows | dark cybernetic grid |
 | [Neo-Grid Bold](./packages/styles/designs/neo-grid-bold/design.md) | priority maps, systems | black grid and neon lime |
 | [Riso Brut](./packages/styles/designs/riso-brut/design.md) | launch plans, growth loops | neo-brutalist editorial |
 | [Specimen Bold](./packages/styles/designs/specimen-bold/design.md) | taxonomies, comparisons | type specimen hierarchy |
@@ -58,10 +64,14 @@ AgentDraw includes 38 agent-readable design systems. Pick by audience, density, 
 ## Selection Heuristics
 
 - Formal and square: `system-formal`, `boardroom`, `blueprint-formal`, `raw-grid`, `neo-grid-bold`.
-- Editorial and refined: `grove`, `editorial-forest`, `macchiato`, `reading-room`, `linen-cut`.
+- Technical documentation: `runtime-doc`, `slate-notes`, `manual-cream`, `inkline`, `blueprint-formal`.
+- Incident and root-cause analysis: `incident-dark`, `boardroom`, `raw-grid`, `inkline`.
+- High-energy technical systems: `neon-grid`, `blueprint-formal`, `raw-grid`.
+- Friendly product planning: `soft-pop`, `coral`, `mint-brut`, `pin-and-paper`.
+- Editorial and refined: `grove`, `editorial-forest`, `espresso-paper`, `archive-shelf`, `linen-cut`.
 - Journey or customer experience: `coral`, `berry-pop`, `soft-editorial`, `confetti-wedge`.
 - Playful roadmap or maker energy: `mint-brut`, `crayon-stack`, `block-frame`, `pin-and-paper`.
 - Bold launch or campaign board: `riso-brut`, `bold-poster`, `riptide-cobalt`, `burst-panel`.
-- Research synthesis: `violet-marker`, `reading-room`, `soft-editorial`, `jade-lens`.
+- Research synthesis: `violet-marker`, `archive-shelf`, `soft-editorial`, `jade-lens`.
 
 After selecting a style, read its `design.md` and follow the typography, component, layout, and avoid rules. Do not apply it as a color-only theme.

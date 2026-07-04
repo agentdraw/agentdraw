@@ -27,6 +27,30 @@ const palettes = {
     accent2: "#DBEAFE",
     accent3: "#5B708A",
   },
+  "runtime-doc": {
+    canvas: "#FBFAF7",
+    ink: "#202124",
+    panel: "#FFFFFF",
+    accent: "#275CAD",
+    accent2: "#F4F1EA",
+    accent3: "#626A73",
+  },
+  "slate-notes": {
+    canvas: "#FFFFFF",
+    ink: "#334155",
+    panel: "#F8FAFC",
+    accent: "#6B8CAE",
+    accent2: "#E2E8F0",
+    accent3: "#64748B",
+  },
+  "manual-cream": {
+    canvas: "#EDE8DC",
+    ink: "#2C2416",
+    panel: "#F5F1E8",
+    accent: "#B85C38",
+    accent2: "#E8DCC8",
+    accent3: "#5A4A38",
+  },
   "riso-brut": {
     canvas: "#EFE9D9",
     ink: "#1E1B16",
@@ -67,6 +91,62 @@ const palettes = {
     accent2: "#CFEE30",
     accent3: "#5E4A88",
   },
+  "archive-shelf": {
+    canvas: "#F6EBD8",
+    ink: "#2A231C",
+    panel: "#FFF7EA",
+    accent: "#DE916A",
+    accent2: "#D6C7CC",
+    accent3: "#6C5C4B",
+  },
+  inkline: {
+    canvas: "#FAFADF",
+    ink: "#1A1A16",
+    panel: "#FFFFFF",
+    accent: "#5E5E54",
+    accent2: "#E7E7C8",
+    accent3: "#3D3D36",
+  },
+  "espresso-paper": {
+    canvas: "#EDE7DD",
+    ink: "#25211B",
+    panel: "#F8F3EA",
+    accent: "#6E6558",
+    accent2: "#D2C6B7",
+    accent3: "#403B32",
+  },
+  "long-table": {
+    canvas: "#FAF1E2",
+    ink: "#B53D2A",
+    panel: "#FFF8EE",
+    accent: "#B53D2A",
+    accent2: "#E8C4AF",
+    accent3: "#5B3A2E",
+  },
+  "incident-dark": {
+    canvas: "#0D1117",
+    ink: "#E6EDF3",
+    panel: "#161B22",
+    accent: "#58A6FF",
+    accent2: "#1C2330",
+    accent3: "#9AA7B4",
+  },
+  "soft-pop": {
+    canvas: "#EFF1F5",
+    ink: "#2D3748",
+    panel: "#FFFFFF",
+    accent: "#73D1C8",
+    accent2: "#FCD34D",
+    accent3: "#5D6D7E",
+  },
+  "neon-grid": {
+    canvas: "#051423",
+    ink: "#D9FBFF",
+    panel: "#071B2C",
+    accent: "#00F2FF",
+    accent2: "#FF4FD8",
+    accent3: "#235064",
+  },
   "raw-grid": {
     canvas: "#FFFFFF",
     ink: "#0A0A0A",
@@ -105,11 +185,21 @@ const examples = [
   ["examples/theme-agentdraw-os.agentdraw.json", buildAgentDrawOs],
   ["examples/theme-incident-command.agentdraw.json", buildIncidentCommand],
   ["examples/theme-message-bus.agentdraw.json", buildMessageBus],
+  ["examples/theme-plugin-runtime.agentdraw.json", buildPluginRuntime],
+  ["examples/theme-spec-notes.agentdraw.json", buildSpecNotes],
+  ["examples/theme-runbook-manual.agentdraw.json", buildRunbookManual],
   ["examples/theme-launch-room.agentdraw.json", buildLaunchRoom],
   ["examples/theme-strategy-grove.agentdraw.json", buildStrategyGrove],
   ["examples/theme-roadmap-mint.agentdraw.json", buildRoadmapMint],
   ["examples/theme-customer-journey.agentdraw.json", buildCustomerJourney],
   ["examples/theme-research-synthesis.agentdraw.json", buildResearchSynthesis],
+  ["examples/theme-knowledge-shelf.agentdraw.json", buildKnowledgeShelf],
+  ["examples/theme-spec-ledger.agentdraw.json", buildSpecLedger],
+  ["examples/theme-executive-brief.agentdraw.json", buildExecutiveBrief],
+  ["examples/theme-cache-incident.agentdraw.json", buildCacheIncident],
+  ["examples/theme-signal-grid.agentdraw.json", buildSignalGrid],
+  ["examples/theme-product-pop.agentdraw.json", buildProductPop],
+  ["examples/theme-meeting-ledger.agentdraw.json", buildMeetingLedger],
   ["examples/theme-raw-grid.agentdraw.json", buildRawGrid],
   ["examples/theme-bold-poster.agentdraw.json", buildBoldPoster],
   ["examples/theme-soft-editorial.agentdraw.json", buildSoftEditorial],
@@ -248,6 +338,126 @@ function buildMessageBus() {
   });
 
   return scene("Multi-Agent Message Bus", "blueprint-formal", elements);
+}
+
+function buildPluginRuntime() {
+  const p = palettes["runtime-doc"];
+  const elements = [
+    text("eyebrow", 74, 48, 220, 18, "PLUGIN RUNTIME", 13, p.accent),
+    text("title", 72, 76, 620, 46, "Agent Plugin Runtime", 40, p.ink),
+    text("subtitle", 76, 132, 860, 24, "A warm document board for explaining local tools, manifests, permissions, and execution flow.", 17, p.accent3),
+    rect("frame", 44, 36, 1188, 650, "transparent", "#E2DFD8", 2, { roundness: true }),
+    rect("toc", 76, 188, 204, 390, "#F2EFE8", "#E2DFD8", 1, { roundness: true }),
+    text("toc-title", 98, 212, 150, 18, "Contents", 15, p.ink),
+  ];
+
+  const tocItems = ["Manifest", "Install", "Run loop", "Permissions", "Export"];
+  tocItems.forEach((item, index) => {
+    const y = 244 + index * 48;
+    elements.push(
+      rect(`toc-item-${index}`, 96, y, 164, 32, index === 2 ? "#E8EEFB" : "transparent", index === 2 ? "#C9D6EE" : "transparent", 1, { roundness: true }),
+      text(`toc-text-${index}`, 112, y + 9, 132, 13, item, 14, index === 2 ? p.accent : "#4C545F"),
+    );
+  });
+
+  const cards = [
+    ["Manifest", "commands\nskill hooks", 340, 216, "#E8EEFB", p.accent],
+    ["Sandbox", "files + net\nsecret rules", 584, 216, "#E7F6EF", "#1E7B58"],
+    ["Runtime", "spawn\nstream events", 828, 216, "#FFF3D8", "#946200"],
+  ];
+  cards.forEach(([title, body, x, y, fill, color], index) => {
+    elements.push(
+      rect(`runtime-card-${index}`, x, y, 190, 164, fill, "#E2DFD8", 1, { roundness: true }),
+      rect(`runtime-tag-${index}`, x + 22, y + 18, 84, 28, p.panel, "#E2DFD8", 1, { roundness: true }),
+      text(`runtime-tag-text-${index}`, x + 34, y + 26, 60, 12, `0${index + 1}`, 13, color, "center", "middle"),
+      text(`runtime-title-${index}`, x + 24, y + 58, 142, 22, title, 21, p.ink, "center", "middle"),
+      text(`runtime-body-${index}`, x + 34, y + 104, 122, 36, body, 15, p.accent3, "center", "middle"),
+    );
+    if (index < cards.length - 1) {
+      elements.push(arrow(`runtime-flow-${index}`, x + 190, y + 66, 54, 0, p.accent, 2));
+    }
+  });
+
+  elements.push(
+    rect("callout", 340, 434, 678, 94, "#F5F7FC", "#CDD9F0", 1, { roundness: true }),
+    rect("callout-rule", 340, 434, 6, 94, p.accent, p.accent, 0),
+    text("callout-title", 370, 452, 160, 20, "Design rule", 19, p.ink),
+    text("callout-body", 370, 482, 594, 34, "Explain ownership and sequence\nbefore implementation details.", 16, p.accent3),
+    rect("status-row", 340, 560, 678, 42, p.panel, "#E2DFD8", 1, { roundness: true }),
+    text("status-row-text", 370, 572, 610, 16, "Open locally -> inspect result -> edit on canvas -> export SVG or PNG", 15, p.ink, "center", "middle"),
+  );
+
+  return scene("Agent Plugin Runtime", "runtime-doc", elements);
+}
+
+function buildSpecNotes() {
+  const p = palettes["slate-notes"];
+  const elements = [
+    text("title", 72, 54, 520, 42, "Product Spec Notes", 38, p.ink),
+    text("subtitle", 76, 106, 720, 24, "A clean slate board for requirements, open questions, and decision records.", 17, p.accent3),
+    rect("frame", 44, 36, 1188, 650, "transparent", "#CBD5E1", 2, { roundness: true }),
+    rect("summary", 90, 166, 330, 350, p.panel, "#CBD5E1", 1, { roundness: true }),
+    text("summary-title", 118, 194, 260, 24, "Problem", 23, p.ink),
+    text("summary-body", 118, 246, 250, 88, "Agents can draw diagrams,\nbut quality drifts without\nstyle constraints.", 18, p.accent3),
+    rect("summary-chip", 118, 386, 116, 30, "#E2E8F0", "#CBD5E1", 1, { roundness: true }),
+    text("summary-chip-text", 138, 394, 76, 12, "needs spec", 13, p.ink, "center", "middle"),
+  ];
+  const cards = [
+    ["Input", "load skill\nread docs", 486, 178, "#D4E1EE", p.accent],
+    ["Generate", "SVG source\nstyle rules", 760, 178, "#D5E8DC", "#73A78D"],
+    ["Validate", "layout QA\npreview PNG", 486, 382, "#F0E0D6", "#CB9B7A"],
+    ["Edit", "browser canvas\nexport result", 760, 382, p.panel, p.accent],
+  ];
+  cards.forEach(([title, body, x, y, fill, color], index) => {
+    elements.push(
+      rect(`notes-card-${index}`, x, y, 222, 128, fill, "#CBD5E1", 1, { roundness: true }),
+      text(`notes-title-${index}`, x + 26, y + 24, 168, 22, title, 22, p.ink, "center", "middle"),
+      text(`notes-body-${index}`, x + 34, y + 68, 154, 42, body, 16, p.accent3, "center", "middle"),
+      rect(`notes-rule-${index}`, x + 22, y + 108, 178, 4, color, color, 0),
+    );
+  });
+  elements.push(
+    arrow("notes-flow-a", 708, 242, 52, 0, p.accent3, 2),
+    arrow("notes-flow-b", 598, 306, 0, 76, p.accent3, 2),
+    arrow("notes-flow-c", 708, 446, 52, 0, p.accent3, 2),
+    rect("notes-decision", 150, 568, 870, 48, "#E2E8F0", "#CBD5E1", 1, { roundness: true }),
+    text("notes-decision-text", 184, 582, 802, 18, "Decision: preserve editability, but use SVG as the source of design quality.", 17, p.ink, "center", "middle"),
+  );
+  return scene("Product Spec Notes", "slate-notes", elements);
+}
+
+function buildRunbookManual() {
+  const p = palettes["manual-cream"];
+  const elements = [
+    text("title", 72, 54, 540, 44, "Repair Runbook", 40, p.ink),
+    text("subtitle", 76, 110, 680, 24, "A printed-manual style for repeatable checks, fixes, and release procedures.", 17, p.accent3),
+    rect("frame", 44, 36, 1188, 650, "transparent", p.ink, 3),
+    rect("header", 92, 164, 1002, 48, p.ink, p.ink, 0),
+    text("header-text", 126, 178, 930, 18, "SYMPTOM / CHECK / FIX / OWNER", 16, p.panel, "center", "middle"),
+  ];
+  const rows = [
+    ["01", "Text overflow", "validate", "widen or wrap", "Design"],
+    ["02", "Odd arrowhead", "inspect marker", "use plain line", "Tools"],
+    ["03", "Off-grid cards", "quality report", "snap columns", "Agent"],
+    ["04", "Bad preview", "export PNG", "revise SVG", "Review"],
+  ];
+  rows.forEach((row, index) => {
+    const y = 212 + index * 76;
+    elements.push(
+      rect(`manual-row-${index}`, 92, y, 1002, 76, index % 2 ? p.panel : p.accent2, p.ink, 2),
+      rect(`manual-step-${index}`, 118, y + 18, 44, 40, index === 1 ? p.accent : p.ink, index === 1 ? p.accent : p.ink, 0),
+      text(`manual-num-${index}`, 130, y + 29, 20, 14, row[0], 14, p.panel, "center", "middle"),
+      text(`manual-a-${index}`, 206, y + 26, 190, 18, row[1], 18, p.ink),
+      text(`manual-b-${index}`, 456, y + 26, 150, 18, row[2], 17, p.accent3),
+      text(`manual-c-${index}`, 662, y + 26, 180, 18, row[3], 17, p.ink),
+      text(`manual-d-${index}`, 922, y + 26, 110, 18, row[4], 17, p.accent3),
+    );
+  });
+  elements.push(
+    rect("manual-stamp", 790, 548, 250, 50, p.panel, p.accent, 3),
+    text("manual-stamp-text", 830, 563, 170, 18, "Run before publish", 17, p.accent, "center", "middle"),
+  );
+  return scene("Repair Runbook", "manual-cream", elements, { roundness: "sharp" });
 }
 
 function buildLaunchRoom() {
@@ -426,6 +636,300 @@ function buildResearchSynthesis() {
   );
 
   return scene("Research Synthesis Wall", "violet-marker", elements, { roughness: 1 });
+}
+
+function buildKnowledgeShelf() {
+  const p = palettes["archive-shelf"];
+  const elements = [
+    text("title", 72, 54, 520, 42, "Knowledge Shelf Map", 38, p.ink),
+    text("subtitle", 76, 106, 690, 24, "A catalog-board for turning scattered research into indexed decisions.", 17, p.accent3),
+    rect("frame", 44, 36, 1188, 650, "transparent", p.accent3, 2),
+    rect("shelf-rail", 86, 160, 1030, 40, p.ink, p.ink, 0),
+    text("shelf-rail-text", 112, 171, 960, 18, "SOURCES -> THEMES -> DECISIONS", 15, p.panel, "center", "middle"),
+  ];
+
+  const shelves = [
+    ["01 Sources", "Interview notes\nSupport tickets\nTelemetry cuts", 100, 238, p.panel],
+    ["02 Themes", "Trust gap\nSetup drag\nExport anxiety", 404, 238, p.accent2],
+    ["03 Decisions", "Preview first\nRepair loop\nStyle contracts", 708, 238, p.panel],
+  ];
+  shelves.forEach(([heading, body, x, y, fill], index) => {
+    elements.push(
+      rect(`tab-${index}`, x + 18, y - 38, 106, 28, p.accent, p.accent, 0),
+      text(`tab-label-${index}`, x + 32, y - 30, 78, 12, heading, 13, p.ink, "center", "middle"),
+      rect(`shelf-card-${index}`, x, y, 238, 170, fill, p.ink, 2),
+      text(`shelf-heading-${index}`, x + 24, y + 26, 190, 24, heading.replace(/^[0-9]+ /, ""), 22, p.ink, "center", "middle"),
+      text(`shelf-body-${index}`, x + 30, y + 72, 178, 72, body, 17, p.accent3, "center", "middle"),
+    );
+    if (index < shelves.length - 1) {
+      elements.push(arrow(`shelf-flow-${index}`, x + 238, y + 84, 66, 0, p.accent3, 2));
+    }
+  });
+
+  elements.push(
+    rect("margin-note", 976, 238, 132, 170, p.panel, p.accent3, 2),
+    text("margin-note-title", 996, 264, 92, 20, "Index", 19, p.ink, "center", "middle"),
+    text("margin-note-body", 1002, 310, 80, 54, "Each card\nkeeps one\nclaim.", 15, p.accent3, "center", "middle"),
+    rect("evidence-strip", 150, 506, 840, 58, p.accent2, p.accent2, 0),
+    text("evidence-text", 180, 523, 780, 20, "Evidence strips carry quotes or constraints. They are plain bands, not more cards.", 17, p.ink, "center", "middle"),
+  );
+
+  return scene("Knowledge Shelf Map", "archive-shelf", elements, { roundness: "sharp" });
+}
+
+function buildSpecLedger() {
+  const p = palettes.inkline;
+  const elements = [
+    text("title", 72, 54, 500, 42, "Spec Ledger", 38, p.ink),
+    text("subtitle", 76, 106, 730, 24, "A severe technical memo for requirements, failure modes, and repair actions.", 17, p.accent),
+    rect("frame", 44, 36, 1188, 650, "transparent", p.ink, 2),
+    rect("rail", 92, 166, 70, 360, p.ink, p.ink, 0),
+    text("rail-text", 112, 300, 30, 30, "QA", 28, p.panel, "center", "middle"),
+    rect("head", 188, 166, 858, 48, p.ink, p.ink, 0),
+    text("head-a", 222, 180, 170, 16, "REQUIREMENT", 14, p.panel),
+    text("head-b", 496, 180, 170, 16, "FAILURE", 14, p.panel),
+    text("head-c", 764, 180, 170, 16, "ACTION", 14, p.panel),
+  ];
+
+  const rows = [
+    ["Centered labels", "text hugs top edge", "set middle baseline"],
+    ["Edge connectors", "arrow starts inside", "snap to bounds"],
+    ["Equal cards", "ragged row widths", "normalize columns"],
+    ["Plain dividers", "accidental arrows", "remove marker-end"],
+  ];
+  rows.forEach((row, index) => {
+    const y = 214 + index * 78;
+    elements.push(
+      rect(`ledger-row-${index}`, 188, y, 858, 78, index % 2 ? p.panel : p.accent2, p.ink, 1),
+      text(`ledger-a-${index}`, 222, y + 27, 206, 18, row[0], 18, p.ink),
+      text(`ledger-b-${index}`, 496, y + 27, 190, 18, row[1], 17, p.accent),
+      text(`ledger-c-${index}`, 764, y + 27, 190, 18, row[2], 17, p.accent3),
+    );
+  });
+  elements.push(
+    rect("decision", 188, 556, 858, 46, p.accent3, p.accent3, 0),
+    text("decision-text", 220, 570, 794, 18, "Pass when the board is readable as a grid before any color is considered.", 16, p.panel, "center", "middle"),
+  );
+
+  return scene("Spec Ledger", "inkline", elements, { roundness: "sharp" });
+}
+
+function buildExecutiveBrief() {
+  const p = palettes["espresso-paper"];
+  const elements = [
+    text("title", 72, 54, 560, 42, "Executive Brief Board", 39, p.ink),
+    text("subtitle", 76, 106, 690, 24, "A warm one-page decision map for leaders who need the answer and the tradeoffs.", 17, p.accent),
+    rect("frame", 44, 36, 1188, 650, "transparent", p.accent, 2),
+    rect("masthead-rule", 74, 146, 1020, 2, p.accent, p.accent, 0),
+  ];
+
+  const tiles = [
+    ["Build", "highest control\nlongest path", 96, 206],
+    ["Buy", "fastest start\nvendor lock-in", 378, 206],
+    ["Partner", "shared risk\nunclear ownership", 660, 206],
+  ];
+  tiles.forEach(([title, body, x, y], index) => {
+    elements.push(
+      rect(`brief-tile-${index}`, x, y, 238, 150, index === 1 ? p.accent2 : p.panel, p.ink, 2, { roundness: true }),
+      text(`brief-title-${index}`, x + 26, y + 28, 186, 24, title, 24, p.ink, "center", "middle"),
+      text(`brief-body-${index}`, x + 34, y + 76, 170, 44, body, 17, p.accent3, "center", "middle"),
+    );
+  });
+  elements.push(
+    rect("score-panel", 954, 206, 150, 150, p.ink, p.ink, 0),
+    text("score-label", 978, 236, 102, 20, "Choice", 18, p.panel, "center", "middle"),
+    text("score-main", 974, 272, 110, 46, "Buy", 34, p.panel, "center", "middle"),
+    rect("table", 96, 414, 1008, 112, p.panel, p.ink, 2, { roundness: true }),
+    text("table-a", 130, 440, 180, 18, "Confidence", 17, p.ink),
+    text("table-b", 410, 440, 180, 18, "Risk", 17, p.ink),
+    text("table-c", 690, 440, 180, 18, "Next step", 17, p.ink),
+    text("table-a2", 130, 482, 210, 18, "High for MVP", 17, p.accent3),
+    text("table-b2", 410, 482, 210, 18, "Review export limits", 17, p.accent3),
+    text("table-c2", 690, 482, 290, 18, "Negotiate escape hatch", 17, p.accent3),
+    rect("decision-band", 166, 574, 868, 50, p.accent3, p.accent3, 0),
+    text("decision-band-text", 202, 590, 796, 18, "Recommendation: buy the canvas layer, invest engineering effort in agent quality.", 17, p.panel, "center", "middle"),
+  );
+
+  return scene("Executive Brief Board", "espresso-paper", elements);
+}
+
+function buildCacheIncident() {
+  const p = palettes["incident-dark"];
+  const red = "#F85149";
+  const green = "#3FB950";
+  const amber = "#D29922";
+  const purple = "#BC8CFF";
+  const rule = "#2A3340";
+  const elements = [
+    text("title", 70, 50, 620, 38, "KV Cache Incident Report", 34, p.ink),
+    text("subtitle", 72, 96, 780, 22, "A dark operational board for verdict, evidence, timeline, and action ownership.", 16, p.accent3),
+    rect("frame", 44, 32, 1188, 660, "transparent", rule, 2, { roundness: true }),
+  ];
+
+  const tabs = ["Verdict", "Timeline", "Evidence", "Actions"];
+  tabs.forEach((tab, index) => {
+    const x = 72 + index * 142;
+    elements.push(
+      rect(`tab-${index}`, x, 136, 122, 36, index === 0 ? "#1D3350" : p.panel, index === 0 ? p.accent : rule, 1, { roundness: true }),
+      text(`tab-text-${index}`, x + 18, 147, 86, 14, tab, 14, index === 0 ? "#CFE6FF" : p.accent3, "center", "middle"),
+    );
+  });
+
+  elements.push(
+    rect("verdict", 72, 202, 1030, 112, p.accent2, rule, 1, { roundness: true }),
+    text("verdict-big", 106, 226, 748, 24, "Root cause: request prefix drift after runtime upgrade", 23, p.ink),
+    rect("culprit", 742, 256, 244, 34, "#3A1D1D", "#5C2B2B", 1, { roundness: true }),
+    text("culprit-text", 764, 266, 200, 13, "SDK 0.1.x -> 0.2.x", 14, "#FF9B94", "center", "middle"),
+    text("verdict-note", 106, 266, 560, 18, "Claude stayed stable; qwen-compatible cache collapsed to static prefix.", 16, p.accent3),
+  );
+
+  const cards = [
+    ["Test env", "07:14 UTC", "hit 97% -> 17%", 92, 354, amber],
+    ["Prod env", "19:00 local", "hit 86% -> 38%", 372, 354, purple],
+    ["Stable path", "Anthropic", "hit 81-87%", 652, 354, green],
+  ];
+  cards.forEach(([title, moment, note, x, y, color], index) => {
+    elements.push(
+      rect(`incident-card-${index}`, x, y, 236, 132, p.panel, rule, 1, { roundness: true }),
+      rect(`incident-card-rule-${index}`, x, y, 236, 4, color, color, 0),
+      text(`incident-title-${index}`, x + 20, y + 22, 170, 18, title, 17, p.ink),
+      text(`incident-moment-${index}`, x + 20, y + 54, 176, 24, moment, 24, color),
+      text(`incident-note-${index}`, x + 20, y + 96, 178, 16, note, 15, p.accent3),
+    );
+  });
+
+  elements.push(
+    rect("diff", 932, 354, 170, 132, "#0A0E14", rule, 1, { roundness: true }),
+    text("diff-title", 954, 376, 116, 14, "dependency diff", 14, p.accent3, "center", "middle"),
+    text("diff-del", 954, 410, 116, 14, "- sdk 0.1.61", 14, "#FF9B94"),
+    text("diff-add", 954, 442, 116, 14, "+ sdk 0.2.89", 14, "#7EE787"),
+  );
+
+  const steps = [
+    ["1", "Normalize proxy blocks", green],
+    ["2", "Pin or rewrite CLI request", amber],
+    ["3", "Add cache-prefix regression test", p.accent],
+  ];
+  steps.forEach(([num, label, color], index) => {
+    const y = 534 + index * 46;
+    elements.push(
+      rect(`step-${index}`, 166, y, 780, 34, p.panel, rule, 1, { roundness: true }),
+      rect(`step-num-${index}`, 182, y + 5, 24, 24, color, color, 0, { roundness: true }),
+      text(`step-num-text-${index}`, 190, y + 12, 8, 10, num, 12, "#06121F", "center", "middle"),
+      text(`step-label-${index}`, 226, y + 10, 560, 14, label, 15, p.ink),
+    );
+  });
+
+  return scene("KV Cache Incident Report", "incident-dark", elements, { roundness: "sharp" });
+}
+
+function buildSignalGrid() {
+  const p = palettes["neon-grid"];
+  const magenta = "#FF4FD8";
+  const green = "#7CE38B";
+  const elements = [
+    text("title", 70, 52, 560, 42, "Runtime Signal Grid", 38, p.ink),
+    text("subtitle", 72, 104, 730, 24, "A high-contrast event map for observability, agent streams, and exception paths.", 17, p.accent),
+    rect("frame", 44, 36, 1188, 650, "transparent", p.accent, 2),
+    rect("top-rail", 84, 158, 1040, 4, p.accent, p.accent, 0),
+  ];
+  const nodes = [
+    ["Prompt", "intent\nfiles", 112, 226],
+    ["Planner", "route\nbudget", 370, 226],
+    ["Worker", "tools\nstream", 628, 226],
+    ["Verifier", "check\nexport", 886, 226],
+  ];
+  nodes.forEach(([title, body, x, y], index) => {
+    elements.push(
+      rect(`signal-node-${index}`, x, y, 190, 136, p.panel, p.accent, 2),
+      rect(`signal-inner-${index}`, x + 14, y + 14, 162, 4, index === 2 ? magenta : p.accent, index === 2 ? magenta : p.accent, 0),
+      text(`signal-title-${index}`, x + 28, y + 42, 134, 24, title, 23, p.ink, "center", "middle"),
+      text(`signal-body-${index}`, x + 44, y + 82, 102, 38, body, 16, p.accent, "center", "middle"),
+    );
+    if (index < nodes.length - 1) {
+      elements.push(arrow(`signal-flow-${index}`, x + 190, y + 68, 68, 0, index === 1 ? magenta : p.accent, 3));
+    }
+  });
+  const metrics = [
+    ["latency", "420ms", p.accent],
+    ["repair", "2", magenta],
+    ["pass", "94%", green],
+  ];
+  metrics.forEach(([label, value, color], index) => {
+    const x = 192 + index * 280;
+    elements.push(
+      rect(`metric-${index}`, x, 494, 220, 76, p.panel, color, 2),
+      text(`metric-label-${index}`, x + 26, 512, 160, 14, label, 14, color, "center", "middle"),
+      text(`metric-value-${index}`, x + 40, 532, 136, 34, value, 25, p.ink, "center", "middle"),
+    );
+  });
+  return scene("Runtime Signal Grid", "neon-grid", elements, { roundness: "sharp" });
+}
+
+function buildProductPop() {
+  const p = palettes["soft-pop"];
+  const elements = [
+    text("title", 70, 54, 520, 42, "Onboarding Momentum Map", 38, p.ink),
+    text("subtitle", 74, 106, 710, 24, "A friendly product board for stages, signals, owner actions, and next bets.", 17, p.accent3),
+    rect("frame", 44, 36, 1188, 650, "transparent", "#DCE2EA", 2, { roundness: true }),
+    rect("lane", 96, 254, 1000, 92, "#DCE2EA", "#DCE2EA", 0, { roundness: true, customData: { role: "decoration" } }),
+  ];
+  const cards = [
+    ["Signup", "source\nintent", 122, 202, p.panel],
+    ["First Value", "template\npreview", 366, 296, p.accent],
+    ["Team Invite", "share\nreview", 610, 202, p.panel],
+    ["Upgrade", "limit\nROI", 854, 296, p.accent2],
+  ];
+  cards.forEach(([title, body, x, y, fill], index) => {
+    elements.push(
+      rect(`pop-card-${index}`, x, y, 190, 128, fill, "#566573", 2, { roundness: true }),
+      text(`pop-title-${index}`, x + 28, y + 24, 134, 22, title, 22, p.ink, "center", "middle"),
+      text(`pop-body-${index}`, x + 44, y + 68, 102, 38, body, 16, p.ink, "center", "middle"),
+    );
+    if (index < cards.length - 1) {
+      elements.push(arrow(`pop-flow-${index}`, x + 194, y + 64, 50, index % 2 ? -94 : 94, "#566573", 2));
+    }
+  });
+  elements.push(
+    rect("pop-footer", 176, 538, 820, 54, p.panel, "#566573", 2, { roundness: true }),
+    text("pop-footer-text", 210, 554, 752, 18, "Use teal for progress, yellow for the one next bet, and keep the lane readable.", 17, p.ink, "center", "middle"),
+  );
+  return scene("Onboarding Momentum Map", "soft-pop", elements);
+}
+
+function buildMeetingLedger() {
+  const p = palettes["long-table"];
+  const elements = [
+    text("title", 72, 54, 560, 42, "Operating Meeting Ledger", 38, p.ink),
+    text("subtitle", 76, 106, 700, 24, "A warm ruled-table board for agenda, owner, decision, and follow-up tracking.", 17, p.accent3),
+    rect("frame", 44, 36, 1188, 650, "transparent", p.ink, 2),
+    rect("head", 92, 166, 1002, 48, p.ink, p.ink, 0),
+    text("head-a", 124, 180, 160, 16, "TOPIC", 15, p.panel),
+    text("head-b", 374, 180, 160, 16, "OWNER", 15, p.panel),
+    text("head-c", 594, 180, 190, 16, "DECISION", 15, p.panel),
+    text("head-d", 854, 180, 160, 16, "NEXT", 15, p.panel),
+  ];
+  const rows = [
+    ["Runtime install", "Platform", "npm first", "publish guide"],
+    ["Canvas quality", "Design", "SVG source", "eval weekly"],
+    ["Agent handoff", "DX", "load skill", "gallery prompt"],
+    ["Export loop", "Tools", "PNG + SVG", "visual check"],
+  ];
+  rows.forEach((row, index) => {
+    const y = 214 + index * 76;
+    elements.push(
+      rect(`meeting-row-${index}`, 92, y, 1002, 76, index % 2 ? p.panel : p.canvas, p.ink, 1),
+      text(`meeting-a-${index}`, 124, y + 26, 180, 18, row[0], 18, p.ink),
+      text(`meeting-b-${index}`, 374, y + 26, 150, 18, row[1], 17, p.accent3),
+      text(`meeting-c-${index}`, 594, y + 26, 180, 18, row[2], 17, p.ink),
+      text(`meeting-d-${index}`, 854, y + 26, 180, 18, row[3], 17, p.accent3),
+    );
+  });
+  elements.push(
+    rect("stamp", 826, 548, 210, 48, p.panel, p.ink, 2),
+    text("stamp-text", 842, 560, 178, 22, "Review every Friday", 17, p.ink, "center", "middle"),
+  );
+  return scene("Operating Meeting Ledger", "long-table", elements, { roundness: "sharp" });
 }
 
 function buildRawGrid() {

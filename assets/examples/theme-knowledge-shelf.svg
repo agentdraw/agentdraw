@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Knowledge Shelf Map preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="0" width="1260" height="722" fill="#F6EBD8"/>
+<text x="72" y="92" fill="#2A231C" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700" text-anchor="start"><tspan x="72" dy="0">Knowledge Shelf Map</tspan></text>
+<text x="76" y="123" fill="#6C5C4B" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="76" dy="0">A catalog-board for turning scattered research into indexed decisions.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="0" fill="none" stroke="#6C5C4B" stroke-width="2"/>
+<rect x="86" y="160" width="1030" height="40" rx="0" fill="#2A231C" stroke="#2A231C" stroke-width="0"/>
+<text x="592" y="185.625" fill="#FFF7EA" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="592" dy="0">SOURCES -&gt; THEMES -&gt; DECISIONS</tspan></text>
+<rect x="118" y="200" width="106" height="28" rx="0" fill="#DE916A" stroke="#DE916A" stroke-width="0"/>
+<text x="171" y="218.875" fill="#2A231C" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" text-anchor="middle"><tspan x="171" dy="0">01 Sources</tspan></text>
+<rect x="100" y="238" width="238" height="170" rx="0" fill="#FFF7EA" stroke="#2A231C" stroke-width="2"/>
+<text x="219" y="284.25" fill="#2A231C" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="middle"><tspan x="219" dy="0">Sources</tspan></text>
+<text x="219" y="331.125" fill="#6C5C4B" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="219" dy="0">Interview notes</tspan><tspan x="219" dy="21.25">Support tickets</tspan><tspan x="219" dy="21.25">Telemetry cuts</tspan></text>
+<path d="M 338 322 L 404 322" fill="none" stroke="#6C5C4B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="422" y="200" width="106" height="28" rx="0" fill="#DE916A" stroke="#DE916A" stroke-width="0"/>
+<text x="475" y="218.875" fill="#2A231C" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" text-anchor="middle"><tspan x="475" dy="0">02 Themes</tspan></text>
+<rect x="404" y="238" width="238" height="170" rx="0" fill="#D6C7CC" stroke="#2A231C" stroke-width="2"/>
+<text x="523" y="284.25" fill="#2A231C" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="middle"><tspan x="523" dy="0">Themes</tspan></text>
+<text x="523" y="331.125" fill="#6C5C4B" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="523" dy="0">Trust gap</tspan><tspan x="523" dy="21.25">Setup drag</tspan><tspan x="523" dy="21.25">Export anxiety</tspan></text>
+<path d="M 642 322 L 708 322" fill="none" stroke="#6C5C4B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="726" y="200" width="106" height="28" rx="0" fill="#DE916A" stroke="#DE916A" stroke-width="0"/>
+<text x="779" y="218.875" fill="#2A231C" font-family="Inter, Arial, sans-serif" font-size="13" font-weight="500" text-anchor="middle"><tspan x="779" dy="0">03 Decisions</tspan></text>
+<rect x="708" y="238" width="238" height="170" rx="0" fill="#FFF7EA" stroke="#2A231C" stroke-width="2"/>
+<text x="827" y="284.25" fill="#2A231C" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="middle"><tspan x="827" dy="0">Decisions</tspan></text>
+<text x="827" y="331.125" fill="#6C5C4B" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="827" dy="0">Preview first</tspan><tspan x="827" dy="21.25">Repair loop</tspan><tspan x="827" dy="21.25">Style contracts</tspan></text>
+<rect x="976" y="238" width="132" height="170" rx="0" fill="#FFF7EA" stroke="#6C5C4B" stroke-width="2"/>
+<text x="1042" y="281.125" fill="#2A231C" font-family="Inter, Arial, sans-serif" font-size="19" font-weight="500" text-anchor="middle"><tspan x="1042" dy="0">Index</tspan></text>
+<text x="1042" y="323.875" fill="#6C5C4B" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="1042" dy="0">Each card</tspan><tspan x="1042" dy="18.75">keeps one</tspan><tspan x="1042" dy="18.75">claim.</tspan></text>
+<rect x="150" y="506" width="840" height="58" rx="0" fill="#D6C7CC" stroke="#D6C7CC" stroke-width="0"/>
+<text x="570" y="539.375" fill="#2A231C" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="570" dy="0">Evidence strips carry quotes or constraints. They are plain bands, not more cards.</tspan></text>
+</svg>

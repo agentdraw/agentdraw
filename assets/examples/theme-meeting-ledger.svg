@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Operating Meeting Ledger preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="0" width="1260" height="722" fill="#FAF1E2"/>
+<text x="72" y="92" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700" text-anchor="start"><tspan x="72" dy="0">Operating Meeting Ledger</tspan></text>
+<text x="76" y="123" fill="#5B3A2E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="76" dy="0">A warm ruled-table board for agenda, owner, decision, and follow-up tracking.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="0" fill="none" stroke="#B53D2A" stroke-width="2"/>
+<rect x="92" y="166" width="1002" height="48" rx="0" fill="#B53D2A" stroke="#B53D2A" stroke-width="0"/>
+<text x="124" y="195" fill="#FFF8EE" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="124" dy="0">TOPIC</tspan></text>
+<text x="374" y="195" fill="#FFF8EE" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="374" dy="0">OWNER</tspan></text>
+<text x="594" y="195" fill="#FFF8EE" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="594" dy="0">DECISION</tspan></text>
+<text x="854" y="195" fill="#FFF8EE" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="854" dy="0">NEXT</tspan></text>
+<rect x="92" y="214" width="1002" height="76" rx="0" fill="#FAF1E2" stroke="#B53D2A" stroke-width="1"/>
+<text x="124" y="258" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="124" dy="0">Runtime install</tspan></text>
+<text x="374" y="257" fill="#5B3A2E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="374" dy="0">Platform</tspan></text>
+<text x="594" y="257" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="594" dy="0">npm first</tspan></text>
+<text x="854" y="257" fill="#5B3A2E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="854" dy="0">publish guide</tspan></text>
+<rect x="92" y="290" width="1002" height="76" rx="0" fill="#FFF8EE" stroke="#B53D2A" stroke-width="1"/>
+<text x="124" y="334" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="124" dy="0">Canvas quality</tspan></text>
+<text x="374" y="333" fill="#5B3A2E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="374" dy="0">Design</tspan></text>
+<text x="594" y="333" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="594" dy="0">SVG source</tspan></text>
+<text x="854" y="333" fill="#5B3A2E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="854" dy="0">eval weekly</tspan></text>
+<rect x="92" y="366" width="1002" height="76" rx="0" fill="#FAF1E2" stroke="#B53D2A" stroke-width="1"/>
+<text x="124" y="410" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="124" dy="0">Agent handoff</tspan></text>
+<text x="374" y="409" fill="#5B3A2E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="374" dy="0">DX</tspan></text>
+<text x="594" y="409" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="594" dy="0">load skill</tspan></text>
+<text x="854" y="409" fill="#5B3A2E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="854" dy="0">gallery prompt</tspan></text>
+<rect x="92" y="442" width="1002" height="76" rx="0" fill="#FFF8EE" stroke="#B53D2A" stroke-width="1"/>
+<text x="124" y="486" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="124" dy="0">Export loop</tspan></text>
+<text x="374" y="485" fill="#5B3A2E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="374" dy="0">Tools</tspan></text>
+<text x="594" y="485" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="594" dy="0">PNG + SVG</tspan></text>
+<text x="854" y="485" fill="#5B3A2E" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="854" dy="0">visual check</tspan></text>
+<rect x="826" y="548" width="210" height="48" rx="0" fill="#FFF8EE" stroke="#B53D2A" stroke-width="2"/>
+<text x="931" y="577.375" fill="#B53D2A" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="931" dy="0">Review every Friday</tspan></text>
+</svg>

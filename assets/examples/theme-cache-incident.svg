@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="732" viewBox="8 -4 1260 732" role="img" aria-label="KV Cache Incident Report preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="-4" width="1260" height="732" fill="#0D1117"/>
+<text x="70" y="84" fill="#E6EDF3" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" text-anchor="start"><tspan x="70" dy="0">KV Cache Incident Report</tspan></text>
+<text x="72" y="112" fill="#9AA7B4" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="72" dy="0">A dark operational board for verdict, evidence, timeline, and action ownership.</tspan></text>
+<rect x="44" y="32" width="1188" height="660" rx="12" fill="none" stroke="#2A3340" stroke-width="2"/>
+<rect x="72" y="136" width="122" height="36" rx="4" fill="#1D3350" stroke="#58A6FF" stroke-width="1"/>
+<text x="133" y="159.25" fill="#CFE6FF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="133" dy="0">Verdict</tspan></text>
+<rect x="214" y="136" width="122" height="36" rx="4" fill="#161B22" stroke="#2A3340" stroke-width="1"/>
+<text x="275" y="159.25" fill="#9AA7B4" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="275" dy="0">Timeline</tspan></text>
+<rect x="356" y="136" width="122" height="36" rx="4" fill="#161B22" stroke="#2A3340" stroke-width="1"/>
+<text x="417" y="159.25" fill="#9AA7B4" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="417" dy="0">Evidence</tspan></text>
+<rect x="498" y="136" width="122" height="36" rx="4" fill="#161B22" stroke="#2A3340" stroke-width="1"/>
+<text x="559" y="159.25" fill="#9AA7B4" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="559" dy="0">Actions</tspan></text>
+<rect x="72" y="202" width="1030" height="112" rx="8.96" fill="#1C2330" stroke="#2A3340" stroke-width="1"/>
+<text x="106" y="249" fill="#E6EDF3" font-family="Inter, Arial, sans-serif" font-size="23" font-weight="500" text-anchor="start"><tspan x="106" dy="0">Root cause: request prefix drift after runtime upgrade</tspan></text>
+<rect x="742" y="256" width="244" height="34" rx="4" fill="#3A1D1D" stroke="#5C2B2B" stroke-width="1"/>
+<text x="864" y="277.75" fill="#FF9B94" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="864" dy="0">SDK 0.1.x -&gt; 0.2.x</tspan></text>
+<text x="106" y="282" fill="#9AA7B4" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="106" dy="0">Claude stayed stable; qwen-compatible cache collapsed to static prefix.</tspan></text>
+<rect x="92" y="354" width="236" height="132" rx="10.56" fill="#161B22" stroke="#2A3340" stroke-width="1"/>
+<rect x="92" y="354" width="236" height="4" rx="0" fill="#D29922" stroke="#D29922" stroke-width="0"/>
+<text x="112" y="393" fill="#E6EDF3" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="112" dy="0">Test env</tspan></text>
+<text x="112" y="432" fill="#D29922" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="start"><tspan x="112" dy="0">07:14 UTC</tspan></text>
+<text x="112" y="465" fill="#9AA7B4" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="112" dy="0">hit 97% -&gt; 17%</tspan></text>
+<rect x="372" y="354" width="236" height="132" rx="10.56" fill="#161B22" stroke="#2A3340" stroke-width="1"/>
+<rect x="372" y="354" width="236" height="4" rx="0" fill="#BC8CFF" stroke="#BC8CFF" stroke-width="0"/>
+<text x="392" y="393" fill="#E6EDF3" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="392" dy="0">Prod env</tspan></text>
+<text x="392" y="432" fill="#BC8CFF" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="start"><tspan x="392" dy="0">19:00 local</tspan></text>
+<text x="392" y="465" fill="#9AA7B4" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="392" dy="0">hit 86% -&gt; 38%</tspan></text>
+<rect x="652" y="354" width="236" height="132" rx="10.56" fill="#161B22" stroke="#2A3340" stroke-width="1"/>
+<rect x="652" y="354" width="236" height="4" rx="0" fill="#3FB950" stroke="#3FB950" stroke-width="0"/>
+<text x="672" y="393" fill="#E6EDF3" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="672" dy="0">Stable path</tspan></text>
+<text x="672" y="432" fill="#3FB950" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="start"><tspan x="672" dy="0">Anthropic</tspan></text>
+<text x="672" y="465" fill="#9AA7B4" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="672" dy="0">hit 81-87%</tspan></text>
+<rect x="932" y="354" width="170" height="132" rx="10.56" fill="#0A0E14" stroke="#2A3340" stroke-width="1"/>
+<text x="1012" y="388.25" fill="#9AA7B4" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="1012" dy="0">dependency diff</tspan></text>
+<text x="954" y="424" fill="#FF9B94" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="start"><tspan x="954" dy="0">- sdk 0.1.61</tspan></text>
+<text x="954" y="456" fill="#7EE787" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="start"><tspan x="954" dy="0">+ sdk 0.2.89</tspan></text>
+<rect x="166" y="534" width="780" height="34" rx="4" fill="#161B22" stroke="#2A3340" stroke-width="1"/>
+<rect x="182" y="539" width="24" height="24" rx="4" fill="#3FB950" stroke="#3FB950" stroke-width="0"/>
+<text x="194" y="555.5" fill="#06121F" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="500" text-anchor="middle"><tspan x="194" dy="0">1</tspan></text>
+<text x="226" y="559" fill="#E6EDF3" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="226" dy="0">Normalize proxy blocks</tspan></text>
+<rect x="166" y="580" width="780" height="34" rx="4" fill="#161B22" stroke="#2A3340" stroke-width="1"/>
+<rect x="182" y="585" width="24" height="24" rx="4" fill="#D29922" stroke="#D29922" stroke-width="0"/>
+<text x="194" y="601.5" fill="#06121F" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="500" text-anchor="middle"><tspan x="194" dy="0">2</tspan></text>
+<text x="226" y="605" fill="#E6EDF3" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="226" dy="0">Pin or rewrite CLI request</tspan></text>
+<rect x="166" y="626" width="780" height="34" rx="4" fill="#161B22" stroke="#2A3340" stroke-width="1"/>
+<rect x="182" y="631" width="24" height="24" rx="4" fill="#58A6FF" stroke="#58A6FF" stroke-width="0"/>
+<text x="194" y="647.5" fill="#06121F" font-family="Inter, Arial, sans-serif" font-size="12" font-weight="500" text-anchor="middle"><tspan x="194" dy="0">3</tspan></text>
+<text x="226" y="651" fill="#E6EDF3" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="226" dy="0">Add cache-prefix regression test</tspan></text>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Executive Brief Board preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="0" width="1260" height="722" fill="#EDE7DD"/>
+<text x="72" y="93" fill="#25211B" font-family="Inter, Arial, sans-serif" font-size="39" font-weight="700" text-anchor="start"><tspan x="72" dy="0">Executive Brief Board</tspan></text>
+<text x="76" y="123" fill="#6E6558" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="76" dy="0">A warm one-page decision map for leaders who need the answer and the tradeoffs.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="0" fill="none" stroke="#6E6558" stroke-width="2"/>
+<rect x="74" y="146" width="1020" height="2" rx="0" fill="#6E6558" stroke="#6E6558" stroke-width="0"/>
+<rect x="96" y="206" width="238" height="150" rx="12" fill="#F8F3EA" stroke="#25211B" stroke-width="2"/>
+<text x="215" y="255" fill="#25211B" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="215" dy="0">Build</tspan></text>
+<text x="215" y="299.75" fill="#403B32" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="215" dy="0">highest control</tspan><tspan x="215" dy="21.25">longest path</tspan></text>
+<rect x="378" y="206" width="238" height="150" rx="12" fill="#D2C6B7" stroke="#25211B" stroke-width="2"/>
+<text x="497" y="255" fill="#25211B" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="497" dy="0">Buy</tspan></text>
+<text x="497" y="299.75" fill="#403B32" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="497" dy="0">fastest start</tspan><tspan x="497" dy="21.25">vendor lock-in</tspan></text>
+<rect x="660" y="206" width="238" height="150" rx="12" fill="#F8F3EA" stroke="#25211B" stroke-width="2"/>
+<text x="779" y="255" fill="#25211B" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="779" dy="0">Partner</tspan></text>
+<text x="779" y="299.75" fill="#403B32" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="779" dy="0">shared risk</tspan><tspan x="779" dy="21.25">unclear ownership</tspan></text>
+<rect x="954" y="206" width="150" height="150" rx="0" fill="#25211B" stroke="#25211B" stroke-width="0"/>
+<text x="1029" y="252.75" fill="#F8F3EA" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="1029" dy="0">Choice</tspan></text>
+<text x="1029" y="307.75" fill="#F8F3EA" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" text-anchor="middle"><tspan x="1029" dy="0">Buy</tspan></text>
+<rect x="96" y="414" width="1008" height="112" rx="8.96" fill="#F8F3EA" stroke="#25211B" stroke-width="2"/>
+<text x="130" y="457" fill="#25211B" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="130" dy="0">Confidence</tspan></text>
+<text x="410" y="457" fill="#25211B" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="410" dy="0">Risk</tspan></text>
+<text x="690" y="457" fill="#25211B" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="690" dy="0">Next step</tspan></text>
+<text x="130" y="499" fill="#403B32" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="130" dy="0">High for MVP</tspan></text>
+<text x="410" y="499" fill="#403B32" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="410" dy="0">Review export limits</tspan></text>
+<text x="690" y="499" fill="#403B32" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="690" dy="0">Negotiate escape hatch</tspan></text>
+<rect x="166" y="574" width="868" height="50" rx="0" fill="#403B32" stroke="#403B32" stroke-width="0"/>
+<text x="600" y="605.375" fill="#F8F3EA" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="600" dy="0">Recommendation: buy the canvas layer, invest engineering effort in agent quality.</tspan></text>
+</svg>

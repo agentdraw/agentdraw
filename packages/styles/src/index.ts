@@ -79,14 +79,17 @@ export const styles: AgentDrawStyle[] = [
   style("system-formal", "System Formal", "restrained", "high", "product diagram, square, Helvetica, low ornament", "#FFFFFF", "#172033", "#F7F9FC", "#2563EB", "#D8E5FF", "#64748B"),
   style("boardroom", "Boardroom", "restrained", "high", "consulting slide, precise, quiet professional", "#FFFFFF", "#182230", "#F8FAFC", "#4053D6", "#E7EEF8", "#667085"),
   style("blueprint-formal", "Blueprint Formal", "restrained", "high", "technical diagram, blue ink, structured", "#F8FBFF", "#163B68", "#FFFFFF", "#0B63CE", "#DBEAFE", "#5B708A"),
+  style("runtime-doc", "Runtime Doc", "restrained", "high", "warm technical document, TOC rail, callouts", "#FBFAF7", "#202124", "#FFFFFF", "#275CAD", "#F4F1EA", "#626A73"),
+  style("slate-notes", "Slate Notes", "restrained", "high", "clean spec notes, slate panels, calm accents", "#FFFFFF", "#334155", "#F8FAFC", "#6B8CAE", "#E2E8F0", "#64748B"),
+  style("manual-cream", "Manual Cream", "restrained", "high", "retro manual, cream paper, dark ruled diagrams", "#EDE8DC", "#2C2416", "#F5F1E8", "#B85C38", "#E8DCC8", "#5A4A38"),
   style("avocado-press", "Avocado Press", "restrained", "medium", "clean duotone, white with blue and lime", "#FFFFFF", "#0055A4", "#F4FAEE", "#0055A4", "#DCF4A2", "#1A1A1A"),
   style("grove", "Grove", "restrained", "high", "editorial, grounded, parchment and forest green", "#E8E4D6", "#192B1B", "#F4EFE2", "#192B1B", "#C8524A", "#766C58"),
   style("jade-lens", "Jade Lens", "restrained", "high", "calm, harmonious, minimal green", "#F5F1EE", "#1E2421", "#FFFFFF", "#2BA483", "#D9ECE5", "#6D7771"),
   style("long-table", "Long Table", "restrained", "medium", "warm, rustic, single rust ink, menu like", "#FAF1E2", "#B53D2A", "#FFF8EE", "#B53D2A", "#E8C4AF", "#5B3A2E"),
-  style("macchiato", "Macchiato", "restrained", "high", "warm monochrome, almond and espresso, quiet", "#EDE7DD", "#25211B", "#F8F3EA", "#6E6558", "#D2C6B7", "#403B32"),
-  style("monochrome", "Monochrome", "restrained", "high", "quiet, minimal, text first, no accent", "#FAFADF", "#1A1A16", "#FFFFFF", "#5E5E54", "#E7E7C8", "#3D3D36"),
+  style("espresso-paper", "Espresso Paper", "restrained", "high", "warm executive paper, almond and espresso, premium", "#EDE7DD", "#25211B", "#F8F3EA", "#6E6558", "#D2C6B7", "#403B32"),
+  style("inkline", "Inkline", "restrained", "high", "quiet, minimal, text first, no chromatic accent", "#FAFADF", "#1A1A16", "#FFFFFF", "#5E5E54", "#E7E7C8", "#3D3D36"),
   style("papier-bleu", "Papier Bleu", "restrained", "medium", "Matisse calm, artful, airy", "#FAF3EB", "#1A3C8F", "#FFFFFF", "#72D0E9", "#1A3C8F", "#6D7FA6"),
-  style("reading-room", "Reading Room", "restrained", "high", "quiet, literary, restrained, institutional", "#F6EBD8", "#2A231C", "#FFF7EA", "#DE916A", "#D6C7CC", "#6C5C4B"),
+  style("archive-shelf", "Archive Shelf", "restrained", "high", "quiet, literary, catalog cards, institutional", "#F6EBD8", "#2A231C", "#FFF7EA", "#DE916A", "#D6C7CC", "#6C5C4B"),
   style("salmon-stamp", "Salmon Stamp", "restrained", "low", "clean stamp poster, white with salmon and green", "#FFFFFF", "#1A1A1A", "#FFF3F0", "#F0AE9E", "#049550", "#35483C"),
   style("apricot-arc", "Apricot Arc", "balanced", "medium", "warm, retro, geometric, friendly", "#FFF8EE", "#261B14", "#FFFFFF", "#F69834", "#F9C2BD", "#82501B"),
   style("berry-pop", "Berry Pop", "balanced", "medium", "fruity, fresh, white with raspberry and periwinkle", "#FFFFFF", "#171717", "#F8F3F7", "#9E2B50", "#C7D2F0", "#565A88"),
@@ -101,6 +104,8 @@ export const styles: AgentDrawStyle[] = [
   style("pin-and-paper", "Pin & Paper", "balanced", "medium", "clean, graphic, white with yellow and blue pop", "#FFFFFF", "#161616", "#FFFBE1", "#2A3C99", "#F1E84E", "#576196"),
   style("raw-grid", "Raw Grid", "balanced", "medium", "system native, sharp, digital brutalism", "#FFFFFF", "#0A0A0A", "#F8F8F8", "#0A0A0A", "#F2D4CF", "#5B5B5B"),
   style("riptide-cobalt", "Riptide Cobalt", "balanced", "medium", "bold poster, low density, high impact", "#FDF0E0", "#1A2240", "#FFFFFF", "#375DFE", "#DCE4FF", "#6D5A45"),
+  style("incident-dark", "Incident Dark", "balanced", "high", "dark operational report, RCA, timeline evidence", "#0D1117", "#E6EDF3", "#161B22", "#58A6FF", "#1C2330", "#9AA7B4"),
+  style("soft-pop", "Soft Pop", "balanced", "medium", "friendly product board, teal and yellow, approachable", "#EFF1F5", "#2D3748", "#FFFFFF", "#73D1C8", "#FCD34D", "#5D6D7E"),
   style("soft-editorial", "Soft Editorial", "balanced", "medium", "warm magazine, soft pastels, gentle", "#ECE9DC", "#202018", "#FFFFFF", "#E2A8CE", "#C9DA4F", "#8A786A"),
   style("violet-marker", "Violet Marker", "balanced", "low", "highlighter, white with violet and lime, modern", "#FFFFFF", "#171717", "#F8F4FF", "#C5A1FF", "#CFEE30", "#5E4A88"),
   style("block-frame", "BlockFrame", "bold", "low", "maximalist, candy, playful, sticker book", "#FFFDF5", "#000000", "#FFFFFF", "#FE90E8", "#C0F7FE", "#FCC715"),
@@ -110,6 +115,7 @@ export const styles: AgentDrawStyle[] = [
   style("crayon-stack", "Crayon Stack", "bold", "low", "primary crayon brights, loud, fun", "#FFFFFF", "#151515", "#FFF3EC", "#FF472B", "#D3FE79", "#2F65FF"),
   style("grove-block", "Grove Block", "bold", "medium", "brand forward, flat, confident green", "#F7F1EC", "#17211A", "#FFFFFF", "#008248", "#F6BDDA", "#FCC715"),
   style("mint-brut", "Mint Brut", "bold", "low", "candy, friendly, app like", "#D0FDE4", "#000000", "#FFFFFF", "#F888C8", "#A7E7FF", "#6DD89E"),
+  style("neon-grid", "Neon Grid", "bold", "medium", "dark cybernetic grid, cyan rails, magenta exceptions", "#051423", "#D9FBFF", "#071B2C", "#00F2FF", "#FF4FD8", "#235064"),
   style("neo-grid-bold", "Neo-Grid Bold", "bold", "medium", "editorial grid, bold, structured", "#F5F4EF", "#0A0A0A", "#FFFFFF", "#0A0A0A", "#E6FF3D", "#A9A9A1"),
   style("riso-brut", "Riso Brut", "bold", "medium", "neo brutalist editorial, confident, designed", "#EFE9D9", "#1E1B16", "#FFF8E8", "#1F8A4C", "#F06CA8", "#E85A1F"),
   style("specimen-bold", "Specimen Bold", "bold", "low", "type specimen, graphic, loud", "#F3F3F3", "#2E302E", "#FFFFFF", "#3EC06A", "#FBEF4A", "#8B8F87"),
@@ -186,6 +192,7 @@ export function getDesignContract(styleOrId: AgentDrawStyle | string): DesignCon
       style.palette.accent3,
       style.palette.muted,
       ...neutralContractColors(style),
+      ...semanticContractColors(style),
       "#FFFFFF",
       "#000000",
       "transparent",
@@ -195,7 +202,7 @@ export function getDesignContract(styleOrId: AgentDrawStyle | string): DesignCon
       titlePx: playful ? [36, 54] : formal ? [34, 44] : [32, 46],
       headingPx: playful ? [20, 30] : formal ? [20, 26] : [19, 28],
       bodyPx: playful ? [15, 20] : formal ? [15, 19] : [15, 19],
-      maxTypeSizesPerBoard: formal ? 4 : 5,
+      maxTypeSizesPerBoard: ["runtime-doc", "incident-dark"].includes(style.id) ? 8 : formal ? 4 : 5,
     },
     geometry: {
       roughness: profile.roughness === 0 ? [0, 0] : [0, 2],
@@ -450,6 +457,51 @@ function neutralContractColors(style: AgentDrawStyle) {
     "#475569",
     "#EAF1FF",
   ];
+}
+
+function semanticContractColors(style: AgentDrawStyle) {
+  if (style.id === "runtime-doc") {
+    return [
+      "#E2DFD8",
+      "#F2EFE8",
+      "#E8EEFB",
+      "#C9D6EE",
+      "#4C545F",
+      "#1E7B58",
+      "#E7F6EF",
+      "#946200",
+      "#FFF3D8",
+      "#CDD9F0",
+      "#F5F7FC",
+    ];
+  }
+  if (style.id === "incident-dark") {
+    return [
+      "#2A3340",
+      "#1D3350",
+      "#CFE6FF",
+      "#F85149",
+      "#3FB950",
+      "#D29922",
+      "#BC8CFF",
+      "#3A1D1D",
+      "#5C2B2B",
+      "#FF9B94",
+      "#0A0E14",
+      "#7EE787",
+      "#06121F",
+    ];
+  }
+  if (style.id === "slate-notes") {
+    return ["#CBD5E1", "#D4E1EE", "#D5E8DC", "#73A78D", "#F0E0D6", "#CB9B7A"];
+  }
+  if (style.id === "soft-pop") {
+    return ["#DCE2EA", "#566573"];
+  }
+  if (style.id === "neon-grid") {
+    return ["#FF4FD8", "#C77DFF", "#7CE38B"];
+  }
+  return [];
 }
 
 function normalizeColor(value: string) {

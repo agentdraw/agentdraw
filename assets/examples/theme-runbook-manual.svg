@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Repair Runbook preview">
+<defs>
+<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
+<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
+</marker>
+</defs>
+<rect x="8" y="0" width="1260" height="722" fill="#EDE8DC"/>
+<text x="72" y="94" fill="#2C2416" font-family="Inter, Arial, sans-serif" font-size="40" font-weight="700" text-anchor="start"><tspan x="72" dy="0">Repair Runbook</tspan></text>
+<text x="76" y="127" fill="#5A4A38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="76" dy="0">A printed-manual style for repeatable checks, fixes, and release procedures.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="0" fill="none" stroke="#2C2416" stroke-width="3"/>
+<rect x="92" y="164" width="1002" height="48" rx="0" fill="#2C2416" stroke="#2C2416" stroke-width="0"/>
+<text x="591" y="193" fill="#F5F1E8" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="591" dy="0">SYMPTOM / CHECK / FIX / OWNER</tspan></text>
+<rect x="92" y="212" width="1002" height="76" rx="0" fill="#E8DCC8" stroke="#2C2416" stroke-width="2"/>
+<rect x="118" y="230" width="44" height="40" rx="0" fill="#2C2416" stroke="#2C2416" stroke-width="0"/>
+<text x="140" y="253.25" fill="#F5F1E8" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="140" dy="0">01</tspan></text>
+<text x="206" y="256" fill="#2C2416" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="206" dy="0">Text overflow</tspan></text>
+<text x="456" y="255" fill="#5A4A38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="456" dy="0">validate</tspan></text>
+<text x="662" y="255" fill="#2C2416" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="662" dy="0">widen or wrap</tspan></text>
+<text x="922" y="255" fill="#5A4A38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="922" dy="0">Design</tspan></text>
+<rect x="92" y="288" width="1002" height="76" rx="0" fill="#F5F1E8" stroke="#2C2416" stroke-width="2"/>
+<rect x="118" y="306" width="44" height="40" rx="0" fill="#B85C38" stroke="#B85C38" stroke-width="0"/>
+<text x="140" y="329.25" fill="#F5F1E8" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="140" dy="0">02</tspan></text>
+<text x="206" y="332" fill="#2C2416" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="206" dy="0">Odd arrowhead</tspan></text>
+<text x="456" y="331" fill="#5A4A38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="456" dy="0">inspect marker</tspan></text>
+<text x="662" y="331" fill="#2C2416" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="662" dy="0">use plain line</tspan></text>
+<text x="922" y="331" fill="#5A4A38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="922" dy="0">Tools</tspan></text>
+<rect x="92" y="364" width="1002" height="76" rx="0" fill="#E8DCC8" stroke="#2C2416" stroke-width="2"/>
+<rect x="118" y="382" width="44" height="40" rx="0" fill="#2C2416" stroke="#2C2416" stroke-width="0"/>
+<text x="140" y="405.25" fill="#F5F1E8" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="140" dy="0">03</tspan></text>
+<text x="206" y="408" fill="#2C2416" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="206" dy="0">Off-grid cards</tspan></text>
+<text x="456" y="407" fill="#5A4A38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="456" dy="0">quality report</tspan></text>
+<text x="662" y="407" fill="#2C2416" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="662" dy="0">snap columns</tspan></text>
+<text x="922" y="407" fill="#5A4A38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="922" dy="0">Agent</tspan></text>
+<rect x="92" y="440" width="1002" height="76" rx="0" fill="#F5F1E8" stroke="#2C2416" stroke-width="2"/>
+<rect x="118" y="458" width="44" height="40" rx="0" fill="#2C2416" stroke="#2C2416" stroke-width="0"/>
+<text x="140" y="481.25" fill="#F5F1E8" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="140" dy="0">04</tspan></text>
+<text x="206" y="484" fill="#2C2416" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="206" dy="0">Bad preview</tspan></text>
+<text x="456" y="483" fill="#5A4A38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="456" dy="0">export PNG</tspan></text>
+<text x="662" y="483" fill="#2C2416" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="662" dy="0">revise SVG</tspan></text>
+<text x="922" y="483" fill="#5A4A38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="922" dy="0">Review</tspan></text>
+<rect x="790" y="548" width="250" height="50" rx="0" fill="#F5F1E8" stroke="#B85C38" stroke-width="3"/>
+<text x="915" y="578.375" fill="#B85C38" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="915" dy="0">Run before publish</tspan></text>
+</svg>
