@@ -28,6 +28,10 @@ Use poster slabs, stencil-like labels, hard shadows, offset cards, and saturated
 
 Best for expressive 4-step flows, campaign maps, and creative pipelines. Assign each accent to a role.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid small text on saturated magenta/orange and avoid delicate thin-line formal diagrams.

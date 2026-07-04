@@ -28,6 +28,10 @@ Use paper cards, small blue pin badges, yellow highlighter strips, and simple ar
 
 Works for kanban-like flows, note clusters, and review boards. Use yellow to highlight decisions, not every note.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid noisy sticky-note walls and low-contrast yellow text.

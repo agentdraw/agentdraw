@@ -14,7 +14,7 @@ Use for modern editorial diagrams, product systems, architecture summaries, and 
 
 ## Palette
 
-Canvas `#F5F4EF`, ink black, surface white, neon lime `#E6FF3D`, muted gray `#A9A9A1`.
+Canvas `#F5F4EF`, ink `#0A0A0A`, surface `#FFFFFF`, neon lime `#E6FF3D`, muted gray `#A9A9A1`.
 
 ## Typography
 

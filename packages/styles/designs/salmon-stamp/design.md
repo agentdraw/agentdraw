@@ -33,6 +33,10 @@ Use stamp-like badges, bordered cards, small green verification marks, and simpl
 
 Good for four-step guides, onboarding notes, and small system explainers. Use salmon as a background mark, green as the action or success mark.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid using salmon and green equally everywhere; pick one dominant accent and one punctuation accent.

@@ -128,10 +128,12 @@ engineering problems:
 - 38 bundled styles, including formal diagram styles and palettes adapted from
   `beautiful-feishu-whiteboard`.
 - CLI for opening and validating scenes.
+- Machine-readable design contracts for palette, typography, geometry, spacing, connector rules,
+  and style-specific avoid rules.
 - Local HTTP API for loading and saving the current board.
 - Export to JSON, SVG, and PNG.
-- Scene validation for text overlap, shape overlap, vertical centering, connector endpoints, and
-  connectors crossing text.
+- Scene validation for text overlap, shape overlap, vertical centering, connector endpoints,
+  connectors crossing text, and style-contract drift.
 
 ## Quick Start
 
@@ -203,13 +205,16 @@ Validate a generated scene:
 ```bash
 pnpm validate:scene examples/complex-agentdraw-workbench.agentdraw.json
 pnpm agentdraw validate examples/complex-agentdraw-workbench.agentdraw.json --format json
+pnpm agentdraw validate examples/complex-agentdraw-workbench.agentdraw.json --style system-formal --format json
+pnpm agentdraw quality examples/complex-agentdraw-workbench.agentdraw.json --style system-formal --format json
 ```
 
 The validator returns a non-zero exit code for layout errors. Warnings are printed but do not fail
-the command. A typical agent loop should be:
+the command. Style-contract drift is reported as warnings so agents can repair weak outputs without
+blocking intentionally custom boards. A typical agent loop should be:
 
 ```text
-generate scene -> validate scene -> repair reported element ids -> open board
+choose style -> load design guide + contract -> generate scene -> validate scene -> score quality -> repair reported element ids -> open board
 ```
 
 ## Example Sources
@@ -282,6 +287,14 @@ Styles are intended to become design systems, not simple palette swaps. See
 [`docs/STYLE_SYSTEM.md`](./docs/STYLE_SYSTEM.md) for the target architecture and
 `packages/styles/designs/*/design.md` for agent-readable style rules.
 
+Agents should load both the narrative guide and the machine-readable contract:
+
+```bash
+agentdraw guide style system-formal --format text
+agentdraw guide contract system-formal --json
+agentdraw validate-style system-formal --json
+```
+
 Formal styles:
 
 - `system-formal`
@@ -311,9 +324,22 @@ the browser opens:
 - text groups that are visibly off-center inside short containers;
 - connector endpoints that are far from the nearest shape;
 - connectors that cross text bounding boxes.
+- colors, roughness, stroke widths, or type sizes that drift from the selected design contract.
 
 It is not a full visual renderer. For critical diagrams, use it as a first pass, then inspect the
 board in the browser.
+
+## Quality Scoring
+
+`agentdraw quality` turns the first rubric into a machine-readable preflight score:
+
+```bash
+agentdraw quality examples/complex-agentdraw-workbench.agentdraw.json --style system-formal --json
+```
+
+It scores task fit, structure, visual design, readability, connector quality, and validation/editability
+on a 24-point scale. The task-fit dimension is marked as review-required because the CLI cannot know
+the user's original prompt; use the score as a guardrail, not as a replacement for prompt-aware review.
 
 ## Development
 
@@ -331,6 +357,8 @@ for version-matched guidance:
 ```bash
 agentdraw guide styles --json
 agentdraw guide style system-formal --format text
+agentdraw guide contract system-formal --json
+agentdraw quality .agentdraw/board.agentdraw.json --style system-formal --json
 agentdraw guide quality --format text
 ```
 
@@ -353,7 +381,7 @@ apps/web/          browser editor
 packages/cli/      agentdraw command
 packages/server/   local HTTP server
 packages/scene/    scene IO and validation
-packages/styles/   style catalog and render profiles
+packages/styles/   style catalog, render profiles, and design contracts
 examples/          sample scenes
 scripts/           repo utility scripts
 ```

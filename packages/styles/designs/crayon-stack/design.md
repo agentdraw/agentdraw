@@ -28,6 +28,10 @@ Use stacked cards, large colored labels, hard offset shadows, and thick black ou
 
 Best for 3-part explanations, teaching boards, and playful process maps. Use one primary color per stage.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid using red, lime, and blue in every card; avoid small text on bright fills.

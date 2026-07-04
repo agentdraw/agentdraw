@@ -28,6 +28,10 @@ Use cut-paper rectangles, color-block headers, small circular counters, and clea
 
 Good for layered architecture, roadmaps, and comparisons. Keep blue and green in separate roles.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid too many small decorations, roughness, and saturated full-canvas blocks.

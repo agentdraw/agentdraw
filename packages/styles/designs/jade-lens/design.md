@@ -33,6 +33,10 @@ Prefer border-light cards, jade side rails, lens-like circular counters, and qui
 
 Use radial maps, service blueprints, or soft comparison matrices. Keep generous margins and avoid filling the canvas edge-to-edge.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid saturated multi-color blocks, heavy shadows, and dense labels on colored fills.

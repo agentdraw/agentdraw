@@ -28,6 +28,10 @@ Use large cobalt feature panels, white quote cards, oversized numerals, and limi
 
 Best as a feature block plus supporting cards, or a 2x2 editorial grid. Keep density low.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid small cobalt text, lots of equal-size cards, and technical bus diagrams.

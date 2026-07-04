@@ -28,6 +28,10 @@ Use court lanes, route arrows, numbered plays, score strips, and compact cards. 
 
 Works as a tactical map or play sequence. Route arrows can be energetic but must not cross labels.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid dense prose, purely decorative play lines, and more than three route colors.

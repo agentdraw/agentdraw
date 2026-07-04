@@ -28,6 +28,50 @@ export type AgentDrawStyle = {
   };
 };
 
+export type DesignContract = {
+  id: string;
+  name: string;
+  version: 1;
+  summary: string;
+  level: StyleLevel;
+  formality: StyleFormality;
+  palette: AgentDrawStyle["palette"];
+  allowedColors: string[];
+  typography: {
+    titlePx: [number, number];
+    headingPx: [number, number];
+    bodyPx: [number, number];
+    maxTypeSizesPerBoard: number;
+  };
+  geometry: {
+    roughness: [number, number];
+    strokeWidth: [number, number];
+    cornerRadiusPx: [number, number];
+    preferredShapes: string[];
+  };
+  layout: {
+    gridPx: number;
+    minMajorGapPx: number;
+    minConnectorTextGapPx: number;
+    density: "low" | "medium" | "high";
+  };
+  connectors: {
+    preferred: StyleRenderProfile["arrowType"];
+    minStrokeWidth: number;
+    avoidTextCrossing: boolean;
+    avoidHeaderCrossing: boolean;
+  };
+  agentRules: string[];
+  avoid: string[];
+};
+
+export type DesignContractIssue = {
+  severity: "error" | "warning";
+  code: string;
+  message: string;
+  elementIds?: string[];
+};
+
 export const defaultStyleId = "system-formal";
 
 export const styles: AgentDrawStyle[] = [
@@ -119,11 +163,288 @@ export function getStyleRenderProfile(style: AgentDrawStyle): StyleRenderProfile
   };
 }
 
+export function getDesignContract(styleOrId: AgentDrawStyle | string): DesignContract {
+  const style = typeof styleOrId === "string" ? getStyleById(styleOrId) : styleOrId;
+  const profile = getStyleRenderProfile(style);
+  const formal = style.formality === "high";
+  const playful = style.formality === "low";
+  return {
+    id: style.id,
+    name: style.name,
+    version: 1,
+    summary: style.vibe,
+    level: style.level,
+    formality: style.formality,
+    palette: style.palette,
+    allowedColors: uniqueColors([
+      style.palette.canvas,
+      style.palette.ink,
+      style.palette.panel,
+      style.palette.accent,
+      style.palette.accent2,
+      style.palette.accent3,
+      style.palette.muted,
+      ...semanticContractColors(style),
+      "#FFFFFF",
+      "#000000",
+      "transparent",
+    ]),
+    typography: {
+      titlePx: playful ? [36, 54] : formal ? [30, 42] : [32, 46],
+      headingPx: playful ? [20, 30] : formal ? [18, 24] : [19, 28],
+      bodyPx: playful ? [15, 20] : formal ? [14, 18] : [15, 19],
+      maxTypeSizesPerBoard: formal ? 4 : 5,
+    },
+    geometry: {
+      roughness: profile.roughness === 0 ? [0, 0] : [0, 2],
+      strokeWidth: formal ? [1, 3] : playful ? [2, 5] : [1, 4],
+      cornerRadiusPx: profile.roundness === "sharp" ? [0, 6] : playful ? [6, 16] : [4, 12],
+      preferredShapes: formal
+        ? ["rectangle", "diamond", "line", "arrow"]
+        : ["rectangle", "ellipse", "diamond", "line", "arrow"],
+    },
+    layout: {
+      gridPx: formal ? 8 : 6,
+      minMajorGapPx: formal ? 32 : 24,
+      minConnectorTextGapPx: 16,
+      density: style.level === "restrained" ? "medium" : style.level === "bold" ? "low" : "medium",
+    },
+    connectors: {
+      preferred: profile.arrowType,
+      minStrokeWidth: 2,
+      avoidTextCrossing: true,
+      avoidHeaderCrossing: true,
+    },
+    agentRules: [
+      "Use the design contract as a constraint, not inspiration.",
+      "The selected style must change layout, typography, geometry, components, and connector treatment.",
+      "Use only contract palette colors unless the user explicitly asks for a custom brand color.",
+      "Keep every label editable and contained inside its visual region.",
+      "Run agentdraw validate before opening or delivering the board.",
+    ],
+    avoid: [
+      "palette-only restyling",
+      "uncontained or clipped text",
+      "connectors crossing labels, titles, or table headers",
+      "unmarked decorative overlaps",
+      formal ? "hand-drawn roughness" : "generic default rectangles",
+    ],
+  };
+}
+
+export function validateDesignGuide(
+  styleOrId: AgentDrawStyle | string,
+  markdown: string,
+): DesignContractIssue[] {
+  const style = typeof styleOrId === "string" ? getStyleById(styleOrId) : styleOrId;
+  const issues: DesignContractIssue[] = [];
+  const normalized = markdown.toLowerCase();
+  const frontmatterName = markdown.match(/^---[\s\S]*?\nname:\s*(.+)$/m)?.[1]?.trim();
+
+  if (!normalized.includes(`# ${style.name.toLowerCase()}`)) {
+    issues.push({
+      severity: "warning",
+      code: "missing-style-title",
+      message: `Guide should include an H1 matching the style name: ${style.name}.`,
+    });
+  }
+  if (frontmatterName && frontmatterName.replace(/^["']|["']$/g, "") !== style.name) {
+    issues.push({
+      severity: "warning",
+      code: "frontmatter-name-mismatch",
+      message: `Frontmatter name "${frontmatterName}" does not match catalog name "${style.name}".`,
+    });
+  }
+
+  const requiredSections = [
+    ["palette", "Palette"],
+    ["typography", "Typography"],
+    ["layout", "Layout"],
+    ["avoid", "Avoid"],
+  ] as const;
+  for (const [needle, label] of requiredSections) {
+    if (!normalized.includes(`## ${needle}`)) {
+      issues.push({
+        severity: "error",
+        code: "missing-required-section",
+        message: `Design guide must include a "${label}" section.`,
+      });
+    }
+  }
+  if (!normalized.includes("## components") && !normalized.includes("components")) {
+    issues.push({
+      severity: "warning",
+      code: "missing-components-guidance",
+      message: "Design guide should define reusable component treatments, not only colors.",
+    });
+  }
+  if (!normalized.includes("connector")) {
+    issues.push({
+      severity: "warning",
+      code: "missing-connector-guidance",
+      message: "Design guide should explain connector style and routing expectations.",
+    });
+  }
+
+  const paletteValues = Object.values(style.palette).map((value) => value.toLowerCase());
+  const mentionedColors = paletteValues.filter((color) => normalized.includes(color.toLowerCase()));
+  if (mentionedColors.length < Math.min(4, paletteValues.length)) {
+    issues.push({
+      severity: "warning",
+      code: "palette-under-specified",
+      message: "Design guide should mention the main palette colors from the catalog.",
+    });
+  }
+
+  return issues;
+}
+
+export function validateSceneAgainstDesignContract(
+  scene: { styleId?: string; elements?: unknown[] },
+  styleOrId?: AgentDrawStyle | string,
+): DesignContractIssue[] {
+  const style = styleOrId
+    ? typeof styleOrId === "string"
+      ? getStyleById(styleOrId)
+      : styleOrId
+    : getStyleById(scene.styleId);
+  const contract = getDesignContract(style);
+  const allowed = new Set(contract.allowedColors.map(normalizeColor));
+  const issues: DesignContractIssue[] = [];
+  const elements = Array.isArray(scene.elements) ? scene.elements.filter(isElementRecord) : [];
+  const typeSizes = new Set<number>();
+
+  if (scene.styleId && scene.styleId !== style.id) {
+    issues.push({
+      severity: "warning",
+      code: "style-id-mismatch",
+      message: `Scene styleId is "${scene.styleId}" but validation used "${style.id}".`,
+    });
+  }
+
+  for (const element of elements) {
+    const colors = [
+      ["strokeColor", element.strokeColor],
+      ["backgroundColor", element.backgroundColor],
+    ] as const;
+    for (const [field, value] of colors) {
+      if (typeof value !== "string" || value === "transparent") {
+        continue;
+      }
+      if (!allowed.has(normalizeColor(value))) {
+        issues.push({
+          severity: "warning",
+          code: "color-outside-contract",
+          message: `${field} "${value}" is outside the ${style.id} design contract palette.`,
+          elementIds: [element.id],
+        });
+      }
+    }
+
+    if (typeof element.roughness === "number") {
+      const [min, max] = contract.geometry.roughness;
+      if (element.roughness < min || element.roughness > max) {
+        issues.push({
+          severity: "warning",
+          code: "roughness-outside-contract",
+          message: `Element roughness ${element.roughness} is outside the contract range ${min}-${max}.`,
+          elementIds: [element.id],
+        });
+      }
+    }
+    if (typeof element.strokeWidth === "number" && !isFilledBandWithoutStroke(element)) {
+      const [min, max] = contract.geometry.strokeWidth;
+      if (element.strokeWidth < min || element.strokeWidth > max) {
+        issues.push({
+          severity: "warning",
+          code: "stroke-width-outside-contract",
+          message: `Element strokeWidth ${element.strokeWidth} is outside the contract range ${min}-${max}.`,
+          elementIds: [element.id],
+        });
+      }
+    }
+    if (element.type === "text" && typeof element.fontSize === "number") {
+      typeSizes.add(element.fontSize);
+      const [min, max] = contract.typography.bodyPx;
+      const [headingMin, headingMax] = contract.typography.headingPx;
+      const [titleMin, titleMax] = contract.typography.titlePx;
+      const inBodyRange = element.fontSize >= min && element.fontSize <= max;
+      const inHeadingRange = element.fontSize >= headingMin && element.fontSize <= headingMax;
+      const inTitleRange = element.fontSize >= titleMin && element.fontSize <= titleMax;
+      if (!inBodyRange && !inHeadingRange && !inTitleRange) {
+        issues.push({
+          severity: "warning",
+          code: "font-size-outside-contract",
+          message: `Text fontSize ${element.fontSize}px is outside the expected body/title ranges.`,
+          elementIds: [element.id],
+        });
+      }
+    }
+  }
+
+  if (typeSizes.size > contract.typography.maxTypeSizesPerBoard) {
+    issues.push({
+      severity: "warning",
+      code: "too-many-type-sizes",
+      message: `Board uses ${typeSizes.size} text sizes; contract allows at most ${contract.typography.maxTypeSizesPerBoard}.`,
+    });
+  }
+
+  return issues;
+}
+
 function group(level: StyleLevel) {
   return {
     level,
     styles: getStylesByLevel(level),
   };
+}
+
+function uniqueColors(values: string[]) {
+  return Array.from(new Set(values.map((value) => value.toUpperCase())));
+}
+
+function semanticContractColors(style: AgentDrawStyle) {
+  if (style.formality !== "high") {
+    return [];
+  }
+  return [
+    "#CBD5E1",
+    "#E2E8F0",
+    "#F8FAFC",
+    "#475569",
+    "#EAF1FF",
+    "#DCFCE7",
+    "#15803D",
+    "#FDE68A",
+    "#B45309",
+    "#FFF7ED",
+    "#F97316",
+    "#9A3412",
+    "#FFE4E6",
+    "#EDE9FE",
+  ];
+}
+
+function normalizeColor(value: string) {
+  return value.trim().toUpperCase();
+}
+
+function isElementRecord(element: unknown): element is Record<string, unknown> & { id: string } {
+  return Boolean(
+    element &&
+      typeof element === "object" &&
+      typeof (element as { id?: unknown }).id === "string" &&
+      !(element as { isDeleted?: unknown }).isDeleted,
+  );
+}
+
+function isFilledBandWithoutStroke(element: Record<string, unknown>) {
+  return (
+    typeof element.backgroundColor === "string" &&
+    element.backgroundColor !== "transparent" &&
+    (element.strokeColor === "transparent" || element.strokeWidth === 0)
+  );
 }
 
 function style(

@@ -37,6 +37,10 @@ Use this style for customer journeys, onboarding maps, activation funnels, and e
 
 Alternate cards above and below the band. Keep the path readable and route arrows between card edges, not through body text.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 - hard brutalist shadows;

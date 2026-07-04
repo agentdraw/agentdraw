@@ -28,6 +28,10 @@ Use slab panels, thick black borders, rectangular status chips, and strong strai
 
 Best for dashboards, system maps, and 4-6 block operating models. Let lime be the canvas; avoid filling every card with lime.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid low-contrast olive body text, gradients, and delicate thin-line aesthetics.

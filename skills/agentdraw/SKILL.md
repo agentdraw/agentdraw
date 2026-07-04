@@ -16,6 +16,7 @@ npx @aidraw/agentdraw@latest --help
 npx @aidraw/agentdraw@latest guide --format text
 npx @aidraw/agentdraw@latest guide quality --format text
 npx @aidraw/agentdraw@latest guide styles --json
+npx @aidraw/agentdraw@latest guide contract system-formal --json
 ```
 
 For repeated use:
@@ -29,10 +30,10 @@ agentdraw doctor --json
 
 1. Run `agentdraw guide` or `npx @aidraw/agentdraw@latest guide` for the current workflow.
 2. Run `agentdraw guide styles --json` and choose one style id by audience, density, and tone.
-3. Run `agentdraw guide style <style-id> --format text` and follow that design system. Do not use styles as palette swaps.
+3. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the design guide and treat the contract as hard constraints.
 4. Create or patch a `.agentdraw.json` scene using editable primitives.
-5. Run `agentdraw validate <file> --format json` and repair reported element ids until validation passes.
-6. Run `agentdraw guide quality --format text` and self-check the board.
+5. Run `agentdraw validate <file> --style <style-id> --format json` and repair reported element ids until validation passes.
+6. Run `agentdraw quality <file> --style <style-id> --format json`. Use it as preflight, then self-check task fit against the original prompt.
 7. Run `agentdraw open <file> --no-open` and return the printed local URL to the user.
 
 ## Quality Bar
@@ -43,10 +44,12 @@ Before delivering:
 
 - The board has a clear title and reading path.
 - Major sections are grouped into visible regions.
-- The selected style changes layout, typography, spacing, and components, not only colors.
+- The selected style changes layout, typography, spacing, components, connector treatment, and geometry, not only colors.
+- The board follows `agentdraw guide contract <style-id> --json` for palette, type scale, roughness, stroke width, spacing, and avoid rules.
 - Connectors attach to meaningful shapes and avoid crossing labels.
 - Text fits inside containers.
-- `agentdraw validate <file> --format json` reports zero errors.
+- `agentdraw validate <file> --style <style-id> --format json` reports zero errors.
+- `agentdraw quality <file> --style <style-id> --format json` returns `verdict: "pass"` or the remaining weaknesses are intentionally accepted.
 
 If the result looks generic or weak, run `agentdraw guide quality --format text`, choose a better style, and revise before opening.
 
@@ -58,14 +61,19 @@ agentdraw guide quality
 agentdraw guide scene
 agentdraw guide rules
 agentdraw guide style system-formal --format text
+agentdraw guide contract system-formal --json
 agentdraw init .agentdraw/board.agentdraw.json
-agentdraw validate .agentdraw/board.agentdraw.json --format json
+agentdraw validate .agentdraw/board.agentdraw.json --style system-formal --format json
+agentdraw quality .agentdraw/board.agentdraw.json --style system-formal --format json
+agentdraw validate-style system-formal --json
 agentdraw open .agentdraw/board.agentdraw.json --no-open
 ```
 
 ## Hard Rules
 
 - Do not make screenshots when an editable board is expected.
+- Do not use a design style as a palette swap; load its guide and contract before generating.
 - Keep text editable and generously sized.
 - Run validation before opening or delivering the scene.
+- Run quality scoring before opening or delivering the scene; remember task fit still needs prompt-aware review.
 - If the board intentionally uses hard shadows or decorative shapes, mark those elements with `customData.role: "shadow"` or `customData.role: "decoration"`.

@@ -33,6 +33,10 @@ Use library-card panels, catalog rows, annotation strips, and quiet callout boxe
 
 Best for literature reviews, meeting synthesis, research collections, and knowledge maps. Group related ideas into shelves or columns.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid loud badges, high-energy arrows, and crowded sticky-note walls.

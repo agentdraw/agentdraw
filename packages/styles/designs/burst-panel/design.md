@@ -28,6 +28,10 @@ Use large panel blocks, dark dividers, lavender focus cards, and high-contrast s
 
 Works as a dashboard grid, campaign board, or action matrix. Use yellow as the field and white/lavender as readable surfaces.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid small text directly on yellow, gradients, and overly formal thin-line diagrams.

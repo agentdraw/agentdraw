@@ -28,6 +28,10 @@ Use forest header panels, cream cards, rose annotation marks, and quiet dividers
 
 Good for thesis-plus-evidence layouts, research maps, and executive one-pagers. Use rose only as punctuation.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid bright candy accents, roughness, and crowded note walls.

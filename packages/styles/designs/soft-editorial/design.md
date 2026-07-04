@@ -28,6 +28,10 @@ Use magazine panels, soft callouts, rose pull quotes, lime decision markers, and
 
 Best for synthesis, journey maps, and priority boards. Use one large editorial panel plus smaller supporting cards.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid dark heavy borders, high-density technical routes, and too many pastel panels.

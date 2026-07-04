@@ -28,6 +28,10 @@ Use type blocks, numbered specimens, thick rules, green category cards, and yell
 
 Best for taxonomies, comparisons, and concept breakdowns. Let one huge label anchor each region.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid many same-size cards and low-hierarchy paragraph layouts.

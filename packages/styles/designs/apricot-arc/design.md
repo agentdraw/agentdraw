@@ -28,6 +28,10 @@ Use rounded cards, arc-like sequences approximated with stepped rectangles or ci
 
 Good for circular loops, lifecycle maps, and 3-5 stage flows. Keep warm accents large but sparse.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid gradients, tiny ornament, and long text inside orange fills.

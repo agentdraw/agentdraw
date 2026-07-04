@@ -28,6 +28,10 @@ Use poster blocks, red banners, numbered badges, and thick dividers. Corners mos
 
 Works best with one large headline panel and 3-4 supporting blocks. Use red once as the loud element.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid many small cards, subtle gray UI, and multiple competing accent colors.

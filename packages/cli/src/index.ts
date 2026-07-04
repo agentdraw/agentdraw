@@ -8,10 +8,18 @@ import {
   readOrCreateSceneFile,
   readSceneFile,
   validateScene,
+  type AgentDrawScene,
   type SceneValidationIssue,
 } from "@agentdraw/scene";
 import { startAgentDrawServer } from "@agentdraw/server";
-import { styles, styleGroups } from "@agentdraw/styles";
+import {
+  getDesignContract,
+  styles,
+  styleGroups,
+  validateDesignGuide,
+  validateSceneAgainstDesignContract,
+  type DesignContractIssue,
+} from "@agentdraw/styles";
 
 const VERSION = readPackageVersion();
 const DEFAULT_PORT = 3927;
@@ -46,9 +54,19 @@ type InitOptions = GlobalOptions & {
 
 type ValidateOptions = GlobalOptions & {
   filePaths: string[];
+  styleId?: string;
+};
+
+type QualityOptions = GlobalOptions & {
+  filePaths: string[];
+  styleId?: string;
 };
 
 type DoctorOptions = GlobalOptions;
+
+type ValidateStyleOptions = GlobalOptions & {
+  styleIds: string[];
+};
 
 type SchemaOptions = GlobalOptions & {
   commandPath: string[];
@@ -64,7 +82,48 @@ type ValidationSummary = {
   ok: boolean;
   errorCount: number;
   warningCount: number;
-  issues: SceneValidationIssue[];
+  issues: Array<SceneValidationIssue | DesignContractIssue>;
+};
+
+type StyleValidationSummary = {
+  styleId: string;
+  ok: boolean;
+  errorCount: number;
+  warningCount: number;
+  issues: DesignContractIssue[];
+};
+
+type QualityDimensionId =
+  | "task_fit"
+  | "structure"
+  | "visual_design"
+  | "readability"
+  | "connector_quality"
+  | "validation_editability";
+
+type QualityDimensionScore = {
+  id: QualityDimensionId;
+  name: string;
+  score: 1 | 2 | 3 | 4;
+  maxScore: 4;
+  basis: string;
+  issues: string[];
+  needsReview?: boolean;
+};
+
+type QualitySummary = {
+  filePath: string;
+  ok: boolean;
+  verdict: "pass" | "revise" | "fail";
+  score: number;
+  maxScore: 24;
+  minDimensionScore: number;
+  dimensions: QualityDimensionScore[];
+  validation: {
+    errorCount: number;
+    warningCount: number;
+    issues: Array<SceneValidationIssue | DesignContractIssue>;
+  };
 };
 
 type AgentDrawErrorPayload = {
@@ -130,6 +189,12 @@ const main = async () => {
       return;
     case "validate":
       await validateCommand(parseValidateOptions(args, context.globals));
+      return;
+    case "quality":
+      await qualityCommand(parseQualityOptions(args, context.globals));
+      return;
+    case "validate-style":
+      await validateStyleCommand(parseValidateStyleOptions(args, context.globals));
       return;
     case "doctor":
       await doctorCommand(parseDoctorOptions(args, context.globals));
@@ -216,13 +281,13 @@ const validateCommand = async (options: ValidateOptions) => {
   for (const inputPath of options.filePaths) {
     const filePath = resolveScenePath(inputPath, options.cwd);
     const scene = await readSceneFile(filePath);
-    const result = validateScene(scene);
+    const validation = validateSceneWithContract(scene, options.styleId);
     results.push({
       filePath,
-      ok: result.errorCount === 0,
-      errorCount: result.errorCount,
-      warningCount: result.warningCount,
-      issues: result.issues,
+      ok: validation.errorCount === 0,
+      errorCount: validation.errorCount,
+      warningCount: validation.warningCount,
+      issues: validation.issues,
     });
   }
 
@@ -238,6 +303,79 @@ const validateCommand = async (options: ValidateOptions) => {
   };
 
   writeOutput(payload, formatValidationText(results, errorCount, warningCount), options);
+
+  if (errorCount > 0) {
+    process.exitCode = EXIT_GENERAL_ERROR;
+  }
+};
+
+const qualityCommand = async (options: QualityOptions) => {
+  if (options.filePaths.length === 0) {
+    throw new CliError("missing_argument", "Scene file path is required.", {
+      exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Run: agentdraw quality <file...>",
+    });
+  }
+
+  const results: QualitySummary[] = [];
+  for (const inputPath of options.filePaths) {
+    const filePath = resolveScenePath(inputPath, options.cwd);
+    const scene = await readSceneFile(filePath);
+    const validation = validateSceneWithContract(scene, options.styleId);
+    results.push(scoreSceneQuality(filePath, scene, validation));
+  }
+
+  const payload = {
+    ok: results.every((result) => result.ok),
+    command: "quality",
+    fileCount: results.length,
+    passCount: results.filter((result) => result.verdict === "pass").length,
+    reviseCount: results.filter((result) => result.verdict === "revise").length,
+    failCount: results.filter((result) => result.verdict === "fail").length,
+    results,
+  };
+
+  writeOutput(payload, formatQualityText(results), options);
+
+  if (!payload.ok) {
+    process.exitCode = EXIT_GENERAL_ERROR;
+  }
+};
+
+const validateStyleCommand = async (options: ValidateStyleOptions) => {
+  const styleIds = options.styleIds.length > 0 ? options.styleIds : styles.map((style) => style.id);
+  const results: StyleValidationSummary[] = [];
+
+  for (const styleId of styleIds) {
+    const style = styles.find((candidate) => candidate.id === styleId);
+    if (!style) {
+      throw new CliError("unknown_style", `Unknown style id: ${styleId}`, {
+        exitCode: EXIT_USAGE_ERROR,
+        suggestion: "Run: agentdraw guide styles --json",
+        input: { styleId },
+      });
+    }
+    const issues = validateDesignGuide(style, readDesignMarkdown(style.id));
+    results.push({
+      styleId,
+      ok: issues.every((issue) => issue.severity !== "error"),
+      errorCount: issues.filter((issue) => issue.severity === "error").length,
+      warningCount: issues.filter((issue) => issue.severity === "warning").length,
+      issues,
+    });
+  }
+
+  const errorCount = results.reduce((sum, result) => sum + result.errorCount, 0);
+  const warningCount = results.reduce((sum, result) => sum + result.warningCount, 0);
+  const payload = {
+    ok: errorCount === 0,
+    command: "validate-style",
+    styleCount: results.length,
+    errorCount,
+    warningCount,
+    results,
+  };
+  writeOutput(payload, formatStyleValidationText(results, errorCount, warningCount), options);
 
   if (errorCount > 0) {
     process.exitCode = EXIT_GENERAL_ERROR;
@@ -382,11 +520,37 @@ const parseValidateOptions = (
   args: string[],
   globals: GlobalOptions,
 ): ValidateOptions => {
-  const values = parseCommandFlags(args, { booleanFlags: [], valueFlags: [] });
+  const values = parseCommandFlags(args, { booleanFlags: [], valueFlags: ["--style"] });
   assertNoUnknownFlags(values.unknownFlags, "validate");
   return {
     ...globals,
     filePaths: values.positionals,
+    styleId: values.valueFlags["--style"],
+  };
+};
+
+const parseQualityOptions = (
+  args: string[],
+  globals: GlobalOptions,
+): QualityOptions => {
+  const values = parseCommandFlags(args, { booleanFlags: [], valueFlags: ["--style"] });
+  assertNoUnknownFlags(values.unknownFlags, "quality");
+  return {
+    ...globals,
+    filePaths: values.positionals,
+    styleId: values.valueFlags["--style"],
+  };
+};
+
+const parseValidateStyleOptions = (
+  args: string[],
+  globals: GlobalOptions,
+): ValidateStyleOptions => {
+  const values = parseCommandFlags(args, { booleanFlags: [], valueFlags: [] });
+  assertNoUnknownFlags(values.unknownFlags, "validate-style");
+  return {
+    ...globals,
+    styleIds: values.positionals,
   };
 };
 
@@ -547,6 +711,261 @@ const writeOutput = (json: unknown, text: string, options: GlobalOptions) => {
 const outputFormat = (options: GlobalOptions): OutputFormat =>
   options.format ?? (process.stdout.isTTY ? "text" : "json");
 
+const validateSceneWithContract = (scene: AgentDrawScene, styleId?: string) => {
+  const layoutResult = validateScene(scene);
+  const styleIssues = validateSceneAgainstDesignContract(scene, styleId);
+  const styleErrorCount = styleIssues.filter((issue) => issue.severity === "error").length;
+  const styleWarningCount = styleIssues.filter((issue) => issue.severity === "warning").length;
+  return {
+    errorCount: layoutResult.errorCount + styleErrorCount,
+    warningCount: layoutResult.warningCount + styleWarningCount,
+    issues: [...layoutResult.issues, ...styleIssues],
+  };
+};
+
+const scoreSceneQuality = (
+  filePath: string,
+  scene: AgentDrawScene,
+  validation: QualitySummary["validation"],
+): QualitySummary => {
+  const elements = scene.elements.filter(isQualityElement);
+  const textElements = elements.filter((element) => element.type === "text");
+  const shapeElements = elements.filter((element) =>
+    ["rectangle", "diamond", "ellipse"].includes(element.type ?? ""),
+  );
+  const connectorElements = elements.filter((element) =>
+    ["arrow", "line"].includes(element.type ?? ""),
+  );
+  const sectionLikeShapes = shapeElements.filter((element) => {
+    const width = numberValue(element.width);
+    const height = numberValue(element.height);
+    return width >= 280 && height >= 120;
+  });
+  const issueCodes = validation.issues.map((issue) => issue.code);
+  const textIssueCount = countIssueCodes(issueCodes, [
+    "text-box-overflow",
+    "text-container-overflow",
+    "text-overlap",
+    "vertical-centering",
+    "font-size-outside-contract",
+  ]);
+  const hardTextIssueCount = countIssueCodes(issueCodes, [
+    "text-box-overflow",
+    "text-container-overflow",
+    "text-overlap",
+  ]);
+  const connectorIssueCount = countIssueCodes(issueCodes, [
+    "connector-endpoint",
+    "connector-crosses-text",
+  ]);
+  const contractIssueCount = countIssueCodes(issueCodes, [
+    "color-outside-contract",
+    "roughness-outside-contract",
+    "stroke-width-outside-contract",
+    "font-size-outside-contract",
+    "too-many-type-sizes",
+    "style-id-mismatch",
+  ]);
+
+  const dimensions: QualityDimensionScore[] = [
+    {
+      id: "task_fit",
+      name: "Task fit",
+      score: scene.title && textElements.length >= 6 ? 3 : 2,
+      maxScore: 4,
+      basis:
+        "Automatic scoring can only inspect scene content. Compare the board against the user's original prompt before treating this as final.",
+      issues: scene.title ? [] : ["Scene title is missing or empty."],
+      needsReview: true,
+    },
+    scoreStructure(scene, shapeElements.length, connectorElements.length, sectionLikeShapes.length),
+    scoreVisualDesign(scene, contractIssueCount),
+    scoreReadability(textIssueCount, hardTextIssueCount),
+    scoreConnectorQuality(connectorElements.length, shapeElements.length, connectorIssueCount),
+    scoreValidationEditability(scene, validation.errorCount, validation.warningCount),
+  ];
+
+  const score = dimensions.reduce((sum, dimension) => sum + dimension.score, 0);
+  const minDimensionScore = Math.min(...dimensions.map((dimension) => dimension.score));
+  const verdict =
+    validation.errorCount === 0 && score >= 20 && minDimensionScore >= 3
+      ? "pass"
+      : validation.errorCount === 0 && score >= 16
+        ? "revise"
+        : "fail";
+
+  return {
+    filePath,
+    ok: verdict === "pass",
+    verdict,
+    score,
+    maxScore: 24,
+    minDimensionScore,
+    dimensions,
+    validation,
+  };
+};
+
+const scoreStructure = (
+  scene: AgentDrawScene,
+  shapeCount: number,
+  connectorCount: number,
+  sectionLikeCount: number,
+): QualityDimensionScore => {
+  const issues: string[] = [];
+  let score = 1;
+  if (scene.title.trim()) score += 1;
+  else issues.push("Scene title is missing.");
+  if (shapeCount >= 4) score += 1;
+  else issues.push("Board has too few structural shapes.");
+  if (connectorCount >= 1 || sectionLikeCount >= 2) score += 1;
+  else issues.push("Board has no visible connectors or section regions.");
+  if (sectionLikeCount === 0 && shapeCount >= 8) {
+    issues.push("Dense board lacks large section regions.");
+    score = Math.min(score, 3);
+  }
+  return {
+    id: "structure",
+    name: "Structure",
+    score: qualityScore(score),
+    maxScore: 4,
+    basis: `${shapeCount} structural shape(s), ${connectorCount} connector(s), ${sectionLikeCount} section-like region(s).`,
+    issues,
+  };
+};
+
+const scoreVisualDesign = (
+  scene: AgentDrawScene,
+  contractIssueCount: number,
+): QualityDimensionScore => {
+  const issues: string[] = [];
+  let score = 4;
+  if (!scene.styleId) {
+    score = 2;
+    issues.push("Scene has no styleId.");
+  }
+  if (contractIssueCount > 12) {
+    score = Math.min(score, 2);
+    issues.push(`${contractIssueCount} style-contract warnings suggest the style is not being followed.`);
+  } else if (contractIssueCount > 0) {
+    score = Math.min(score, 3);
+    issues.push(`${contractIssueCount} style-contract warning(s) should be reviewed.`);
+  }
+  return {
+    id: "visual_design",
+    name: "Visual design",
+    score: qualityScore(score),
+    maxScore: 4,
+    basis: scene.styleId
+      ? `Scene declares styleId "${scene.styleId}" and has ${contractIssueCount} contract warning(s).`
+      : "No styleId is declared.",
+    issues,
+  };
+};
+
+const scoreReadability = (
+  textIssueCount: number,
+  hardTextIssueCount: number,
+): QualityDimensionScore => {
+  const issues: string[] = [];
+  let score = 4;
+  if (hardTextIssueCount > 0) {
+    score = hardTextIssueCount > 2 ? 1 : 2;
+    issues.push(`${hardTextIssueCount} hard text containment or overlap issue(s).`);
+  } else if (textIssueCount > 4) {
+    score = 2;
+    issues.push(`${textIssueCount} readability warning(s), mostly centering or type scale.`);
+  } else if (textIssueCount > 0) {
+    score = 3;
+    issues.push(`${textIssueCount} minor readability warning(s).`);
+  }
+  return {
+    id: "readability",
+    name: "Readability",
+    score: qualityScore(score),
+    maxScore: 4,
+    basis: `${textIssueCount} text-related validation issue(s).`,
+    issues,
+  };
+};
+
+const scoreConnectorQuality = (
+  connectorCount: number,
+  shapeCount: number,
+  connectorIssueCount: number,
+): QualityDimensionScore => {
+  const issues: string[] = [];
+  let score = 4;
+  if (connectorCount === 0 && shapeCount > 3) {
+    score = 2;
+    issues.push("Board has multiple shapes but no connectors.");
+  } else if (connectorIssueCount > 4) {
+    score = 2;
+    issues.push(`${connectorIssueCount} connector routing issue(s).`);
+  } else if (connectorIssueCount > 0) {
+    score = 3;
+    issues.push(`${connectorIssueCount} minor connector warning(s).`);
+  }
+  return {
+    id: "connector_quality",
+    name: "Connector quality",
+    score: qualityScore(score),
+    maxScore: 4,
+    basis: `${connectorCount} connector(s), ${connectorIssueCount} connector issue(s).`,
+    issues,
+  };
+};
+
+const scoreValidationEditability = (
+  scene: AgentDrawScene,
+  errorCount: number,
+  warningCount: number,
+): QualityDimensionScore => {
+  const issues: string[] = [];
+  let score = 4;
+  if (scene.type !== "agentdraw/scene" || !Array.isArray(scene.elements)) {
+    score = 1;
+    issues.push("File is not a valid editable AgentDraw scene.");
+  } else if (errorCount > 2) {
+    score = 1;
+    issues.push(`${errorCount} validation error(s).`);
+  } else if (errorCount > 0) {
+    score = 2;
+    issues.push(`${errorCount} validation error(s).`);
+  } else if (warningCount > 12) {
+    score = 3;
+    issues.push(`${warningCount} validation warning(s) remain.`);
+  }
+  return {
+    id: "validation_editability",
+    name: "Validation and editability",
+    score: qualityScore(score),
+    maxScore: 4,
+    basis: `${errorCount} validation error(s), ${warningCount} warning(s).`,
+    issues,
+  };
+};
+
+const qualityScore = (score: number): 1 | 2 | 3 | 4 =>
+  Math.max(1, Math.min(4, Math.round(score))) as 1 | 2 | 3 | 4;
+
+const countIssueCodes = (codes: string[], targets: string[]) => {
+  const targetSet = new Set(targets);
+  return codes.filter((code) => targetSet.has(code)).length;
+};
+
+const isQualityElement = (
+  element: unknown,
+): element is Record<string, unknown> & { id: string; type?: string } =>
+  Boolean(
+    element &&
+      typeof element === "object" &&
+      typeof (element as { id?: unknown }).id === "string" &&
+      !(element as { isDeleted?: unknown }).isDeleted,
+  );
+
+const numberValue = (value: unknown) => (typeof value === "number" ? value : 0);
+
 const formatValidationText = (
   results: ValidationSummary[],
   errorCount: number,
@@ -566,8 +985,52 @@ const formatValidationText = (
     }
     lines.push(`[${result.ok ? "warning" : "error"}] ${result.filePath}`);
     for (const issue of result.issues) {
-      const ids = issue.elementIds.length > 0 ? ` (${issue.elementIds.join(", ")})` : "";
+      const ids = issue.elementIds && issue.elementIds.length > 0 ? ` (${issue.elementIds.join(", ")})` : "";
       lines.push(`  [${issue.severity}] ${issue.code}: ${issue.message}${ids}`);
+    }
+  }
+  return lines.join("\n");
+};
+
+const formatQualityText = (results: QualitySummary[]) => {
+  const lines = [
+    `Quality check completed: ${results.length} file(s)`,
+  ];
+  for (const result of results) {
+    lines.push(
+      `[${result.verdict}] ${result.filePath} - ${result.score}/${result.maxScore} (min dimension ${result.minDimensionScore})`,
+    );
+    for (const dimension of result.dimensions) {
+      const review = dimension.needsReview ? " needs review" : "";
+      lines.push(`  ${dimension.score}/4 ${dimension.name}:${review} ${dimension.basis}`);
+      for (const issue of dimension.issues) {
+        lines.push(`    - ${issue}`);
+      }
+    }
+  }
+  return lines.join("\n");
+};
+
+const formatStyleValidationText = (
+  results: StyleValidationSummary[],
+  errorCount: number,
+  warningCount: number,
+) => {
+  if (errorCount === 0 && warningCount === 0) {
+    return `Style contract validation passed: ${results.length} style(s)`;
+  }
+
+  const lines = [
+    `Style contract validation found ${errorCount} error(s), ${warningCount} warning(s).`,
+  ];
+  for (const result of results) {
+    if (result.issues.length === 0) {
+      lines.push(`[ok] ${result.styleId}`);
+      continue;
+    }
+    lines.push(`[${result.ok ? "warning" : "error"}] ${result.styleId}`);
+    for (const issue of result.issues) {
+      lines.push(`  [${issue.severity}] ${issue.code}: ${issue.message}`);
     }
   }
   return lines.join("\n");
@@ -598,10 +1061,10 @@ const guidePayload = (topic: string, detail?: string) => {
         steps: [
           "Understand the board purpose, audience, density, and tone.",
           "Run agentdraw guide styles --json and choose one style id.",
-          "Run agentdraw guide style <style-id> to load the selected design system.",
+          "Run agentdraw guide style <style-id> and agentdraw guide contract <style-id> to load the selected design system and machine-readable contract.",
           "Create or patch a .agentdraw.json scene with editable primitives.",
           "Run agentdraw validate <file> --format json and repair reported element ids.",
-          "Run agentdraw guide quality and self-check the board against the quality bar.",
+          "Run agentdraw quality <file> --style <style-id> --format json, then self-check task fit against the original prompt.",
           "Run agentdraw open <file> --no-open and return the printed local URL.",
         ],
         commands: {
@@ -610,7 +1073,10 @@ const guidePayload = (topic: string, detail?: string) => {
           quality: "agentdraw guide quality",
           styles: "agentdraw guide styles --json",
           style: "agentdraw guide style system-formal",
+          contract: "agentdraw guide contract system-formal --json",
           validate: "agentdraw validate .agentdraw/board.agentdraw.json --format json",
+          qualityCheck: "agentdraw quality .agentdraw/board.agentdraw.json --style system-formal --format json",
+          validateStyle: "agentdraw validate-style system-formal --format json",
           open: "agentdraw open .agentdraw/board.agentdraw.json --no-open",
         },
       };
@@ -639,7 +1105,7 @@ const guidePayload = (topic: string, detail?: string) => {
             name: "Visual design",
             pass:
               "The selected style affects typography, spacing, geometry, components, and layout, not only colors.",
-            check: "Would a reviewer recognize the chosen design system from the output?",
+            check: "Would a reviewer recognize the chosen design system from the output, and does agentdraw validate report no style-contract warnings that need repair?",
           },
           {
             id: "readability",
@@ -665,6 +1131,7 @@ const guidePayload = (topic: string, detail?: string) => {
         ],
         selfCheck: [
           "If validation fails, repair the reported element ids before opening the board.",
+          "Run agentdraw quality <file> --style <style-id> --format json. Treat pass as a preflight result, not a substitute for checking the user's prompt.",
           "If the result looks like a generic diagram, load a stronger style with agentdraw guide styles --json and agentdraw guide style <style-id> --format text.",
           "If the scene is dense, add visible groups, section headers, or lanes before adding more detail.",
           "If text is long, resize the container or split the content; do not rely on tiny text.",
@@ -703,6 +1170,7 @@ const guidePayload = (topic: string, detail?: string) => {
         rules: [
           "Do not make screenshots when an editable board is expected.",
           "Do not use a style as a palette swap; follow its typography, layout, components, and avoid rules.",
+          "Use agentdraw guide contract <style-id> as the machine-readable design constraint.",
           "Keep text editable and generously sized.",
           "Run validation before opening or delivering the scene.",
           "Mark intentional shadows or decorative shapes with customData.role set to shadow or decoration.",
@@ -737,6 +1205,17 @@ const guidePayload = (topic: string, detail?: string) => {
         topic,
         style: readStyleGuide(detail),
       };
+    case "contract":
+      if (!detail) {
+        throw new CliError("missing_argument", "Style id is required.", {
+          exitCode: EXIT_USAGE_ERROR,
+          suggestion: "Run: agentdraw guide styles --json",
+        });
+      }
+      return {
+        topic,
+        contract: readDesignContract(detail),
+      };
     default:
       throw new CliError("unknown_guide_topic", `Unknown guide topic: ${topic}`, {
         exitCode: EXIT_USAGE_ERROR,
@@ -754,11 +1233,54 @@ const formatGuideText = (topic: string, detail?: string) => {
     return readStyleGuide(detail!).markdown;
   }
 
+  if (topic === "contract") {
+    if (!detail) {
+      guidePayload(topic, detail);
+    }
+    const contract = readDesignContract(detail!);
+    return [
+      `# ${contract.name} Design Contract`,
+      "",
+      contract.summary,
+      "",
+      "## Palette",
+      "",
+      ...Object.entries(contract.palette).map(([role, value]) => `- ${role}: ${value}`),
+      "",
+      "## Typography",
+      "",
+      `- Title: ${contract.typography.titlePx[0]}-${contract.typography.titlePx[1]}px`,
+      `- Heading: ${contract.typography.headingPx[0]}-${contract.typography.headingPx[1]}px`,
+      `- Body: ${contract.typography.bodyPx[0]}-${contract.typography.bodyPx[1]}px`,
+      `- Max type sizes per board: ${contract.typography.maxTypeSizesPerBoard}`,
+      "",
+      "## Geometry",
+      "",
+      `- Roughness: ${contract.geometry.roughness[0]}-${contract.geometry.roughness[1]}`,
+      `- Stroke width: ${contract.geometry.strokeWidth[0]}-${contract.geometry.strokeWidth[1]}px`,
+      `- Corner radius: ${contract.geometry.cornerRadiusPx[0]}-${contract.geometry.cornerRadiusPx[1]}px`,
+      "",
+      "## Layout",
+      "",
+      `- Grid: ${contract.layout.gridPx}px`,
+      `- Major gap: at least ${contract.layout.minMajorGapPx}px`,
+      `- Connector/text gap: at least ${contract.layout.minConnectorTextGapPx}px`,
+      "",
+      "## Agent Rules",
+      "",
+      ...contract.agentRules.map((rule) => `- ${rule}`),
+      "",
+      "## Avoid",
+      "",
+      ...contract.avoid.map((rule) => `- ${rule}`),
+    ].join("\n");
+  }
+
   if (topic === "styles") {
     return [
       "# AgentDraw Design Catalog",
       "",
-      `AgentDraw includes ${styles.length} agent-readable design systems. Pick by audience, density, and tone, then load the selected design with \`agentdraw guide style <style-id>\`.`,
+      `AgentDraw includes ${styles.length} agent-readable design systems. Pick by audience, density, and tone, then load the selected design with \`agentdraw guide style <style-id>\` and \`agentdraw guide contract <style-id>\`.`,
       "",
       ...styleGroups.flatMap((group) => [
         `## ${titleCase(group.level)}`,
@@ -885,6 +1407,18 @@ const readStyleGuide = (styleId: string) => {
   };
 };
 
+const readDesignContract = (styleId: string) => {
+  const style = styles.find((candidate) => candidate.id === styleId);
+  if (!style) {
+    throw new CliError("unknown_style", `Unknown style id: ${styleId}`, {
+      exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Run: agentdraw guide styles --json",
+      input: { styleId },
+    });
+  }
+  return getDesignContract(style);
+};
+
 const readDesignMarkdown = (styleId: string) => {
   const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
   const candidates = [
@@ -930,14 +1464,19 @@ const helpText = (command: string | undefined) => {
         "Examples:",
         "  agentdraw open board.agentdraw.json --no-open",
         "  agentdraw validate board.agentdraw.json --format json",
+        "  agentdraw quality board.agentdraw.json --style system-formal --format json",
+        "  agentdraw validate-style system-formal --format json",
         "  agentdraw schema open --format json",
         "",
         "Commands:",
         "  open       Start the local editor for a scene file.",
         "  init       Create a scene file without starting the editor.",
         "  validate   Validate one or more scene files.",
+        "  quality    Score scene quality against the AgentDraw rubric.",
+        "  validate-style",
+        "             Validate installed design guides against the design-contract baseline.",
         "  doctor     Check local runtime details.",
-        "  guide      Print agent workflow, quality bar, scene, rules, styles, or style guides.",
+        "  guide      Print agent workflow, quality bar, scene, rules, styles, style guides, or contracts.",
         "  schema     Print command schemas for agents.",
         "  help       Show help for a command.",
         "  version    Print the CLI version.",
@@ -996,16 +1535,54 @@ const helpText = (command: string | undefined) => {
         "",
         "Examples:",
         "  agentdraw validate board.agentdraw.json",
+        "  agentdraw validate board.agentdraw.json --style system-formal --format json",
         "  agentdraw validate examples/*.agentdraw.json --format json",
         "",
         "Usage:",
-        "  agentdraw validate <file...>",
+        "  agentdraw validate <file...> [--style <style-id>]",
         "",
         "Arguments:",
         "  file                Required scene path. Repeat for multiple files.",
         "",
+        "Flags:",
+        "  --style <style-id>  Validate against a specific design contract instead of scene.styleId.",
+        "",
         "Exit codes:",
         "  0 all files passed, 1 validation/runtime error, 2 invalid arguments.",
+      ].join("\n");
+    case "quality":
+      return [
+        "Score AgentDraw scene quality against the AgentDraw rubric.",
+        "",
+        "Examples:",
+        "  agentdraw quality board.agentdraw.json",
+        "  agentdraw quality board.agentdraw.json --style system-formal --json",
+        "",
+        "Usage:",
+        "  agentdraw quality <file...> [--style <style-id>]",
+        "",
+        "Arguments:",
+        "  file                Required scene path. Repeat for multiple files.",
+        "",
+        "Flags:",
+        "  --style <style-id>  Score against a specific design contract instead of scene.styleId.",
+        "",
+        "Notes:",
+        "  Automatic task-fit scoring is limited. Compare the board with the original prompt before delivery.",
+      ].join("\n");
+    case "validate-style":
+      return [
+        "Validate installed AgentDraw design guides against the design-contract baseline.",
+        "",
+        "Examples:",
+        "  agentdraw validate-style",
+        "  agentdraw validate-style system-formal --json",
+        "",
+        "Usage:",
+        "  agentdraw validate-style [style-id...]",
+        "",
+        "Arguments:",
+        "  style-id            Optional style id. Repeat to validate multiple styles. Defaults to all styles.",
       ].join("\n");
     case "doctor":
       return [
@@ -1027,11 +1604,12 @@ const helpText = (command: string | undefined) => {
         "  agentdraw guide quality",
         "  agentdraw guide styles --json",
         "  agentdraw guide style system-formal",
+        "  agentdraw guide contract system-formal --json",
         "  agentdraw guide scene",
         "  agentdraw guide rules",
         "",
         "Usage:",
-        "  agentdraw guide [workflow|quality|styles|style|scene|rules] [style-id]",
+        "  agentdraw guide [workflow|quality|styles|style|contract|scene|rules] [style-id]",
         "",
         "Notes:",
         "  Use this from SKILL.md so the installed skill stays thin and the CLI provides current guidance.",
@@ -1087,15 +1665,47 @@ const commandSchema = (commandPath: string[]) => {
     },
     validate: {
       description: "Validate one or more scene files.",
-      usage: "agentdraw validate <file...>",
+      usage: "agentdraw validate <file...> [--style <style-id>]",
       arguments: [{ name: "file", required: true, repeatable: true }],
       flags: [
+        { name: "--style", type: "string", required: false },
         { name: "--format", type: "enum", values: ["json", "text"], required: false },
         { name: "--json", type: "boolean", required: false },
       ],
       examples: [
         "agentdraw validate board.agentdraw.json",
+        "agentdraw validate board.agentdraw.json --style system-formal --format json",
         "agentdraw validate examples/*.agentdraw.json --format json",
+      ],
+    },
+    quality: {
+      description: "Score scene quality against the AgentDraw rubric.",
+      usage: "agentdraw quality <file...> [--style <style-id>]",
+      arguments: [{ name: "file", required: true, repeatable: true }],
+      flags: [
+        { name: "--style", type: "string", required: false },
+        { name: "--format", type: "enum", values: ["json", "text"], required: false },
+        { name: "--json", type: "boolean", required: false },
+      ],
+      examples: [
+        "agentdraw quality board.agentdraw.json",
+        "agentdraw quality board.agentdraw.json --style system-formal --format json",
+      ],
+      notes: [
+        "Automatic task-fit scoring is limited. Compare the board with the original prompt before delivery.",
+      ],
+    },
+    "validate-style": {
+      description: "Validate installed design guides against the design-contract baseline.",
+      usage: "agentdraw validate-style [style-id...]",
+      arguments: [{ name: "style-id", required: false, repeatable: true }],
+      flags: [
+        { name: "--format", type: "enum", values: ["json", "text"], required: false },
+        { name: "--json", type: "boolean", required: false },
+      ],
+      examples: [
+        "agentdraw validate-style",
+        "agentdraw validate-style system-formal --json",
       ],
     },
     doctor: {
@@ -1119,14 +1729,14 @@ const commandSchema = (commandPath: string[]) => {
       examples: ["agentdraw schema", "agentdraw schema open --json"],
     },
     guide: {
-      description: "Print agent workflow, quality bar, scene contract, hard rules, style catalog, or one style guide.",
-      usage: "agentdraw guide [workflow|quality|styles|style|scene|rules] [style-id]",
+      description: "Print agent workflow, quality bar, scene contract, hard rules, style catalog, one style guide, or one machine-readable design contract.",
+      usage: "agentdraw guide [workflow|quality|styles|style|contract|scene|rules] [style-id]",
       arguments: [
         {
           name: "topic",
           required: false,
           default: "workflow",
-          values: ["workflow", "quality", "styles", "style", "scene", "rules"],
+          values: ["workflow", "quality", "styles", "style", "contract", "scene", "rules"],
         },
         { name: "style-id", required: false },
       ],
@@ -1139,6 +1749,7 @@ const commandSchema = (commandPath: string[]) => {
         "agentdraw guide quality",
         "agentdraw guide styles --json",
         "agentdraw guide style system-formal",
+        "agentdraw guide contract system-formal --json",
       ],
     },
   };

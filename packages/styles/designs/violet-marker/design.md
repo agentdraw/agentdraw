@@ -38,6 +38,10 @@ Use this style for research synthesis, interview clustering, brainstorm cleanup,
 
 Use three clusters left to right: raw notes, themes, insights. Stagger notes inside the cluster, but keep them fully inside the frame.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 - full paragraphs in sticky notes;

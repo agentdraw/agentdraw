@@ -28,6 +28,10 @@ Use overlapping-but-clear panels, small color tabs, rounded content cards, and s
 
 Works for layered maps, discovery boards, and narrative flows. Use one color per content role.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid using all accents as equal backgrounds and avoid text directly on yellow unless large.

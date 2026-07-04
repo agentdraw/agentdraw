@@ -28,6 +28,10 @@ Use flat green hero panels, white cards, pink/yellow small tags, and thick clean
 
 Works as a hero thesis plus supporting map, or a blocky roadmap. Green should carry the primary story.
 
+## Connector Rules
+
+Use style-matched connectors with enough clearance from labels and headers. Keep routes simple; reroute rather than crossing text.
+
 ## Avoid
 
 Avoid making pink the dominant fill, and avoid rough hand-drawn styling.
