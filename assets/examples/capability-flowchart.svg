@@ -6,63 +6,42 @@
 </defs>
 <rect x="-68" y="-68" width="1316" height="856" fill="#F8FBFF"/>
 <rect x="-32" y="-32" width="1244" height="784" rx="0" fill="none" stroke="#B9C5D5" stroke-width="1"/>
-<rect x="0" y="0" width="1180" height="720" rx="0" fill="#F8FBFF" stroke="#111827" stroke-width="0"/>
-<path d="M 60 60 L 60 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 140 60 L 140 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 220 60 L 220 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 300 60 L 300 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 380 60 L 380 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 460 60 L 460 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 540 60 L 540 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 620 60 L 620 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 700 60 L 700 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 780 60 L 780 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 860 60 L 860 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 940 60 L 940 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 1020 60 L 1020 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 1100 60 L 1100 650" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 60 70 L 1120 70" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 60 150 L 1120 150" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 60 230 L 1120 230" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 60 310 L 1120 310" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 60 390 L 1120 390" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 60 470 L 1120 470" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 60 550 L 1120 550" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 60 630 L 1120 630" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="0" y="0" width="1180" height="720" rx="0" fill="#F8FBFF" stroke="#000000" stroke-width="0"/>
 <rect x="52" y="52" width="1076" height="600" rx="0" fill="none" stroke="#163B68" stroke-width="2"/>
-<text x="86" y="124.36" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700" text-anchor="start"><tspan x="86" dy="0">Agent Runtime Flowchart</tspan></text>
-<text x="88" y="157.52" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="88" dy="0">A Mermaid-like flowchart with editable imported nodes</tspan></text>
-<rect x="96" y="206" width="186" height="106" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
-<rect x="96" y="206" width="186" height="30" rx="0" fill="#DBEAFE" stroke="#0B63CE" stroke-width="2"/>
-<text x="189" y="228.375" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="189" dy="0">User prompt</tspan></text>
-<text x="189" y="272.25" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="189" dy="0">intent + constraints</tspan><tspan x="189" dy="18.75">agent-safe</tspan></text>
-<rect x="336" y="206" width="186" height="106" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
-<rect x="336" y="206" width="186" height="30" rx="0" fill="#DBEAFE" stroke="#0B63CE" stroke-width="2"/>
-<text x="429" y="228.375" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="429" dy="0">Choose style</tspan></text>
-<text x="429" y="272.25" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="429" dy="0">design.md + contract</tspan><tspan x="429" dy="18.75">agent-safe</tspan></text>
-<rect x="576" y="206" width="186" height="106" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
-<rect x="576" y="206" width="186" height="30" rx="0" fill="#DBEAFE" stroke="#0B63CE" stroke-width="2"/>
-<text x="669" y="228.375" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="669" dy="0">Draft SVG</tspan></text>
-<text x="669" y="272.25" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="669" dy="0">layout is source</tspan><tspan x="669" dy="18.75">agent-safe</tspan></text>
-<rect x="816" y="206" width="186" height="106" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
-<rect x="816" y="206" width="186" height="30" rx="0" fill="#DBEAFE" stroke="#0B63CE" stroke-width="2"/>
-<text x="909" y="228.375" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="909" dy="0">Import board</tspan></text>
-<text x="909" y="272.25" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="909" dy="0">editable objects</tspan><tspan x="909" dy="18.75">agent-safe</tspan></text>
-<rect x="576" y="430" width="186" height="106" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
-<rect x="576" y="430" width="186" height="30" rx="0" fill="#DBEAFE" stroke="#0B63CE" stroke-width="2"/>
-<text x="669" y="452.375" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="669" dy="0">Validate</tspan></text>
-<text x="669" y="496.25" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="669" dy="0">repair warnings</tspan><tspan x="669" dy="18.75">agent-safe</tspan></text>
-<rect x="816" y="430" width="186" height="106" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
-<rect x="816" y="430" width="186" height="30" rx="0" fill="#DBEAFE" stroke="#0B63CE" stroke-width="2"/>
-<text x="909" y="452.375" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="909" dy="0">Open editor</tspan></text>
-<text x="909" y="496.25" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="909" dy="0">human refinement</tspan><tspan x="909" dy="18.75">agent-safe</tspan></text>
-<path d="M 282 259 L 336 259" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 522 259 L 576 259" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 762 259 L 816 259" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 909 312 L 909 370 L 669 370 L 669 430" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 762 483 L 816 483" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="96" y="430" width="456" height="106" rx="0" fill="#DBEAFE" stroke="#163B68" stroke-width="2"/>
-<text x="124" y="472.84" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="124" dy="0">Decision gate</tspan></text>
-<text x="124" y="507.52" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="124" dy="0">If preview looks weak, revise SVG and re-import.</tspan></text>
-<path d="M 576 483 L 552 483" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<text x="86" y="118.36" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="38" font-weight="700" text-anchor="start"><tspan x="86" dy="0">AgentDraw Generation Flow</tspan></text>
+<text x="88" y="151.52" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="88" dy="0">Professional flowchart with terminators, process blocks, decisions, and rework loops</tspan></text>
+<ellipse cx="590" cy="205" rx="120" ry="27" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
+<text x="590" y="211.75" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="590" dy="0">Start</tspan></text>
+<path d="M 590 232 L 590 268" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="430" y="268" width="320" height="84" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
+<text x="590" y="298.75" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="590" dy="0">Choose design system</tspan></text>
+<text x="590" y="331.625" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="590" dy="0">Load design.md and contract</tspan></text>
+<path d="M 590 352 L 590 370" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="430" y="370" width="320" height="84" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
+<text x="590" y="400.75" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="590" dy="0">Draft restricted SVG</tspan></text>
+<text x="590" y="433.625" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="590" dy="0">Use editable shapes and real text</tspan></text>
+<path d="M 590 454 L 590 472" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<polygon points="590,472 680,520 590,568 500,520" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
+<text x="590" y="528" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="590" dy="0">Preview passes?</tspan></text>
+<text x="718" y="491.3" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="718" dy="0">Yes</tspan></text>
+<text x="430" y="499.3" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="430" dy="0">No</tspan></text>
+<path d="M 590 568 L 590 602" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<ellipse cx="590" cy="629" rx="120" ry="27" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
+<text x="590" y="635.75" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="590" dy="0">Open editable board</tspan></text>
+<path d="M 500 520 L 292 520 L 292 403 L 430 403" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="800" y="370" width="250" height="84" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
+<text x="925" y="400.75" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="925" dy="0">import-svg</tspan></text>
+<text x="925" y="433.625" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="925" dy="0">Convert to board objects</tspan></text>
+<path d="M 750 412 L 800 412" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="800" y="472" width="250" height="84" rx="0" fill="#FFFFFF" stroke="#0B63CE" stroke-width="2"/>
+<text x="925" y="502.75" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="925" dy="0">repair + validate</tspan></text>
+<text x="925" y="535.625" fill="#5B708A" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="925" dy="0">Normalize and gate quality</tspan></text>
+<path d="M 925 454 L 925 472" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<path d="M 800 505 L 680 505" fill="none" stroke="#B9C5D5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="108" y="250" width="286" height="230" rx="0" fill="#DBEAFE" stroke="#B9C5D5" stroke-width="2"/>
+<text x="130" y="290.4" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="20" font-weight="500" text-anchor="start"><tspan x="130" dy="0">Flowchart conventions</tspan></text>
+<text x="130" y="329.52" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="130" dy="0">Oval = start / end</tspan></text>
+<text x="130" y="365.52" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="130" dy="0">Rectangle = process</tspan></text>
+<text x="130" y="401.52" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="130" dy="0">Diamond = decision</tspan></text>
+<text x="130" y="437.52" fill="#163B68" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="130" dy="0">Loop = revise source</tspan></text>
 </svg>

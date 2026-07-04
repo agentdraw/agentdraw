@@ -6,35 +6,40 @@
 </defs>
 <rect x="-68" y="-68" width="1316" height="856" fill="#FFFFFF"/>
 <rect x="-32" y="-32" width="1244" height="784" rx="0" fill="none" stroke="#BEC1C5" stroke-width="1"/>
-<rect x="0" y="0" width="1180" height="720" rx="0" fill="#FFFFFF" stroke="#111827" stroke-width="0"/>
+<rect x="0" y="0" width="1180" height="720" rx="0" fill="#FFFFFF" stroke="#182230" stroke-width="0"/>
 <rect x="52" y="52" width="1076" height="600" rx="0" fill="none" stroke="#182230" stroke-width="2"/>
-<text x="84" y="119.92" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="700" text-anchor="start"><tspan x="84" dy="0">SVG Import Sequence</tspan></text>
-<text x="86" y="151.52" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="86" dy="0">Sequence diagram showing the local generation and editing loop</tspan></text>
-<rect x="46" y="190" width="148" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
-<text x="120" y="220.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="120" dy="0">Agent</tspan></text>
-<path d="M 120 238 L 120 590" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="286" y="190" width="148" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
-<text x="360" y="220.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="360" dy="0">SVG source</tspan></text>
-<path d="M 360 238 L 360 590" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="526" y="190" width="148" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
-<text x="600" y="220.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="600" dy="0">AgentDraw CLI</tspan></text>
-<path d="M 600 238 L 600 590" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="766" y="190" width="148" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
-<text x="840" y="220.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="840" dy="0">Browser editor</tspan></text>
-<path d="M 840 238 L 840 590" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="966" y="190" width="148" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
-<text x="1040" y="220.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="1040" dy="0">User</tspan></text>
-<path d="M 1040 238 L 1040 590" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<path d="M 194 286 L 286 286" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<text x="212" y="271.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="212" dy="0">write restricted SVG</tspan></text>
-<path d="M 434 354 L 526 354" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<text x="452" y="339.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="452" dy="0">import-svg</tspan></text>
-<path d="M 674 422 L 766 422" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<text x="692" y="407.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="692" dy="0">open editable board</tspan></text>
-<path d="M 914 490 L 966 490" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<text x="932" y="475.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="932" dy="0">manual refinements</tspan></text>
-<path d="M 766 558 L 674 558" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<text x="692" y="543.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="692" dy="0">autosave snapshot</tspan></text>
-<rect x="84" y="610" width="1010" height="34" rx="0" fill="#E7EEF8" stroke="#BEC1C5" stroke-width="1"/>
-<text x="589" y="632.625" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="589" dy="0">All messages stay local; final board remains editable.</tspan></text>
+<text x="84" y="117.92" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="36" font-weight="700" text-anchor="start"><tspan x="84" dy="0">AgentDraw Sequence Diagram</tspan></text>
+<text x="86" y="149.52" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="86" dy="0">Messages align to participant lifelines with long horizontal arrows and return flow</tspan></text>
+<rect x="58" y="186" width="164" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
+<text x="140" y="216.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="140" dy="0">User</tspan></text>
+<path d="M 140 234 L 140 616" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="258" y="186" width="164" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
+<text x="340" y="216.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="340" dy="0">Agent</tspan></text>
+<path d="M 340 234 L 340 616" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="478" y="186" width="164" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
+<text x="560" y="216.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="560" dy="0">SVG File</tspan></text>
+<path d="M 560 234 L 560 616" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="698" y="186" width="164" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
+<text x="780" y="216.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="780" dy="0">AgentDraw CLI</tspan></text>
+<path d="M 780 234 L 780 616" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="928" y="186" width="164" height="48" rx="0" fill="#F8FAFC" stroke="#BEC1C5" stroke-width="2"/>
+<text x="1010" y="216.375" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="middle"><tspan x="1010" dy="0">Browser Editor</tspan></text>
+<path d="M 1010 234 L 1010 616" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="334" y="276" width="12" height="168" rx="0" fill="#E7EEF8" stroke="#4053D6" stroke-width="1"/>
+<rect x="774" y="396" width="12" height="202" rx="0" fill="#E7EEF8" stroke="#4053D6" stroke-width="1"/>
+<rect x="1004" y="456" width="12" height="144" rx="0" fill="#E7EEF8" stroke="#4053D6" stroke-width="1"/>
+<path d="M 140 286 L 340 286" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<text x="160" y="273.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="160" dy="0">request diagram</tspan></text>
+<path d="M 340 346 L 560 346" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<text x="370" y="333.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="370" dy="0">write restricted SVG</tspan></text>
+<path d="M 340 406 L 780 406" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<text x="480" y="393.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="480" dy="0">agentdraw import-svg</tspan></text>
+<path d="M 780 466 L 1010 466" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<text x="815" y="453.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="815" dy="0">open local editor</tspan></text>
+<path d="M 1010 526 L 140 526" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<text x="593" y="513.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="593" dy="0">review and edit</tspan></text>
+<path d="M 1010 586 L 780 586" fill="none" stroke="#BEC1C5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<text x="913" y="573.3" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="start"><tspan x="913" dy="0">autosave scene</tspan></text>
+<rect x="84" y="628" width="1010" height="34" rx="0" fill="#E7EEF8" stroke="#BEC1C5" stroke-width="1"/>
+<text x="589" y="650.625" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="15" font-weight="500" text-anchor="middle"><tspan x="589" dy="0">The final board remains editable; the generated SVG stays inspectable.</tspan></text>
 </svg>

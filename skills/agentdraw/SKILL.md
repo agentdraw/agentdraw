@@ -83,7 +83,7 @@ Return the printed URL to the user.
 
 Use only this SVG subset for editable imports:
 
-- Tags: `svg`, `g`, `rect`, `circle`, `ellipse`, `line`, `polyline`, `text`, `tspan`, `defs`, `marker`.
+- Tags: `svg`, `g`, `rect`, `circle`, `ellipse`, `line`, `polyline`, `polygon`, `text`, `tspan`, `defs`, `marker`.
 - Transforms: `translate(x y)` and `translate(x,y)` on `g`.
 - Arrows: use `line` or `polyline` with `marker-end="url(#arrow)"`.
 - Text: use real `text` and `tspan`, not paths.

@@ -1,47 +1,63 @@
 <svg width="1180" height="720" viewBox="0 0 1180 720" xmlns="http://www.w3.org/2000/svg">
 <rect width="1180" height="720" fill="#FFFFFF" />
 <rect x="52" y="52" width="1076" height="600" rx="0" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2" data-agentdraw-role="frame" />
-<text x="84" y="112" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="38" font-weight="800" fill="#0A0A0A">AgentDraw Module Map</text>
-<text x="86" y="150" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="16" font-weight="500" fill="#5B5B5B">Class-diagram style overview of the editable diagram runtime</text>
+<text x="84" y="110" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="38" font-weight="800" fill="#0A0A0A">AgentDraw Class Diagram</text>
+<text x="86" y="148" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="16" font-weight="500" fill="#5B5B5B">UML-style compartments with attributes, operations, associations, and dependencies</text>
 <defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth"><path d="M 0 0 L 10 5 L 0 10 z" fill="#0A0A0A" /></marker></defs>
-<rect x="86" y="198" width="246" height="150" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
-<rect x="86" y="198" width="246" height="38" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
-<text x="209" y="218" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">AgentDrawScene</text>
-<text x="104" y="270" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">elements: Element[]</text>
-<text x="104" y="298" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">appState: object</text>
-<text x="104" y="326" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">files: object</text>
-<rect x="396" y="198" width="246" height="150" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
-<rect x="396" y="198" width="246" height="38" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
-<text x="519" y="218" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">SvgImporter</text>
-<text x="414" y="270" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">parse(svg)</text>
-<text x="414" y="298" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">toScene()</text>
-<text x="414" y="326" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">warnings[]</text>
-<rect x="706" y="198" width="246" height="150" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
-<rect x="706" y="198" width="246" height="38" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
-<text x="829" y="218" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">Validator</text>
-<text x="724" y="270" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">text overflow</text>
-<text x="724" y="298" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">connector edges</text>
-<text x="724" y="326" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">style drift</text>
-<rect x="396" y="430" width="246" height="150" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
-<rect x="396" y="430" width="246" height="38" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
-<text x="519" y="450" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">LocalServer</text>
-<text x="414" y="502" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">GET /api/scene</text>
-<text x="414" y="530" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">POST /api/scene</text>
-<text x="414" y="558" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">stale-save guard</text>
-<rect x="706" y="430" width="246" height="150" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
-<rect x="706" y="430" width="246" height="38" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
-<text x="829" y="450" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">WebEditor</text>
-<text x="724" y="502" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">Excalidraw provider</text>
-<text x="724" y="530" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">import/export</text>
-<text x="724" y="558" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">manual edits</text>
-<line x1="332" y1="273" x2="396" y2="273" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
-<line x1="642" y1="273" x2="706" y2="273" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
-<polyline points="519,348 519,430" fill="none" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
-<polyline points="829,348 829,430" fill="none" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
-<line x1="642" y1="505" x2="706" y2="505" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
-<rect x="86" y="430" width="246" height="150" rx="0" fill="#F2D4CF" stroke="#0A0A0A" stroke-width="2" />
-<text x="104" y="472" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#0A0A0A">DesignContract</text>
-<text x="104" y="510" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">palette + type</text>
-<text x="104" y="538" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">geometry + rules</text>
-<line x1="332" y1="505" x2="396" y2="505" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="94" y="210" width="278" height="226" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
+<rect x="94" y="210" width="278" height="46" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
+<text x="233" y="233" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">AgentDrawScene</text>
+<line x1="94" y1="256" x2="372" y2="256" stroke="#0A0A0A" stroke-width="2" />
+<text x="110" y="286" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ elements: Element[]</text>
+<text x="110" y="310" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ appState: AppState</text>
+<text x="110" y="334" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ files: BinaryFiles</text>
+<line x1="94" y1="358" x2="372" y2="358" stroke="#0A0A0A" stroke-width="2" />
+<text x="110" y="388" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ snapshot(): Scene</text>
+<text x="110" y="412" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ merge(input): Scene</text>
+<rect x="452" y="210" width="278" height="202" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
+<rect x="452" y="210" width="278" height="46" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
+<text x="591" y="233" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">SvgImporter</text>
+<line x1="452" y1="256" x2="730" y2="256" stroke="#0A0A0A" stroke-width="2" />
+<text x="468" y="286" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">- parser: XMLParser</text>
+<text x="468" y="310" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">- styleId: string</text>
+<line x1="452" y1="334" x2="730" y2="334" stroke="#0A0A0A" stroke-width="2" />
+<text x="468" y="364" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ import(svg): AgentDrawScene</text>
+<text x="468" y="388" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ warn(issue): void</text>
+<rect x="810" y="210" width="278" height="202" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
+<rect x="810" y="210" width="278" height="46" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
+<text x="949" y="233" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">SceneValidator</text>
+<line x1="810" y1="256" x2="1088" y2="256" stroke="#0A0A0A" stroke-width="2" />
+<text x="826" y="286" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">- contract: DesignContract</text>
+<text x="826" y="310" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">- rules: Rule[]</text>
+<line x1="810" y1="334" x2="1088" y2="334" stroke="#0A0A0A" stroke-width="2" />
+<text x="826" y="364" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ validate(scene): Issue[]</text>
+<text x="826" y="388" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ quality(scene): Score</text>
+<rect x="452" y="472" width="278" height="202" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
+<rect x="452" y="472" width="278" height="46" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
+<text x="591" y="495" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">LocalServer</text>
+<line x1="452" y1="518" x2="730" y2="518" stroke="#0A0A0A" stroke-width="2" />
+<text x="468" y="548" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">- filePath: string</text>
+<text x="468" y="572" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">- baseUpdatedAt: string</text>
+<line x1="452" y1="596" x2="730" y2="596" stroke="#0A0A0A" stroke-width="2" />
+<text x="468" y="626" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ GET /api/scene</text>
+<text x="468" y="650" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ POST /api/scene</text>
+<rect x="810" y="472" width="278" height="202" rx="0" fill="#F8F8F8" stroke="#0A0A0A" stroke-width="2" />
+<rect x="810" y="472" width="278" height="46" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2" />
+<text x="949" y="495" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="18" font-weight="800" fill="#FFFFFF">WebEditor</text>
+<line x1="810" y1="518" x2="1088" y2="518" stroke="#0A0A0A" stroke-width="2" />
+<text x="826" y="548" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">- provider: Excalidraw</text>
+<text x="826" y="572" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">- saveState: SaveState</text>
+<line x1="810" y1="596" x2="1088" y2="596" stroke="#0A0A0A" stroke-width="2" />
+<text x="826" y="626" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ open(scene): void</text>
+<text x="826" y="650" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#0A0A0A">+ export(format): Blob</text>
+<line x1="372" y1="304" x2="452" y2="304" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
+<text x="386" y="292" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#5B5B5B">creates</text>
+<line x1="730" y1="304" x2="810" y2="304" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
+<text x="744" y="292" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#5B5B5B">checks</text>
+<line x1="591" y1="410" x2="591" y2="472" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
+<text x="605" y="441" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#5B5B5B">serves</text>
+<line x1="730" y1="566" x2="810" y2="566" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
+<text x="744" y="554" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#5B5B5B">opens</text>
+<line x1="949" y1="472" x2="949" y2="412" stroke="#0A0A0A" stroke-width="2" marker-end="url(#arrow)" />
+<text x="962" y="446" font-family="Inter, Arial, Noto Sans SC, sans-serif" font-size="15" font-weight="600" fill="#5B5B5B">reports issues</text>
 </svg>

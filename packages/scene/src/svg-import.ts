@@ -46,7 +46,20 @@ const parser = new XMLParser({
   preserveOrder: true,
 });
 
-const SHAPE_TAGS = new Set(["rect", "circle", "ellipse", "line", "polyline", "text", "g", "svg", "defs", "marker", "tspan"]);
+const SHAPE_TAGS = new Set([
+  "rect",
+  "circle",
+  "ellipse",
+  "line",
+  "polyline",
+  "polygon",
+  "text",
+  "g",
+  "svg",
+  "defs",
+  "marker",
+  "tspan",
+]);
 
 let seed = 20_000;
 
@@ -150,6 +163,9 @@ const walkChildren = (nodes: XmlNode[], context: WalkContext) => {
     } else if (tag === "polyline") {
       const element = polylineElement(attrs, nextContext);
       if (element) context.elements.push(element);
+    } else if (tag === "polygon") {
+      const element = polygonElement(attrs, nextContext);
+      if (element) context.elements.push(element);
     } else if (tag === "text") {
       context.elements.push(textElement(node, attrs, nextContext));
     } else if (tag === "tspan") {
@@ -236,6 +252,28 @@ const polylineElement = (attrs: XmlNode, context: WalkContext) => {
     context.style,
     hasArrowhead(attrs),
   );
+};
+
+const polygonElement = (attrs: XmlNode, context: WalkContext) => {
+  const points = parsePoints(String(attrs.points ?? ""));
+  if (points.length !== 4) {
+    context.warnings.push({
+      code: "unsupported-polygon",
+      message: "Only four-point polygons are imported as editable diamonds.",
+      node: "polygon",
+    });
+    return null;
+  }
+  const xs = points.map(([x]) => x);
+  const ys = points.map(([, y]) => y);
+  const x = Math.min(...xs) + context.transform.x;
+  const y = Math.min(...ys) + context.transform.y;
+  const width = Math.max(...xs) - Math.min(...xs);
+  const height = Math.max(...ys) - Math.min(...ys);
+  return baseElement("diamond", x, y, width, height, context.style, {
+    ...customDataFromAttrs(attrs),
+    roundness: null,
+  });
 };
 
 const textElement = (node: XmlNode, attrs: XmlNode, context: WalkContext) => {

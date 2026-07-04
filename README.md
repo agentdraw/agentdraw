@@ -69,13 +69,13 @@ scenes. Theme previews link to the `design.md` system that produced the look.
 <table>
 <tr>
 <td width="33%"><a href="./examples/capability-flowchart.agentdraw.json"><img src="./assets/examples/capability-flowchart.svg" alt="Agent runtime flowchart preview" /></a><br />
-<sub><a href="./examples/capability-flowchart.agentdraw.json"><b>Flowchart</b></a> · Mermaid-like process map</sub>
+<sub><a href="./examples/capability-flowchart.agentdraw.json"><b>Flowchart</b></a> · terminators, process blocks, and decisions</sub>
 </td>
 <td width="33%"><a href="./examples/capability-sequence.agentdraw.json"><img src="./assets/examples/capability-sequence.svg" alt="SVG import sequence diagram preview" /></a><br />
-<sub><a href="./examples/capability-sequence.agentdraw.json"><b>Sequence Diagram</b></a> · local agent loop</sub>
+<sub><a href="./examples/capability-sequence.agentdraw.json"><b>Sequence Diagram</b></a> · lifelines and aligned messages</sub>
 </td>
 <td width="33%"><a href="./examples/capability-class-map.agentdraw.json"><img src="./assets/examples/capability-class-map.svg" alt="AgentDraw module class map preview" /></a><br />
-<sub><a href="./examples/capability-class-map.agentdraw.json"><b>Class / Module Map</b></a> · runtime structure</sub>
+<sub><a href="./examples/capability-class-map.agentdraw.json"><b>Class / Module Map</b></a> · UML-style compartments and relations</sub>
 </td>
 </tr>
 </table>
@@ -177,7 +177,7 @@ open for a human to edit.
 ## Features
 
 - SVG-first agent workflow with editable `.agentdraw.json` output.
-- Restricted SVG importer for `rect`, `circle`, `ellipse`, `line`, `polyline`, `text/tspan`, groups,
+- Restricted SVG importer for `rect`, `circle`, `ellipse`, `line`, `polyline`, `polygon`, `text/tspan`, groups,
   and arrow markers.
 - Excalidraw-based editable canvas.
 - 38 bundled styles, including formal diagram styles and palettes adapted from
@@ -317,7 +317,7 @@ AgentDraw's recommended source format is a restricted SVG:
 </svg>
 ```
 
-Supported import tags are `svg`, `g`, `rect`, `circle`, `ellipse`, `line`, `polyline`, `text`,
+Supported import tags are `svg`, `g`, `rect`, `circle`, `ellipse`, `line`, `polyline`, `polygon`, `text`,
 `tspan`, `defs`, and `marker`. Keep text as real text. Avoid `foreignObject`, `image`, `clipPath`,
 `mask`, `filter`, gradients, and arbitrary paths for editable boards.
 

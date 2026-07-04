@@ -25,7 +25,7 @@ Title 34-42px, card title 20-24px, note text 15-17px. Labels may be casual but m
 ## SVG Source Rules
 
 - Generate this style as restricted SVG first, then convert with `agentdraw import-svg`.
-- Use only `svg`, `g`, `rect`, `circle`, `ellipse`, `line`, `polyline`, `text`, `tspan`, `defs`, and `marker` for editable boards.
+- Use only `svg`, `g`, `rect`, `circle`, `ellipse`, `line`, `polyline`, `polygon`, `text`, `tspan`, `defs`, and `marker` for editable boards.
 - Use `text-anchor="middle"` and `dominant-baseline="middle"` for centered labels. Use `tspan` with explicit `x` and `dy` values for multiline labels.
 - Put connector endpoints on the edge of shapes or just outside them. Do not start or end arrows deep inside cards.
 - Avoid `foreignObject`, `image`, `clipPath`, `mask`, `filter`, gradients, arbitrary `path` geometry, and text converted to outlines.
