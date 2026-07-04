@@ -7,6 +7,8 @@ export type BoardSnapshot = {
   files: Record<string, unknown>;
 };
 
+export type BoardProviderId = "excalidraw" | "html" | "svg" | "mermaid" | string;
+
 export type BoardHandle = {
   getSnapshot: () => BoardSnapshot;
   setStyleDefaults: (style: AgentDrawStyle) => BoardSnapshot | null;

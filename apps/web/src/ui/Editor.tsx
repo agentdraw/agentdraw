@@ -5,7 +5,7 @@ import {
 } from "@agentdraw/styles";
 import { Check, Copy, Download, FileJson, Github, Image, Palette, Save, Upload } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ExcalidrawBoard } from "../board/excalidraw/ExcalidrawBoard";
+import { BoardRenderer } from "../board/BoardRenderer";
 import {
   downloadBlob,
   type BoardHandle,
@@ -39,6 +39,7 @@ export const Editor = ({
   const boardRef = useRef<BoardHandle | null>(null);
   const importInputRef = useRef<HTMLInputElement | null>(null);
   const [selectedStyleId, setSelectedStyleId] = useState(() => getStyleById(scene.styleId).id);
+  const [boardInstanceKey, setBoardInstanceKey] = useState(() => scene.id);
   const [copiedPath, setCopiedPath] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
   const [replayProgress, setReplayProgress] = useState<BoardReplayProgress>({
@@ -56,6 +57,11 @@ export const Editor = ({
     }),
     [replayEnabled],
   );
+
+  useEffect(() => {
+    setSelectedStyleId(getStyleById(scene.styleId).id);
+    setBoardInstanceKey(scene.id);
+  }, [scene.id, scene.styleId]);
 
   useEffect(() => {
     setReplayEnabled(readReplayEnabledFromUrl(filePath));
@@ -144,6 +150,7 @@ export const Editor = ({
       const imported = parseImportedScene(await file.text());
       const nextStyleId = imported.styleId ? getStyleById(imported.styleId).id : selectedStyleId;
       setSelectedStyleId(nextStyleId);
+      setBoardInstanceKey(`import:${Date.now()}:${file.name}`);
       setImportError(null);
       onSceneChange(
         imported.elements,
@@ -248,7 +255,8 @@ export const Editor = ({
         </div>
       </header>
       <section className="canvas">
-        <ExcalidrawBoard
+        <BoardRenderer
+          key={boardInstanceKey}
           ref={boardRef}
           scene={sceneSnapshot}
           style={selectedStyle}

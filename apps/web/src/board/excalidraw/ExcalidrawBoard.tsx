@@ -31,7 +31,9 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
     const sceneKey = useMemo(
       () =>
         normalizedElements
-          .map((element, index) => (isElementRecord(element) ? element.id : `unknown-${index}`))
+          .map((element, index) =>
+            isElementRecord(element) ? elementSignature(element, index) : `unknown-${index}`,
+          )
           .join(":"),
       [normalizedElements],
     );
@@ -126,12 +128,7 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
 
     useEffect(() => {
       const api = apiRef.current;
-      if (!api || !apiReady || replayEnabled || normalizedElements.length === 0) {
-        if (api && apiReady && !replayEnabled && normalizedElements.length === 0) {
-          window.setTimeout(() => {
-            suppressChangeRef.current = false;
-          }, 350);
-        }
+      if (!api || !apiReady || replayEnabled) {
         return;
       }
       if (fitSceneKeyRef.current === sceneKey) {
@@ -142,6 +139,13 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
         elements: normalizedElements as readonly ExcalidrawElement[],
         appState: styledAppState as AppState,
       });
+      if (normalizedElements.length === 0) {
+        fitSceneKeyRef.current = sceneKey;
+        window.setTimeout(() => {
+          suppressChangeRef.current = false;
+        }, 350);
+        return;
+      }
 
       let cancelled = false;
       const timers: number[] = [];
@@ -682,6 +686,20 @@ const applyStyleToElements = (
 
 const isElementRecord = (element: unknown): element is Record<string, unknown> =>
   typeof element === "object" && element !== null && "type" in element;
+
+const elementSignature = (element: Record<string, unknown>, index: number) =>
+  [
+    element.id ?? `no-id-${index}`,
+    element.type,
+    element.version,
+    element.versionNonce,
+    element.x,
+    element.y,
+    element.width,
+    element.height,
+    element.text,
+    Array.isArray(element.points) ? JSON.stringify(element.points) : "",
+  ].join(",");
 
 const bumpNumber = (value: unknown) => (typeof value === "number" ? value + 1 : 1);
 

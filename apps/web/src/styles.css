@@ -209,6 +209,35 @@ button:hover {
   min-height: 0;
 }
 
+.board-placeholder {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #f7f9fc;
+}
+
+.board-placeholder > div {
+  width: min(460px, 100%);
+  padding: 18px;
+  border: 1px solid #d9dde5;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #243044;
+}
+
+.board-placeholder h2 {
+  margin: 0 0 8px;
+  font-size: 18px;
+}
+
+.board-placeholder p {
+  margin: 0;
+  color: #586070;
+  line-height: 1.5;
+}
+
 .loading,
 .error-panel {
   width: min(420px, calc(100vw - 32px));
