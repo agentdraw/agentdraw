@@ -1,54 +1,42 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 0 1252 722" role="img" aria-label="Launch Room Loop preview">
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Launch Room Loop preview">
 <defs>
 <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
 <path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
 </marker>
 </defs>
-<rect x="8" y="0" width="1252" height="722" fill="#EFE9D9"/>
-<text x="72" y="90" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" text-anchor="start"><tspan x="72" dy="0">Launch Room Loop</tspan></text>
-<text x="74" y="124" fill="#E85A1F" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="74" dy="0">An editorial growth board for campaign bets and learning cycles.</tspan></text>
-<rect x="44" y="36" width="1180" height="650" rx="0" fill="none" stroke="#E85A1F" stroke-width="2"/>
-<rect x="92" y="166" width="238" height="34" rx="0" fill="#1F8A4C" stroke="#1F8A4C" stroke-width="0"/>
-<text x="211" y="188" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="211" dy="0">Sense</tspan></text>
-<rect x="92" y="224" width="238" height="156" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="2"/>
-<text x="211" y="276" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="211" dy="0">Audience</tspan></text>
-<text x="162" y="318" fill="#1F8A4C" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="162" dy="0">pain</tspan></text>
-<text x="260" y="318" fill="#E85A1F" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="260" dy="0">segment</tspan></text>
-<rect x="116" y="294" width="92" height="38" rx="0" fill="none" stroke="#1F8A4C" stroke-width="2"/>
-<rect x="214" y="294" width="92" height="38" rx="0" fill="none" stroke="#E85A1F" stroke-width="2"/>
-<path d="M 338 302 L 364 302" fill="none" stroke="#1F8A4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="372" y="166" width="238" height="34" rx="0" fill="#1F8A4C" stroke="#1F8A4C" stroke-width="0"/>
-<text x="491" y="188" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="491" dy="0">Frame</tspan></text>
-<rect x="372" y="224" width="238" height="156" rx="0" fill="#F06CA8" stroke="#1E1B16" stroke-width="2"/>
-<text x="491" y="276" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="491" dy="0">Promise</tspan></text>
-<text x="442" y="318" fill="#1F8A4C" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="442" dy="0">story</tspan></text>
-<text x="540" y="318" fill="#E85A1F" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="540" dy="0">offer</tspan></text>
-<rect x="396" y="294" width="92" height="38" rx="0" fill="none" stroke="#1F8A4C" stroke-width="2"/>
-<rect x="494" y="294" width="92" height="38" rx="0" fill="none" stroke="#E85A1F" stroke-width="2"/>
-<path d="M 618 302 L 644 302" fill="none" stroke="#1F8A4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="652" y="166" width="238" height="34" rx="0" fill="#1F8A4C" stroke="#1F8A4C" stroke-width="0"/>
-<text x="771" y="188" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="771" dy="0">Publish</tspan></text>
-<rect x="652" y="224" width="238" height="156" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="2"/>
-<text x="771" y="276" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="771" dy="0">Surface</tspan></text>
-<text x="722" y="318" fill="#1F8A4C" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="722" dy="0">page</tspan></text>
-<text x="820" y="318" fill="#E85A1F" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="820" dy="0">asset</tspan></text>
-<rect x="676" y="294" width="92" height="38" rx="0" fill="none" stroke="#1F8A4C" stroke-width="2"/>
-<rect x="774" y="294" width="92" height="38" rx="0" fill="none" stroke="#E85A1F" stroke-width="2"/>
-<path d="M 898 302 L 924 302" fill="none" stroke="#1F8A4C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="932" y="166" width="238" height="34" rx="0" fill="#1F8A4C" stroke="#1F8A4C" stroke-width="0"/>
-<text x="1051" y="188" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="1051" dy="0">Learn</tspan></text>
-<rect x="932" y="224" width="238" height="156" rx="0" fill="#F06CA8" stroke="#1E1B16" stroke-width="2"/>
-<text x="1051" y="276" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="1051" dy="0">Signal</tspan></text>
-<text x="1002" y="318" fill="#1F8A4C" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="1002" dy="0">traffic</tspan></text>
-<text x="1100" y="318" fill="#E85A1F" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="1100" dy="0">reply</tspan></text>
-<rect x="956" y="294" width="92" height="38" rx="0" fill="none" stroke="#1F8A4C" stroke-width="2"/>
-<rect x="1054" y="294" width="92" height="38" rx="0" fill="none" stroke="#E85A1F" stroke-width="2"/>
-<rect x="92" y="454" width="1080" height="64" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="2"/>
-<text x="632" y="493" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="632" dy="0">Editable scene data, styled shapes, layout validation, and browser refinement.</tspan></text>
-<rect x="208" y="578" width="200" height="46" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="2"/>
-<text x="308" y="607" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="308" dy="0">Editable</tspan></text>
-<rect x="488" y="578" width="200" height="46" rx="0" fill="#F06CA8" stroke="#1E1B16" stroke-width="2"/>
-<text x="588" y="607" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="588" dy="0">Validated</tspan></text>
-<rect x="768" y="578" width="200" height="46" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="2"/>
-<text x="868" y="607" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="868" dy="0">Themeable</tspan></text>
+<rect x="8" y="0" width="1260" height="722" fill="#EFE9D9"/>
+<text x="70" y="96" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="42" font-weight="700" text-anchor="start"><tspan x="70" dy="0">Launch Room Loop</tspan></text>
+<text x="74" y="130" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="74" dy="0">Chunky editorial blocks for campaign bets and learning cycles.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="0" fill="none" stroke="#1E1B16" stroke-width="4"/>
+<rect x="760" y="56" width="350" height="72" rx="0" fill="#F06CA8" stroke="#1E1B16" stroke-width="4"/>
+<text x="935" y="100.75" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="26" font-weight="700" text-anchor="middle"><tspan x="935" dy="0">SHIP / LEARN</tspan></text>
+<rect x="122" y="216" width="202" height="148" rx="0" fill="#1E1B16" stroke="#1E1B16" stroke-width="0"/>
+<rect x="110" y="204" width="202" height="148" rx="0" fill="#1F8A4C" stroke="#1E1B16" stroke-width="4"/>
+<rect x="128" y="222" width="44" height="36" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="3"/>
+<text x="150" y="244" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="150" dy="0">01</tspan></text>
+<text x="211" y="294.125" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle"><tspan x="211" dy="0">Audience</tspan></text>
+<text x="211" y="320" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="211" dy="0">pain</tspan><tspan x="211" dy="20">segment</tspan></text>
+<path d="M 324 280 L 378 310" fill="none" stroke="#1E1B16" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="394" y="248" width="202" height="148" rx="0" fill="#1E1B16" stroke="#1E1B16" stroke-width="0"/>
+<rect x="382" y="236" width="202" height="148" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="4"/>
+<rect x="400" y="254" width="44" height="36" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="3"/>
+<text x="422" y="276" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="422" dy="0">02</tspan></text>
+<text x="483" y="326.125" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle"><tspan x="483" dy="0">Promise</tspan></text>
+<text x="483" y="352" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="483" dy="0">story</tspan><tspan x="483" dy="20">offer</tspan></text>
+<path d="M 596 312 L 650 282" fill="none" stroke="#1E1B16" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="666" y="216" width="202" height="148" rx="0" fill="#1E1B16" stroke="#1E1B16" stroke-width="0"/>
+<rect x="654" y="204" width="202" height="148" rx="0" fill="#F06CA8" stroke="#1E1B16" stroke-width="4"/>
+<rect x="672" y="222" width="44" height="36" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="3"/>
+<text x="694" y="244" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="694" dy="0">03</tspan></text>
+<text x="755" y="294.125" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle"><tspan x="755" dy="0">Surface</tspan></text>
+<text x="755" y="320" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="755" dy="0">page</tspan><tspan x="755" dy="20">asset</tspan></text>
+<path d="M 868 280 L 922 310" fill="none" stroke="#1E1B16" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="938" y="248" width="202" height="148" rx="0" fill="#1F8A4C" stroke="#1F8A4C" stroke-width="0"/>
+<rect x="926" y="236" width="202" height="148" rx="0" fill="#E85A1F" stroke="#1E1B16" stroke-width="4"/>
+<rect x="944" y="254" width="44" height="36" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="3"/>
+<text x="966" y="276" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="966" dy="0">04</tspan></text>
+<text x="1027" y="326.125" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="27" font-weight="700" text-anchor="middle"><tspan x="1027" dy="0">Signal</tspan></text>
+<text x="1027" y="352" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="1027" dy="0">traffic</tspan><tspan x="1027" dy="20">reply</tspan></text>
+<rect x="132" y="520" width="930" height="58" rx="0" fill="#FFF8E8" stroke="#1E1B16" stroke-width="4"/>
+<text x="597" y="555.75" fill="#1E1B16" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="597" dy="0">Every loop returns with one stronger message, one clearer audience, and one cleaner surface.</tspan></text>
 </svg>

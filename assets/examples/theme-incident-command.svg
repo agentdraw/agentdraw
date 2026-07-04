@@ -1,54 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="8 0 1252 722" role="img" aria-label="Incident Command Center preview">
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="722" viewBox="8 0 1260 722" role="img" aria-label="Incident Command Center preview">
 <defs>
 <marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">
 <path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>
 </marker>
 </defs>
-<rect x="8" y="0" width="1252" height="722" fill="#FFFFFF"/>
-<text x="72" y="90" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" text-anchor="start"><tspan x="72" dy="0">Incident Command Center</tspan></text>
-<text x="74" y="124" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="start"><tspan x="74" dy="0">A clear escalation map for severity, owners, and recovery loops.</tspan></text>
-<rect x="44" y="36" width="1180" height="650" rx="0" fill="none" stroke="#667085" stroke-width="2"/>
-<rect x="92" y="166" width="238" height="34" rx="0" fill="#4053D6" stroke="#4053D6" stroke-width="0"/>
-<text x="211" y="188" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="211" dy="0">Signal</tspan></text>
-<rect x="92" y="224" width="238" height="156" rx="0" fill="#F8FAFC" stroke="#182230" stroke-width="2"/>
-<text x="211" y="276" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="211" dy="0">Detect</tspan></text>
-<text x="162" y="318" fill="#4053D6" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="162" dy="0">alerts</tspan></text>
-<text x="260" y="318" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="260" dy="0">logs</tspan></text>
-<rect x="116" y="294" width="92" height="38" rx="0" fill="none" stroke="#4053D6" stroke-width="2"/>
-<rect x="214" y="294" width="92" height="38" rx="0" fill="none" stroke="#667085" stroke-width="2"/>
-<path d="M 338 302 L 364 302" fill="none" stroke="#4053D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="372" y="166" width="238" height="34" rx="0" fill="#4053D6" stroke="#4053D6" stroke-width="0"/>
-<text x="491" y="188" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="491" dy="0">Decision</tspan></text>
-<rect x="372" y="224" width="238" height="156" rx="0" fill="#E7EEF8" stroke="#182230" stroke-width="2"/>
-<text x="491" y="276" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="491" dy="0">Triage</tspan></text>
-<text x="442" y="318" fill="#4053D6" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="442" dy="0">impact</tspan></text>
-<text x="540" y="318" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="540" dy="0">owner</tspan></text>
-<rect x="396" y="294" width="92" height="38" rx="0" fill="none" stroke="#4053D6" stroke-width="2"/>
-<rect x="494" y="294" width="92" height="38" rx="0" fill="none" stroke="#667085" stroke-width="2"/>
-<path d="M 618 302 L 644 302" fill="none" stroke="#4053D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="652" y="166" width="238" height="34" rx="0" fill="#4053D6" stroke="#4053D6" stroke-width="0"/>
-<text x="771" y="188" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="771" dy="0">Response</tspan></text>
-<rect x="652" y="224" width="238" height="156" rx="0" fill="#F8FAFC" stroke="#182230" stroke-width="2"/>
-<text x="771" y="276" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="771" dy="0">Mitigate</tspan></text>
-<text x="722" y="318" fill="#4053D6" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="722" dy="0">rollback</tspan></text>
-<text x="820" y="318" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="820" dy="0">patch</tspan></text>
-<rect x="676" y="294" width="92" height="38" rx="0" fill="none" stroke="#4053D6" stroke-width="2"/>
-<rect x="774" y="294" width="92" height="38" rx="0" fill="none" stroke="#667085" stroke-width="2"/>
-<path d="M 898 302 L 924 302" fill="none" stroke="#4053D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
-<rect x="932" y="166" width="238" height="34" rx="0" fill="#4053D6" stroke="#4053D6" stroke-width="0"/>
-<text x="1051" y="188" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="14" font-weight="500" text-anchor="middle"><tspan x="1051" dy="0">Learning</tspan></text>
-<rect x="932" y="224" width="238" height="156" rx="0" fill="#E7EEF8" stroke="#182230" stroke-width="2"/>
-<text x="1051" y="276" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700" text-anchor="middle"><tspan x="1051" dy="0">Review</tspan></text>
-<text x="1002" y="318" fill="#4053D6" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="1002" dy="0">timeline</tspan></text>
-<text x="1100" y="318" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="1100" dy="0">actions</tspan></text>
-<rect x="956" y="294" width="92" height="38" rx="0" fill="none" stroke="#4053D6" stroke-width="2"/>
-<rect x="1054" y="294" width="92" height="38" rx="0" fill="none" stroke="#667085" stroke-width="2"/>
-<rect x="92" y="454" width="1080" height="64" rx="0" fill="#F8FAFC" stroke="#182230" stroke-width="2"/>
-<text x="632" y="493" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="632" dy="0">Editable scene data, styled shapes, layout validation, and browser refinement.</tspan></text>
-<rect x="208" y="578" width="200" height="46" rx="0" fill="#F8FAFC" stroke="#182230" stroke-width="2"/>
-<text x="308" y="607" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="308" dy="0">Editable</tspan></text>
-<rect x="488" y="578" width="200" height="46" rx="0" fill="#E7EEF8" stroke="#182230" stroke-width="2"/>
-<text x="588" y="607" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="588" dy="0">Validated</tspan></text>
-<rect x="768" y="578" width="200" height="46" rx="0" fill="#F8FAFC" stroke="#182230" stroke-width="2"/>
-<text x="868" y="607" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="868" dy="0">Themeable</tspan></text>
+<rect x="8" y="0" width="1260" height="722" fill="#FFFFFF"/>
+<text x="72" y="88" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="34" font-weight="700" text-anchor="start"><tspan x="72" dy="0">Incident Command Center</tspan></text>
+<text x="74" y="121" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="17" font-weight="500" text-anchor="start"><tspan x="74" dy="0">A command board for severity, owners, recovery windows, and learning loops.</tspan></text>
+<rect x="44" y="36" width="1188" height="650" rx="0" fill="none" stroke="#E7EEF8" stroke-width="2"/>
+<rect x="78" y="158" width="292" height="404" rx="0" fill="#182230" stroke="#182230" stroke-width="0"/>
+<text x="219" y="218" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="32" font-weight="700" text-anchor="middle"><tspan x="219" dy="0">SEV-1</tspan></text>
+<text x="224" y="280.75" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="middle"><tspan x="224" dy="0">Payments degraded</tspan><tspan x="224" dy="27.5">Owner: infra lead</tspan><tspan x="224" dy="27.5">ETA: 24 min</tspan></text>
+<rect x="118" y="438" width="180" height="46" rx="0" fill="#4053D6" stroke="#4053D6" stroke-width="0"/>
+<text x="208" y="467.75" fill="#FFFFFF" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="500" text-anchor="middle"><tspan x="208" dy="0">Mitigating</tspan></text>
+<rect x="434" y="168" width="260" height="116" rx="0" fill="#F8FAFC" stroke="#182230" stroke-width="2"/>
+<text x="458" y="210" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="458" dy="0">Detect</tspan></text>
+<text x="458" y="242" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="458" dy="0">alert spike</tspan><tspan x="458" dy="20">logs</tspan></text>
+<rect x="764" y="168" width="260" height="116" rx="0" fill="#F8FAFC" stroke="#182230" stroke-width="2"/>
+<text x="788" y="210" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="788" dy="0">Triage</tspan></text>
+<text x="788" y="242" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="788" dy="0">blast radius</tspan><tspan x="788" dy="20">owner</tspan></text>
+<rect x="434" y="342" width="260" height="116" rx="0" fill="#E7EEF8" stroke="#182230" stroke-width="2"/>
+<text x="458" y="384" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="458" dy="0">Mitigate</tspan></text>
+<text x="458" y="416" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="458" dy="0">rollback</tspan><tspan x="458" dy="20">patch</tspan></text>
+<rect x="764" y="342" width="260" height="116" rx="0" fill="#F8FAFC" stroke="#182230" stroke-width="2"/>
+<text x="788" y="384" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="22" font-weight="500" text-anchor="start"><tspan x="788" dy="0">Review</tspan></text>
+<text x="788" y="416" fill="#667085" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="start"><tspan x="788" dy="0">timeline</tspan><tspan x="788" dy="20">actions</tspan></text>
+<path d="M 370 260 L 402 260 L 402 226 L 434 226" fill="none" stroke="#4053D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<path d="M 694 226 L 729 226 L 729 226 L 764 226" fill="none" stroke="#4053D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<path d="M 564 284 L 564 284 L 564 342 L 564 342" fill="none" stroke="#4053D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<path d="M 694 400 L 729 400 L 729 400 L 764 400" fill="none" stroke="#4053D6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrowhead)"/>
+<rect x="434" y="520" width="590" height="56" rx="0" fill="#F8FAFC" stroke="#182230" stroke-width="2"/>
+<text x="727" y="554" fill="#182230" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="500" text-anchor="middle"><tspan x="727" dy="0">00:04 detect   00:11 owner   00:19 rollback   00:31 stable</tspan></text>
 </svg>

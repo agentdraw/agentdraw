@@ -30,7 +30,7 @@ function renderScene(scene) {
   const canvas = scene.appState?.viewBackgroundColor ?? "#ffffff";
 
   return [
-    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}" role="img" aria-label="${escapeXml(scene.title)} preview">`,
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${Math.round(viewBox.width)}" height="${Math.round(viewBox.height)}" viewBox="${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}" role="img" aria-label="${escapeXml(scene.title)} preview">`,
     "<defs>",
     '<marker id="arrowhead" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth">',
     '<path d="M0,0 L10,4 L0,8 Z" fill="context-stroke"/>',

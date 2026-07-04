@@ -27,6 +27,7 @@ type ElementRecord = Record<string, unknown> & {
   text?: string;
   fontSize?: number;
   lineHeight?: number;
+  customData?: Record<string, unknown>;
 };
 
 type Bounds = {
@@ -50,7 +51,10 @@ export const validateScene = (scene: AgentDrawScene): SceneValidationResult => {
   const elements = scene.elements.filter(isDrawableElement);
   const bounds = elements.map(toBounds).filter((bound): bound is Bounds => Boolean(bound));
   const textBounds = bounds.filter((bound) => bound.type === "text");
-  const shapeBounds = bounds.filter((bound) => SHAPE_TYPES.has(bound.type));
+  const shapeBounds = bounds.filter((bound) => {
+    const element = elements.find((candidate) => candidate.id === bound.id);
+    return SHAPE_TYPES.has(bound.type) && !isDecorativeShape(element);
+  });
   const textElements = elements.filter((element) => element.type === "text");
   const connectorElements = elements.filter((element) => CONNECTOR_TYPES.has(element.type ?? ""));
   const issues: SceneValidationIssue[] = [];
@@ -154,6 +158,9 @@ const findShapeOverlaps = (shapes: Bounds[]): SceneValidationIssue[] => {
     for (let nextIndex = index + 1; nextIndex < shapes.length; nextIndex += 1) {
       const first = shapes[index];
       const second = shapes[nextIndex];
+      if (isIntentionalOverlap(first.id) || isIntentionalOverlap(second.id)) {
+        continue;
+      }
       if (contains(first, second) || contains(second, first)) {
         continue;
       }
@@ -170,6 +177,12 @@ const findShapeOverlaps = (shapes: Bounds[]): SceneValidationIssue[] => {
   }
   return issues;
 };
+
+const isDecorativeShape = (element: ElementRecord | undefined) =>
+  element?.customData?.role === "shadow" || element?.customData?.role === "decoration";
+
+const isIntentionalOverlap = (id: string) =>
+  id.includes("shadow") || id.includes("decor") || id.includes("overlap");
 
 const findVerticalCenteringIssues = (
   shapes: Bounds[],
