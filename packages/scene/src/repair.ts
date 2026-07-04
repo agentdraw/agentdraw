@@ -8,6 +8,7 @@ export type SceneRepairOptions = {
   addOuterFrame?: boolean;
   frameColor?: string;
   maxCornerRadiusPx?: number;
+  allowedColors?: string[];
 };
 
 export type SceneRepairChange = {
@@ -55,6 +56,7 @@ export const repairScene = (
   const connectorColor = options.connectorColor;
   const connectorStrokeWidth = options.connectorStrokeWidth ?? 2;
   const frameColor = options.frameColor ?? connectorColor ?? "#CBD5E1";
+  const colorPalette = colorRepairPalette(options.allowedColors);
   const elements = scene.elements.map((element) =>
     isElementRecord(element) ? { ...element } : element,
   );
@@ -69,6 +71,7 @@ export const repairScene = (
     if (element.type === "text") {
       repairTextElement(element, elementById, fontFamily, options.containerPadding, changes);
     }
+    repairElementColors(element, colorPalette, changes);
     if (CONNECTOR_TYPES.has(element.type ?? "")) {
       repairConnectorElement(element, connectorColor, connectorStrokeWidth, changes);
     }
@@ -97,6 +100,35 @@ export const repairScene = (
     },
     changes,
   };
+};
+
+const repairElementColors = (
+  element: ElementRecord,
+  palette: string[],
+  changes: SceneRepairChange[],
+) => {
+  if (palette.length === 0) {
+    return;
+  }
+  for (const field of ["strokeColor", "backgroundColor"] as const) {
+    const value = element[field];
+    if (typeof value !== "string" || value === "transparent") {
+      continue;
+    }
+    if (isAllowedColor(value, palette)) {
+      continue;
+    }
+    const next = nearestColor(value, palette);
+    if (!next || next === value) {
+      continue;
+    }
+    element[field] = next;
+    changes.push({
+      elementId: element.id ?? "(unknown)",
+      code: "color-contract",
+      message: `Mapped ${field} ${value} to nearest contract color ${next}.`,
+    });
+  }
 };
 
 const touchChangedElements = (
@@ -521,3 +553,53 @@ const isFrameLikeElement = (element: ElementRecord) => {
 
 const isElementRecord = (element: unknown): element is ElementRecord =>
   Boolean(element && typeof element === "object" && !(element as { isDeleted?: unknown }).isDeleted);
+
+const colorRepairPalette = (colors: string[] | undefined) =>
+  Array.from(
+    new Set(
+      (colors ?? [])
+        .filter((color) => color !== "transparent")
+        .filter((color) => /^#[0-9a-f]{6}$/i.test(color))
+        .map((color) => color.toUpperCase()),
+    ),
+  );
+
+const isAllowedColor = (value: string, palette: string[]) =>
+  palette.includes(value.toUpperCase());
+
+const nearestColor = (value: string, palette: string[]) => {
+  const source = hexToRgb(value);
+  if (!source) {
+    return null;
+  }
+  let best = palette[0];
+  let bestDistance = Number.POSITIVE_INFINITY;
+  for (const color of palette) {
+    const candidate = hexToRgb(color);
+    if (!candidate) {
+      continue;
+    }
+    const distance =
+      (source.r - candidate.r) ** 2 +
+      (source.g - candidate.g) ** 2 +
+      (source.b - candidate.b) ** 2;
+    if (distance < bestDistance) {
+      best = color;
+      bestDistance = distance;
+    }
+  }
+  return best;
+};
+
+const hexToRgb = (value: string) => {
+  const match = value.match(/^#([0-9a-f]{6})$/i);
+  if (!match) {
+    return null;
+  }
+  const hex = match[1];
+  return {
+    r: Number.parseInt(hex.slice(0, 2), 16),
+    g: Number.parseInt(hex.slice(2, 4), 16),
+    b: Number.parseInt(hex.slice(4, 6), 16),
+  };
+};

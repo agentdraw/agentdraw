@@ -370,6 +370,7 @@ const repairCommand = async (options: RepairOptions) => {
     addOuterFrame: contract.formality === "high",
     frameColor: contract.palette.muted,
     maxCornerRadiusPx: contract.geometry.cornerRadiusPx[1],
+    allowedColors: contract.allowedColors,
   });
   const afterValidation = validateSceneWithContract(repaired.scene, options.styleId);
   const skippedWrite = options.write && isValidationWorse(afterValidation, beforeValidation);

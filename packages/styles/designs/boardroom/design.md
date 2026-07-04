@@ -24,11 +24,12 @@ Use this style when the audience needs to scan priority, ownership, status, and 
 
 - Font family: in source SVG use `Inter, Arial, Noto Sans SC, sans-serif` or the closest available system sans. Keep text as real `<text>`/`<tspan>` and avoid handwritten fonts unless the user explicitly asks for them.
 
-- Title: 32-38px, bold, direct.
+- Title: 34-44px, bold, direct.
 - Status headline: 28-36px, bold, short.
-- Card title: 20-24px.
-- Fact rows: 15-17px.
+- Card title: 20-26px.
+- Fact rows: 16-18px for Chinese or multilingual boards; never shrink below 15px.
 - Use sentence case. Avoid playful copy.
+- Do not introduce generic success green, warning orange, or danger red unless the user explicitly asks for status semantics.
 
 ## SVG Source Rules
 
@@ -50,6 +51,8 @@ Use this style when the audience needs to scan priority, ownership, status, and 
 ## Layout
 
 Put the most urgent status block on the left. Put decision cards in a 2x2 grid to the right. Use a bottom timeline for temporal context.
+
+For comparison panels and lanes, repeated inner cards should share the same x-position, width, and vertical rhythm. Avoid small centered cards floating in a wide lane; use about 70-85% of the lane width so the structure feels intentional and scan-friendly.
 
 ## Avoid
 

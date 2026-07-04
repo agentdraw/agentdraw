@@ -13,6 +13,8 @@ export const useSceneFile = () => {
   const baseUpdatedAt = useRef<string | null>(null);
   const saveInFlight = useRef(false);
   const pendingSave = useRef<{ scene: AgentDrawScene; saveId: number } | null>(null);
+  const lastSavedKey = useRef<string | null>(null);
+  const lastQueuedKey = useRef<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -21,6 +23,8 @@ export const useSceneFile = () => {
         if (!cancelled) {
           setScene(envelope.scene);
           baseUpdatedAt.current = envelope.scene.updatedAt;
+          lastSavedKey.current = saveKey(envelope.scene);
+          lastQueuedKey.current = lastSavedKey.current;
           loadedAt.current = Date.now();
           setError(null);
         }
@@ -57,6 +61,8 @@ export const useSceneFile = () => {
     )
       .then((envelope) => {
         baseUpdatedAt.current = envelope.scene.updatedAt;
+        lastSavedKey.current = saveKey(envelope.scene);
+        lastQueuedKey.current = lastSavedKey.current;
         if (latestSaveId.current === pending.saveId) {
           setScene(envelope.scene);
           setSaveState(pendingSave.current ? "saving" : "saved");
@@ -64,6 +70,7 @@ export const useSceneFile = () => {
         }
       })
       .catch((saveError) => {
+        lastQueuedKey.current = lastSavedKey.current;
         if (latestSaveId.current === pending.saveId) {
           setSaveState("error");
           setError(saveError instanceof Error ? saveError.message : "Failed to save scene.");
@@ -90,15 +97,20 @@ export const useSceneFile = () => {
       if (!scene) {
         return;
       }
+      const sanitizedAppState = sanitizeAppState(appState);
       const nextScene: AgentDrawScene = {
         ...scene,
         styleId: styleId ?? scene.styleId,
         providerId: providerId ?? scene.providerId,
         elements,
-        appState: sanitizeAppState(appState),
+        appState: sanitizedAppState,
         files,
         updatedAt: new Date().toISOString(),
       };
+      const nextSaveKey = saveKey(nextScene);
+      if (nextSaveKey === lastSavedKey.current || nextSaveKey === lastQueuedKey.current) {
+        return;
+      }
       const loadedRecently =
         loadedAt.current !== null && Date.now() - loadedAt.current < 2500;
       if (loadedRecently && scene.elements.length > 0 && elements.length === 0) {
@@ -108,6 +120,7 @@ export const useSceneFile = () => {
         window.clearTimeout(saveTimer.current);
       }
       setSaveState("saving");
+      lastQueuedKey.current = nextSaveKey;
       const saveId = latestSaveId.current + 1;
       latestSaveId.current = saveId;
 
@@ -195,3 +208,38 @@ const sanitizeAppState = (appState: Record<string, unknown>) => {
   void currentItemRoundness;
   return persisted;
 };
+
+const saveKey = (scene: AgentDrawScene) =>
+  stableStringify({
+    styleId: scene.styleId,
+    providerId: scene.providerId,
+    elements: scene.elements,
+    appState: sanitizeAppState(scene.appState),
+    files: scene.files,
+  });
+
+const stableStringify = (value: unknown): string => JSON.stringify(stableValue(value));
+
+const stableValue = (value: unknown): unknown => {
+  if (Array.isArray(value)) {
+    return value.map(stableValue);
+  }
+  if (!value || typeof value !== "object") {
+    return value;
+  }
+  const record = value as Record<string, unknown>;
+  const output: Record<string, unknown> = {};
+  for (const key of Object.keys(record).sort()) {
+    if (VOLATILE_ELEMENT_KEYS.has(key)) {
+      continue;
+    }
+    output[key] = stableValue(record[key]);
+  }
+  return output;
+};
+
+const VOLATILE_ELEMENT_KEYS = new Set([
+  "updated",
+  "version",
+  "versionNonce",
+]);

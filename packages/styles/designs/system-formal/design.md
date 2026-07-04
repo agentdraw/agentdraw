@@ -24,11 +24,12 @@ Use this style when the board should feel like a serious product or systems diag
 
 - Font family: in source SVG use `Inter, Arial, Noto Sans SC, sans-serif` or the closest available system sans. Keep text as real `<text>`/`<tspan>` and avoid handwritten fonts unless the user explicitly asks for them.
 
-- Title: 32-40px, medium or bold, sentence case.
-- Section heading: 18-22px, medium.
-- Card title: 18-24px, medium or bold.
-- Body label: 14-18px.
+- Title: 34-44px, medium or bold, sentence case.
+- Section heading: 20-26px, medium.
+- Card title: 20-24px, medium or bold.
+- Body label: 15-19px; prefer 16-18px for Chinese or multilingual boards.
 - Avoid all-caps except for tiny category labels.
+- Do not introduce generic success green, warning orange, or danger red unless the user explicitly asks for status semantics.
 
 ## Geometry
 

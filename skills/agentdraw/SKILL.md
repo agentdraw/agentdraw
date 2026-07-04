@@ -89,6 +89,8 @@ Use only this SVG subset for editable imports:
 - Text: use real `text` and `tspan`, not paths.
 - Multiline labels: use `tspan x="..." dy="..."` lines.
 - Formal cards: use small `rx`/`ry` values. Avoid pill-shaped rounded rectangles unless the selected design explicitly calls for them.
+- For centered labels, always set both `text-anchor="middle"` and `dominant-baseline="middle"`.
+- Use only colors from `agentdraw guide contract <style-id> --json`. Do not add generic green, orange, or red status colors unless the selected palette includes them or the user explicitly asks for status semantics.
 
 Avoid:
 
@@ -104,7 +106,7 @@ Centered single-line label:
 ```svg
 <rect x="120" y="120" width="260" height="88" rx="6" fill="#F7F9FC" stroke="#172033" stroke-width="2" />
 <text x="250" y="164" text-anchor="middle" dominant-baseline="middle"
-  font-family="Inter, Arial, sans-serif" font-size="16" font-weight="650" fill="#172033">Centered label</text>
+  font-family="Inter, Arial, sans-serif" font-size="18" font-weight="650" fill="#172033">Centered label</text>
 ```
 
 Centered multiline label:
@@ -112,7 +114,7 @@ Centered multiline label:
 ```svg
 <rect x="120" y="120" width="300" height="116" rx="6" fill="#F7F9FC" stroke="#172033" stroke-width="2" />
 <text x="270" y="178" text-anchor="middle" dominant-baseline="middle"
-  font-family="Inter, Arial, sans-serif" font-size="15" fill="#172033">
+  font-family="Inter, Arial, sans-serif" font-size="17" fill="#172033">
   <tspan x="270" dy="-0.6em">Primary label</tspan>
   <tspan x="270" dy="1.2em">Secondary detail</tspan>
 </text>
@@ -137,10 +139,14 @@ Before delivering:
 
 - The board has a clear title and reading path.
 - Major sections are grouped into visible regions.
+- In columns, lanes, and comparison panels, inner cards should use the available width deliberately. Avoid tiny centered cards floating inside a large column; target roughly 70-85% of the lane width unless the design intentionally needs small chips.
+- Align repeated cards to a shared x, width, and rhythm. Uneven card widths inside the same lane usually read as weak layout unless they encode data.
 - Architecture, layered system, and workflow boards have one outer frame, titled system boundary, or enclosing region unless the selected design guide says to keep the canvas open.
 - The agent states why it selected the theme. If the user has no clear preference, the agent offers `agentdraw gallery` before committing to a style.
 - The selected style changes layout, typography, spacing, components, connector treatment, and geometry, not only colors.
 - Text hierarchy comes from title/heading/body sizes, weight, contrast, and spacing.
+- For Chinese or multilingual boards, use body text around 16-18px, card headings around 20-24px, and titles around 34-44px unless the selected design guide says otherwise.
+- Colors are constrained by the selected contract. Avoid ad hoc success green, warning orange, and danger red in restrained themes.
 - Connectors attach to meaningful shapes at the shape edge or just outside it; endpoints must not sit deep inside nodes or cross labels.
 - Text fits inside containers and appears vertically centered when the design intends centered labels.
 - `agentdraw validate <file> --style <style-id> --format json` reports zero errors, or remaining errors are explicitly explained before delivery.

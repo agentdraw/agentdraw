@@ -254,7 +254,8 @@ const textElement = (node: XmlNode, attrs: XmlNode, context: WalkContext) => {
   const y = num(attrs.y) + context.transform.y;
   const textAlign = anchor === "middle" ? "center" : anchor === "end" ? "right" : "left";
   const textX = textAlign === "center" ? x - width / 2 : textAlign === "right" ? x - width : x;
-  const textY = baselineYToBoxY(y, height, fontSize, dominantBaseline);
+  const middleAligned = isMiddleBaseline(dominantBaseline) || inferredMiddleBaseline(anchor, dominantBaseline);
+  const textY = baselineYToBoxY(y, height, fontSize, middleAligned ? "middle" : dominantBaseline);
   return baseElement("text", textX, textY, width, height, context.style, {
     ...customDataFromAttrs(attrs),
     strokeColor: context.style.fill ?? context.style.stroke ?? "#111827",
@@ -265,7 +266,7 @@ const textElement = (node: XmlNode, attrs: XmlNode, context: WalkContext) => {
     fontSize,
     fontFamily: 2,
     textAlign,
-    verticalAlign: isMiddleBaseline(dominantBaseline) ? "middle" : "top",
+    verticalAlign: middleAligned ? "middle" : "top",
     autoResize: false,
     containerId: null,
     lineHeight,
@@ -486,6 +487,9 @@ const baselineYToBoxY = (
 
 const isMiddleBaseline = (dominantBaseline: string) =>
   ["middle", "central", "mathematical"].includes(dominantBaseline);
+
+const inferredMiddleBaseline = (anchor: string, dominantBaseline: string) =>
+  anchor === "middle" && dominantBaseline === "";
 
 const estimateTextWidth = (lines: string[], fontSize: number) =>
   Math.max(1, ...lines.map((line) => Math.ceil(estimateLineWidth(line, fontSize) + 16)));

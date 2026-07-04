@@ -185,16 +185,16 @@ export function getDesignContract(styleOrId: AgentDrawStyle | string): DesignCon
       style.palette.accent2,
       style.palette.accent3,
       style.palette.muted,
-      ...semanticContractColors(style),
+      ...neutralContractColors(style),
       "#FFFFFF",
       "#000000",
       "transparent",
     ]),
     typography: {
       fontFamily: profile.fontFamily,
-      titlePx: playful ? [36, 54] : formal ? [30, 42] : [32, 46],
-      headingPx: playful ? [20, 30] : formal ? [18, 24] : [19, 28],
-      bodyPx: playful ? [15, 20] : formal ? [14, 18] : [15, 19],
+      titlePx: playful ? [36, 54] : formal ? [34, 44] : [32, 46],
+      headingPx: playful ? [20, 30] : formal ? [20, 26] : [19, 28],
+      bodyPx: playful ? [15, 20] : formal ? [15, 19] : [15, 19],
       maxTypeSizesPerBoard: formal ? 4 : 5,
     },
     geometry: {
@@ -221,6 +221,7 @@ export function getDesignContract(styleOrId: AgentDrawStyle | string): DesignCon
       "Use the design contract as a constraint, not inspiration.",
       "The selected style must change layout, typography, geometry, components, and connector treatment.",
       "Use only contract palette colors unless the user explicitly asks for a custom brand color.",
+      "Do not introduce generic success green, warning orange, or random semantic colors unless they are part of the selected palette.",
       "Use the contract font family; default AgentDraw themes use sans text for multilingual readability.",
       "Use title-size text for one clear title, heading-size text for section labels, and body-size text for content. Create hierarchy with size, contrast, and spacing rather than emoji.",
       "Avoid emoji and decorative pictograms unless the user explicitly asks for them.",
@@ -438,7 +439,7 @@ function uniqueColors(values: string[]) {
   return Array.from(new Set(values.map((value) => value.toUpperCase())));
 }
 
-function semanticContractColors(style: AgentDrawStyle) {
+function neutralContractColors(style: AgentDrawStyle) {
   if (style.formality !== "high") {
     return [];
   }
@@ -448,15 +449,6 @@ function semanticContractColors(style: AgentDrawStyle) {
     "#F8FAFC",
     "#475569",
     "#EAF1FF",
-    "#DCFCE7",
-    "#15803D",
-    "#FDE68A",
-    "#B45309",
-    "#FFF7ED",
-    "#F97316",
-    "#9A3412",
-    "#FFE4E6",
-    "#EDE9FE",
   ];
 }
 
