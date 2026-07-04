@@ -1139,7 +1139,7 @@ const defaultImportedScenePath = (svgPath: string) => {
   return path.join(parsed.dir, `${parsed.name}.agentdraw.json`);
 };
 
-type MermaidNodeShape = "rectangle" | "rounded" | "diamond" | "ellipse";
+type MermaidNodeShape = "rectangle" | "rounded" | "terminal" | "diamond" | "ellipse";
 
 type MermaidNode = {
   id: string;
@@ -1276,6 +1276,8 @@ const parseMermaidNode = (raw: string): MermaidNode | null => {
   if (parsed) return parsed;
   const ellipse = parseMermaidShapedNode(input, "ellipse", /^\s*([A-Za-z0-9_:-]+)\s*\(\((.+)\)\)\s*$/);
   if (ellipse) return ellipse;
+  const terminal = parseMermaidShapedNode(input, "terminal", /^\s*([A-Za-z0-9_:-]+)\s*\(\[(.+)\]\)\s*$/);
+  if (terminal) return terminal;
   const rounded = parseMermaidShapedNode(input, "rounded", /^\s*([A-Za-z0-9_:-]+)\s*\((.+)\)\s*$/);
   if (rounded) return rounded;
   const rectangle = parseMermaidShapedNode(input, "rectangle", /^\s*([A-Za-z0-9_:-]+)\s*\[(.+)\]\s*$/);
@@ -1304,6 +1306,18 @@ const registerMermaidNode = (nodes: Map<string, MermaidNode>, node: MermaidNode)
   }
 };
 
+const mermaidNodeElementId = (nodeId: string) => `mermaid-node-${nodeId}`;
+
+const addMermaidBoundElement = (
+  boundElementsByNodeId: Map<string, Array<{ type: string; id: string }>>,
+  nodeId: string,
+  boundElement: { type: string; id: string },
+) => {
+  const boundElements = boundElementsByNodeId.get(nodeId) ?? [];
+  boundElements.push(boundElement);
+  boundElementsByNodeId.set(nodeId, boundElements);
+};
+
 const mermaidFlowchartToScene = (
   flowchart: MermaidFlowchart,
   options: MermaidSceneOptions,
@@ -1318,6 +1332,7 @@ const mermaidFlowchartToScene = (
     return seed;
   };
   const elements: unknown[] = [];
+  const boundElementsByNodeId = new Map<string, Array<{ type: string; id: string }>>();
   const bounds = layoutBounds(layout);
   const margin = 56;
   elements.push(
@@ -1336,14 +1351,26 @@ const mermaidFlowchartToScene = (
     const to = layout.find((node) => node.id === edge.to);
     if (!from || !to) continue;
     const connector = connectorBetween(from, to, flowchart.direction);
+    const edgeId = `mermaid-edge-${edge.from}-${edge.to}-${nextSeed()}`;
+    addMermaidBoundElement(boundElementsByNodeId, edge.from, { type: "arrow", id: edgeId });
+    addMermaidBoundElement(boundElementsByNodeId, edge.to, { type: "arrow", id: edgeId });
     elements.push(
-      connectorElement(`mermaid-edge-${edge.from}-${edge.to}-${nextSeed()}`, connector.x, connector.y, connector.points, {
+      connectorElement(edgeId, connector.x, connector.y, connector.points, {
         seed: nextSeed(),
         strokeColor: contract.palette.muted,
         strokeWidth: contract.connectors.minStrokeWidth,
         roughness: contract.geometry.roughness[0],
         arrow: edge.arrow,
         elbowed: connector.points.length > 2,
+        startElementId: mermaidNodeElementId(edge.from),
+        endElementId: mermaidNodeElementId(edge.to),
+        startFixedPoint: bindingFixedPoint(from, connector.x, connector.y, connector.points[0]),
+        endFixedPoint: bindingFixedPoint(
+          to,
+          connector.x,
+          connector.y,
+          connector.points[connector.points.length - 1],
+        ),
       }),
     );
     if (edge.label) {
@@ -1365,27 +1392,34 @@ const mermaidFlowchartToScene = (
 
   for (const node of layout) {
     const isDecision = node.shape === "diamond";
-    const isTerminal = node.shape === "rounded" || node.shape === "ellipse";
+    const isTerminal = node.shape === "terminal" || node.shape === "ellipse";
     const fill = isDecision ? contract.palette.accent2 : isTerminal ? contract.palette.panel : "#FFFFFF";
+    const nodeId = mermaidNodeElementId(node.id);
+    const labelId = `mermaid-label-${node.id}`;
+    const labelFontSize = contract.typography.bodyPx[1];
+    const labelBox = centeredNodeLabelBox(node, node.label, labelFontSize);
     elements.push(
-      shapeElement(`mermaid-node-${node.id}`, nodeShapeType(node), node.x, node.y, node.width, node.height, {
+      shapeElement(nodeId, nodeShapeType(node), node.x, node.y, node.width, node.height, {
         seed: nextSeed(),
         strokeColor: contract.palette.ink,
         backgroundColor: fill,
         strokeWidth: Math.max(contract.geometry.strokeWidth[0], 2),
         roughness: contract.geometry.roughness[0],
-        roundness: isDecision || contract.formality === "high" ? null : { type: 3 },
+        roundness: isDecision || isTerminal || contract.formality === "high" ? null : { type: 3 },
         customData: { mermaidId: node.id, mermaidShape: node.shape },
+        boundTextId: labelId,
+        boundElements: boundElementsByNodeId.get(node.id),
       }),
     );
     elements.push(
-      textElement(`mermaid-label-${node.id}`, node.x + 18, node.y + 16, node.width - 36, node.height - 32, node.label, {
+      textElement(labelId, labelBox.x, labelBox.y, labelBox.width, labelBox.height, node.label, {
         seed: nextSeed(),
-        fontSize: contract.typography.bodyPx[1],
+        fontSize: labelFontSize,
         fontFamily: excalidrawFontFamily(contract.typography.fontFamily),
         strokeColor: contract.palette.ink,
         textAlign: "center",
         verticalAlign: "middle",
+        containerId: nodeId,
       }),
     );
   }
@@ -1611,6 +1645,8 @@ const shapeElement = (
     roughness: number;
     roundness: unknown;
     customData?: Record<string, unknown>;
+    boundTextId?: string;
+    boundElements?: Array<{ type: string; id: string }>;
   },
 ) => ({
   ...baseMermaidElement(id, type, x, y, width, height, options.seed),
@@ -1621,12 +1657,19 @@ const shapeElement = (
   strokeStyle: "solid",
   roughness: options.roughness,
   roundness: options.roundness,
+  boundElements:
+    options.boundTextId || options.boundElements?.length
+      ? [
+          ...(options.boundTextId ? [{ type: "text", id: options.boundTextId }] : []),
+          ...(options.boundElements ?? []),
+        ]
+      : null,
   ...(options.customData ? { customData: options.customData } : {}),
 });
 
 const nodeShapeType = (node: MermaidLayoutNode): "rectangle" | "ellipse" | "diamond" => {
   if (node.shape === "diamond") return "diamond";
-  if (node.shape === "ellipse") return "ellipse";
+  if (node.shape === "ellipse" || node.shape === "terminal") return "ellipse";
   return "rectangle";
 };
 
@@ -1644,6 +1687,7 @@ const textElement = (
     strokeColor: string;
     textAlign: "left" | "center" | "right";
     verticalAlign: "top" | "middle";
+    containerId?: string | null;
   },
 ) => ({
   ...baseMermaidElement(id, "text", x, y, width, height, options.seed),
@@ -1658,10 +1702,28 @@ const textElement = (
   fontFamily: options.fontFamily,
   textAlign: options.textAlign,
   verticalAlign: options.verticalAlign,
-  containerId: null,
+  autoResize: false,
+  containerId: options.containerId ?? null,
   originalText: text,
   lineHeight: 1.25,
 });
+
+const centeredNodeLabelBox = (
+  node: MermaidLayoutNode,
+  text: string,
+  fontSize: number,
+) => {
+  const padding = Math.max(10, Math.min(18, Math.round(Math.min(node.width, node.height) * 0.14)));
+  const lineHeight = 1.25;
+  const lineCount = Math.max(1, text.split("\n").length);
+  const textHeight = lineCount * fontSize * lineHeight;
+  return {
+    x: node.x + padding,
+    y: node.y + (node.height - textHeight) / 2,
+    width: Math.max(1, node.width - padding * 2),
+    height: textHeight,
+  };
+};
 
 const connectorElement = (
   id: string,
@@ -1675,24 +1737,76 @@ const connectorElement = (
     roughness: number;
     arrow: boolean;
     elbowed: boolean;
+    startElementId?: string;
+    endElementId?: string;
+    startFixedPoint?: number[];
+    endFixedPoint?: number[];
   },
-) => ({
-  ...baseMermaidElement(id, options.arrow ? "arrow" : "line", x, y, pointsWidth(points), pointsHeight(points), options.seed),
-  strokeColor: options.strokeColor,
-  backgroundColor: "transparent",
-  fillStyle: "solid",
-  strokeWidth: options.strokeWidth,
-  strokeStyle: "solid",
-  roughness: options.roughness,
-  points,
-  lastCommittedPoint: null,
-  startBinding: null,
-  endBinding: null,
-  startArrowhead: null,
-  endArrowhead: options.arrow ? "arrow" : null,
-  elbowed: options.elbowed,
-  roundness: null,
-});
+) => {
+  const geometry = normalizeConnectorGeometry(x, y, points);
+  return {
+    ...baseMermaidElement(
+      id,
+      options.arrow ? "arrow" : "line",
+      geometry.x,
+      geometry.y,
+      geometry.width,
+      geometry.height,
+      options.seed,
+    ),
+    strokeColor: options.strokeColor,
+    backgroundColor: "transparent",
+    fillStyle: "solid",
+    strokeWidth: options.strokeWidth,
+    strokeStyle: "solid",
+    roughness: options.roughness,
+    points: geometry.points,
+    lastCommittedPoint: null,
+    startBinding: options.startElementId
+      ? { elementId: options.startElementId, focus: 0, gap: 0, fixedPoint: options.startFixedPoint ?? null }
+      : null,
+    endBinding: options.endElementId
+      ? { elementId: options.endElementId, focus: 0, gap: 0, fixedPoint: options.endFixedPoint ?? null }
+      : null,
+    startArrowhead: null,
+    endArrowhead: options.arrow ? "arrow" : null,
+    elbowed: options.elbowed,
+    roundness: null,
+  };
+};
+
+const bindingFixedPoint = (
+  node: MermaidLayoutNode,
+  connectorX: number,
+  connectorY: number,
+  point: number[],
+) => {
+  const absoluteX = connectorX + point[0];
+  const absoluteY = connectorY + point[1];
+  return [
+    clampNumber((absoluteX - node.x) / node.width, 0, 1),
+    clampNumber((absoluteY - node.y) / node.height, 0, 1),
+  ];
+};
+
+const clampNumber = (value: number, min: number, max: number) =>
+  Math.max(min, Math.min(max, value));
+
+const normalizeConnectorGeometry = (x: number, y: number, points: number[][]) => {
+  const xValues = points.map((point) => point[0]);
+  const yValues = points.map((point) => point[1]);
+  const minX = Math.min(...xValues);
+  const minY = Math.min(...yValues);
+  const maxX = Math.max(...xValues);
+  const maxY = Math.max(...yValues);
+  return {
+    x: x + minX,
+    y: y + minY,
+    width: Math.max(1, maxX - minX),
+    height: Math.max(1, maxY - minY),
+    points: points.map((point) => [point[0] - minX, point[1] - minY]),
+  };
+};
 
 const baseMermaidElement = (
   id: string,
@@ -1722,9 +1836,6 @@ const baseMermaidElement = (
   link: null,
   locked: false,
 });
-
-const pointsWidth = (points: number[][]) => Math.max(1, Math.max(...points.map((point) => point[0])));
-const pointsHeight = (points: number[][]) => Math.max(1, Math.max(...points.map((point) => point[1])));
 
 const assertSafePath = (filePath: string) => {
   const segments = filePath.split(path.sep).filter(Boolean);

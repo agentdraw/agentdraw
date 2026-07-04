@@ -295,36 +295,11 @@ const normalizeElementsForExcalidraw = (
       .filter((element) => typeof element.id === "string")
       .map((element) => [String(element.id), element]),
   );
-  const containedTextIds = new Set(
-    elements
-      .filter(isElementRecord)
-      .filter((element) => element.type === "text" && containedTextBox(element, elementById))
-      .map((element) => String(element.id)),
-  );
   return elements.map((element) => {
     if (!isElementRecord(element)) {
       return element;
     }
     if (element.type !== "text") {
-      if (Array.isArray(element.boundElements)) {
-        const nextBoundElements = element.boundElements.filter(
-          (bound) =>
-            !(
-              bound &&
-              typeof bound === "object" &&
-              containedTextIds.has(String((bound as { id?: unknown }).id))
-            ),
-        );
-        if (nextBoundElements.length !== element.boundElements.length) {
-          return {
-            ...element,
-            boundElements: nextBoundElements,
-            version: bumpNumber(element.version),
-            versionNonce: randomNonce(),
-            updated: now,
-          };
-        }
-      }
       return element;
     }
 
@@ -345,8 +320,7 @@ const normalizeElementsForExcalidraw = (
           numberChanged(element.height, normalizedBox.height) ||
           element.verticalAlign !== "middle" ||
           element.textAlign !== "center" ||
-          element.autoResize !== false ||
-          element.containerId !== null),
+          element.autoResize !== false),
     );
     return {
       ...element,
@@ -370,7 +344,7 @@ const normalizeElementsForExcalidraw = (
           ? element.verticalAlign
           : "middle",
       autoResize: containedBox ? false : typeof element.autoResize === "boolean" ? element.autoResize : false,
-      containerId: containedBox ? null : element.containerId,
+      containerId: element.containerId,
       lineHeight,
       baseline: containedBox
         ? Math.round(fontSize * lineHeight * Math.max(1, text.split("\n").length) * 0.78)

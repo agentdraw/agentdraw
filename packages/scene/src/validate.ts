@@ -132,7 +132,9 @@ const findContainedTextBoxIssues = (
       continue;
     }
     const expectedHeight = Math.max(32, container.height - defaultContainerPadding(container) * 2);
-    if (bounds.height < expectedHeight * 0.72) {
+    const centerOffset = Math.abs(centerY(bounds) - centerY(container));
+    const centered = centerOffset <= Math.max(3, Math.min(8, container.height * 0.08));
+    if (!centered && bounds.height < expectedHeight * 0.72) {
       issues.push({
         severity: "warning",
         code: "contained-text-box-too-small",

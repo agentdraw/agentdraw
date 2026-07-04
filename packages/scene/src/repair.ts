@@ -250,11 +250,17 @@ const repairTextElement = (
   }
 
   const padding = containerPadding ?? defaultContainerPadding(container);
+  const lineHeight = typeof element.lineHeight === "number" ? element.lineHeight : 1.25;
+  const lineCount = typeof element.text === "string" ? Math.max(1, element.text.split("\n").length) : 1;
+  const textHeight =
+    typeof element.fontSize === "number"
+      ? Math.max(1, lineCount * element.fontSize * lineHeight)
+      : Math.max(1, container.height - padding * 2);
   const next = {
     x: container.x + padding,
-    y: container.y + padding,
+    y: container.y + (container.height - textHeight) / 2,
     width: Math.max(1, container.width - padding * 2),
-    height: Math.max(1, container.height - padding * 2),
+    height: textHeight,
   };
   let moved = false;
   for (const key of ["x", "y", "width", "height"] as const) {
