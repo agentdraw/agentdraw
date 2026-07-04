@@ -76,6 +76,7 @@ agentdraw open .agentdraw/board.agentdraw.json --background --no-open --format j
 - Do not use a design style as a palette swap; load its guide and contract before generating.
 - Keep text editable and generously sized.
 - For Excalidraw text, include `text`, `originalText`, `fontSize`, `fontFamily`, `lineHeight`, `baseline`, `textAlign`, `verticalAlign`, and `autoResize`.
+- Use the font family required by `agentdraw guide contract <style-id> --json`. Default AgentDraw themes use Excalidraw `fontFamily: 2` sans text; avoid `fontFamily: 1` for Chinese or multilingual boards unless the user explicitly asks for a hand-drawn look.
 - Do not persist viewport runtime fields such as `scrollX`, `scrollY`, `zoom`, `width`, `height`, `offsetTop`, `selectedElementIds`, or `editingTextElement`.
 - Run validation before opening or delivering the scene.
 - Run quality scoring before opening or delivering the scene; remember task fit still needs prompt-aware review.

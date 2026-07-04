@@ -18,6 +18,8 @@ Canvas `#F5F4EF`, ink `#0A0A0A`, surface `#FFFFFF`, neon lime `#E6FF3D`, muted g
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 38-50px, grid header 18-24px, body 15-17px. Use compact labels and strong ordering.
 
 ## Geometry And Components

@@ -22,6 +22,8 @@ Use for content that should read like a crafted table, agenda, or field guide. I
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 32-38px, row heading 18-22px, body 15-17px. Use medium-weight labels and compact descriptions.
 
 ## Geometry And Components

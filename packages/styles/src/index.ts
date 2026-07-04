@@ -38,6 +38,7 @@ export type DesignContract = {
   palette: AgentDrawStyle["palette"];
   allowedColors: string[];
   typography: {
+    fontFamily: StyleRenderProfile["fontFamily"];
     titlePx: [number, number];
     headingPx: [number, number];
     bodyPx: [number, number];
@@ -158,7 +159,7 @@ export function getStyleRenderProfile(style: AgentDrawStyle): StyleRenderProfile
     roughness: 1,
     strokeWidth: 2,
     roundness: "round",
-    fontFamily: "hand",
+    fontFamily: "sans",
     arrowType: "round",
   };
 }
@@ -190,6 +191,7 @@ export function getDesignContract(styleOrId: AgentDrawStyle | string): DesignCon
       "transparent",
     ]),
     typography: {
+      fontFamily: profile.fontFamily,
       titlePx: playful ? [36, 54] : formal ? [30, 42] : [32, 46],
       headingPx: playful ? [20, 30] : formal ? [18, 24] : [19, 28],
       bodyPx: playful ? [15, 20] : formal ? [14, 18] : [15, 19],
@@ -219,11 +221,13 @@ export function getDesignContract(styleOrId: AgentDrawStyle | string): DesignCon
       "Use the design contract as a constraint, not inspiration.",
       "The selected style must change layout, typography, geometry, components, and connector treatment.",
       "Use only contract palette colors unless the user explicitly asks for a custom brand color.",
+      "Use the contract font family; default AgentDraw themes use sans text for multilingual readability.",
       "Keep every label editable and contained inside its visual region.",
       "Run agentdraw validate before opening or delivering the board.",
     ],
     avoid: [
       "palette-only restyling",
+      "Excalidraw Virgil/handwritten font unless explicitly requested by the user",
       "uncontained or clipped text",
       "connectors crossing labels, titles, or table headers",
       "unmarked decorative overlaps",
@@ -364,6 +368,17 @@ export function validateSceneAgainstDesignContract(
       }
     }
     if (element.type === "text" && typeof element.fontSize === "number") {
+      if (
+        typeof element.fontFamily === "number" &&
+        element.fontFamily !== excalidrawFontFamily(contract.typography.fontFamily)
+      ) {
+        issues.push({
+          severity: "warning",
+          code: "font-family-outside-contract",
+          message: `Text fontFamily ${element.fontFamily} does not match the ${contract.typography.fontFamily} font required by the design contract.`,
+          elementIds: [element.id],
+        });
+      }
       typeSizes.add(element.fontSize);
       const [min, max] = contract.typography.bodyPx;
       const [headingMin, headingMax] = contract.typography.headingPx;
@@ -428,6 +443,16 @@ function semanticContractColors(style: AgentDrawStyle) {
 
 function normalizeColor(value: string) {
   return value.trim().toUpperCase();
+}
+
+function excalidrawFontFamily(fontFamily: StyleRenderProfile["fontFamily"]) {
+  if (fontFamily === "sans") {
+    return 2;
+  }
+  if (fontFamily === "mono") {
+    return 3;
+  }
+  return 1;
 }
 
 function isElementRecord(element: unknown): element is Record<string, unknown> & { id: string } {

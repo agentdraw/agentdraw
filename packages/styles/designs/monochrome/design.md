@@ -23,6 +23,8 @@ Use for serious diagrams where clarity and hierarchy matter more than visual per
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 32-40px, section label 18-22px, body 15-17px. Weight and spacing create hierarchy because there is no strong accent.
 
 ## Geometry And Components

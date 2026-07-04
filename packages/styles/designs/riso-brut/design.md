@@ -24,6 +24,8 @@ Use two or three accents per board. Do not use every bright color in every compo
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 - Title: 36-48px, bold, compact.
 - Stage label: 16-20px, bold, uppercase only when the label is short.
 - Card title: 24-30px, bold.

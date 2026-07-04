@@ -23,6 +23,8 @@ Green is the main voice. Coral is rare: use it for a short rule, number, or smal
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 - Title: 34-44px, medium or bold, editorial sentence case.
 - Kicker: 15-17px, optional, muted or coral.
 - Card title: 21-26px.

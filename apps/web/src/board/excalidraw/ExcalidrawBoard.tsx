@@ -23,8 +23,8 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
     const suppressChangeRef = useRef(replayEnabled);
     const fitSceneKeyRef = useRef<string | null>(null);
     const normalizedElements = useMemo(
-      () => normalizeElementsForExcalidraw(scene.elements),
-      [scene.elements],
+      () => normalizeElementsForExcalidraw(scene.elements, style),
+      [scene.elements, style],
     );
     const sceneKey = useMemo(
       () =>
@@ -231,8 +231,13 @@ const orderElementsForReplay = (elements: readonly unknown[]) => {
     .map(({ element }) => element);
 };
 
-const normalizeElementsForExcalidraw = (elements: readonly unknown[]) =>
-  elements.map((element) => {
+const normalizeElementsForExcalidraw = (
+  elements: readonly unknown[],
+  style: AgentDrawStyle,
+) => {
+  const profile = getStyleRenderProfile(style);
+  const expectedFontFamily = fontFamilyForProfile(profile.fontFamily);
+  return elements.map((element) => {
     if (!isElementRecord(element)) {
       return element;
     }
@@ -248,7 +253,7 @@ const normalizeElementsForExcalidraw = (elements: readonly unknown[]) =>
       text,
       originalText: typeof element.originalText === "string" ? element.originalText : text,
       fontSize,
-      fontFamily: typeof element.fontFamily === "number" ? element.fontFamily : 1,
+      fontFamily: expectedFontFamily,
       textAlign: typeof element.textAlign === "string" ? element.textAlign : "left",
       verticalAlign: typeof element.verticalAlign === "string" ? element.verticalAlign : "middle",
       autoResize: typeof element.autoResize === "boolean" ? element.autoResize : false,
@@ -261,6 +266,7 @@ const normalizeElementsForExcalidraw = (elements: readonly unknown[]) =>
         typeof element.backgroundColor === "string" ? element.backgroundColor : "transparent",
     };
   });
+};
 
 const sanitizeInitialAppState = (appState: Record<string, unknown>) => {
   const {

@@ -22,6 +22,8 @@ Use this style for research synthesis, interview clustering, brainstorm cleanup,
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 - Title: 34-38px.
 - Cluster title: 22-25px.
 - Sticky note text: 13-15px, short phrases only.

@@ -22,6 +22,8 @@ Use this style when the board should feel like a serious product or systems diag
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 - Title: 32-40px, medium or bold, sentence case.
 - Section heading: 18-22px, medium.
 - Card title: 18-24px, medium or bold.

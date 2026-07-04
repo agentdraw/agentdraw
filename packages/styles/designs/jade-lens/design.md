@@ -23,6 +23,8 @@ Use when the board should feel precise, quiet, and high-trust. Good for customer
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 32-40px, section labels 17-20px, card body 15-17px. Use calm sentence case and avoid loud all-caps.
 
 ## Geometry And Components

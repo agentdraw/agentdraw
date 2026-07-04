@@ -18,6 +18,8 @@ Canvas white, ink `#171717`, pale berry `#F8F3F7`, raspberry `#9E2B50`, periwink
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 34-40px, section 18-22px, body 15-17px. Short labels, strong hierarchy.
 
 ## Geometry And Components

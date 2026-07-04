@@ -23,6 +23,8 @@ Use for conceptual explainers, creative workflows, and maps that benefit from an
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 34-42px, block title 20-24px, body 15-17px. Use short poetic labels, not paragraphs.
 
 ## Geometry And Components

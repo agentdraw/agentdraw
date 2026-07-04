@@ -18,6 +18,8 @@ Canvas `#EEFA79`, ink `#0A0A05`, surface `#FFFFF2`, black accent, darker lime `#
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 38-48px, card title 21-26px, body 16-18px. Use clear product language.
 
 ## Geometry And Components

@@ -23,6 +23,8 @@ Use when the board should feel thoughtful, archival, and quietly authoritative.
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 34-42px, section heading 20-24px, body 16-18px. Use sentence case and concise editorial copy.
 
 ## Geometry And Components

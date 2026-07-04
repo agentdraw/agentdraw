@@ -18,6 +18,8 @@ Canvas `#FBD65A`, ink `#1E1E1E`, pale yellow `#FFF2B6`, lavender `#CFACE8`, whit
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 38-48px, panel title 22-28px, body 16-18px. Use command-like labels.
 
 ## Geometry And Components

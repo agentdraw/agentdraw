@@ -18,6 +18,8 @@ Canvas `#E2DCC9`, ink `#201A17`, surface `#F4ECD8`, orange `#EE7A2E`, magenta `#
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 38-50px, stencil labels 20-28px, body 16-18px. Short labels work best.
 
 ## Geometry And Components

@@ -22,6 +22,8 @@ Use this style when the audience needs to scan priority, ownership, status, and 
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 - Title: 32-38px, bold, direct.
 - Status headline: 28-36px, bold, short.
 - Card title: 20-24px.

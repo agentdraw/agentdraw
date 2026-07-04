@@ -18,6 +18,8 @@ Canvas white, ink `#1C1410`, pale red `#FFF1EF`, red `#D8000F`, soft red `#F4C7C
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 40-52px, section labels 20-26px, body 16-18px. Large type is the decoration.
 
 ## Geometry And Components

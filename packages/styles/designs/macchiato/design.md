@@ -23,6 +23,8 @@ Use when the diagram should feel mature and editorial: executive summaries, stra
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 34-42px, section heading 20-24px, body 16-18px. Use restrained contrast and avoid oversized novelty type.
 
 ## Geometry And Components

@@ -18,6 +18,8 @@ Canvas `#DDA8A2`, ink `#171717`, pale rose `#F1C8C3`, cobalt `#4746C6`, white, m
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 40-54px, block title 24-30px, body 16-18px. Let scale create drama.
 
 ## Geometry And Components

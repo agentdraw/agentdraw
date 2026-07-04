@@ -18,6 +18,8 @@ Canvas white, ink `#0A0A0A`, surface `#F8F8F8`, black accent, pale rose `#F2D4CF
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 32-40px, row labels 16-20px, body 14-16px. Use compact labels and strict alignment.
 
 ## Geometry And Components

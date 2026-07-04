@@ -18,6 +18,8 @@ Canvas `#FDF0E0`, ink `#1A2240`, surface white, cobalt `#375DFE`, pale cobalt `#
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 38-48px, hero label 26-34px, body 16-18px. Keep the number of labels low.
 
 ## Geometry And Components

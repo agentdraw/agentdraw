@@ -18,6 +18,8 @@ Canvas `#F3F3F3`, ink `#2E302E`, surface white, green `#3EC06A`, yellow `#FBEF4A
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 40-54px, specimen labels 24-32px, body 16-18px. Use large labels, short supporting copy.
 
 ## Geometry And Components

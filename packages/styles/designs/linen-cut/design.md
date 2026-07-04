@@ -18,6 +18,8 @@ Canvas `#E4D2C4`, ink `#1D2620`, surface `#F7EEE7`, blue `#044D99`, green `#04B2
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 34-42px, section 19-24px, body 15-17px. Use composed, spare language.
 
 ## Geometry And Components

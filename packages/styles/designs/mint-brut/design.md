@@ -22,6 +22,8 @@ Use this style for product roadmaps, creator tools, early-stage plans, and optim
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 - Title: 34-40px, bold.
 - Stage chip: 13-15px, bold, short uppercase.
 - Card body: 22-26px, two short lines.

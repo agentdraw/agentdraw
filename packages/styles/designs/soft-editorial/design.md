@@ -18,6 +18,8 @@ Canvas `#ECE9DC`, ink `#202018`, surface white, rose `#E2A8CE`, lime `#C9DA4F`, 
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 34-42px, section 20-24px, body 15-17px. Editorial but not precious.
 
 ## Geometry And Components

@@ -836,6 +836,7 @@ const scoreSceneQuality = (
     "text-overlap",
     "vertical-centering",
     "font-size-outside-contract",
+    "font-family-outside-contract",
   ]);
   const hardTextIssueCount = countIssueCodes(issueCodes, [
     "text-box-overflow",
@@ -851,6 +852,7 @@ const scoreSceneQuality = (
     "roughness-outside-contract",
     "stroke-width-outside-contract",
     "font-size-outside-contract",
+    "font-family-outside-contract",
     "too-many-type-sizes",
     "style-id-mismatch",
   ]);
@@ -962,7 +964,7 @@ const scoreReadability = (
     issues.push(`${hardTextIssueCount} hard text containment or overlap issue(s).`);
   } else if (textIssueCount > 4) {
     score = 2;
-    issues.push(`${textIssueCount} readability warning(s), mostly centering or type scale.`);
+    issues.push(`${textIssueCount} readability warning(s), including text fit, centering, font family, or type scale.`);
   } else if (textIssueCount > 0) {
     score = 3;
     issues.push(`${textIssueCount} minor readability warning(s).`);
@@ -1250,6 +1252,7 @@ const guidePayload = (topic: string, detail?: string) => {
           "The scene is editable output, not a screenshot.",
           "Use editable text, rectangles, ellipses, diamonds, arrows, and lines.",
           "For Excalidraw text, include text, originalText, fontSize, fontFamily, lineHeight, baseline, textAlign, verticalAlign, and autoResize. AgentDraw repairs missing display defaults, but complete text fields are more portable.",
+          "Use fontFamily 2 for default sans text unless agentdraw guide contract <style-id> says otherwise. Avoid fontFamily 1 for Chinese or multilingual boards unless the user explicitly asks for a hand-drawn look.",
           "Do not persist viewport runtime fields such as scrollX, scrollY, zoom, width, height, offsetTop, selectedElementIds, or editingTextElement.",
           "Keep style guidance in the design system, not as extra metadata in the scene.",
         ],
@@ -1340,6 +1343,7 @@ const formatGuideText = (topic: string, detail?: string) => {
       "",
       "## Typography",
       "",
+      `- Font family: ${contract.typography.fontFamily}`,
       `- Title: ${contract.typography.titlePx[0]}-${contract.typography.titlePx[1]}px`,
       `- Heading: ${contract.typography.headingPx[0]}-${contract.typography.headingPx[1]}px`,
       `- Body: ${contract.typography.bodyPx[0]}-${contract.typography.bodyPx[1]}px`,

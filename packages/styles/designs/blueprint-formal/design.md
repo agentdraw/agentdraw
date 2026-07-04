@@ -22,6 +22,8 @@ Use this style for technical maps where the relationships matter more than decor
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 - Title: 32-38px.
 - Module title: 19-22px.
 - Module body: 14-16px.

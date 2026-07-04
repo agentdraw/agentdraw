@@ -18,6 +18,8 @@ Canvas white, ink `#151515`, pale warm surface `#FFF3EC`, red `#FF472B`, lime `#
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 38-48px, block title 22-28px, body 16-18px. Use simple words and strong labels.
 
 ## Geometry And Components

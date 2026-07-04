@@ -21,6 +21,8 @@ Use this style for customer journeys, onboarding maps, activation funnels, and e
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 - Title: 34-38px.
 - Step title: 20-23px.
 - Step body: 15-17px, usually two lines.

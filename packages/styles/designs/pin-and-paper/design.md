@@ -18,6 +18,8 @@ Canvas white, ink `#161616`, pale yellow `#FFFBE1`, blue `#2A3C99`, yellow `#F1E
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 34-42px, card title 20-24px, note text 15-17px. Labels may be casual but must stay concise.
 
 ## Geometry And Components

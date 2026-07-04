@@ -18,6 +18,8 @@ Canvas `#F2EFE6`, ink `#1F251B`, surface white, green `#66914C`, rose `#DA9EB7`,
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 36-46px, play label 18-22px, body 15-17px. Use active verbs.
 
 ## Geometry And Components

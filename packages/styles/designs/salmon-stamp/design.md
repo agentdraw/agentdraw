@@ -23,6 +23,8 @@ Use when a board needs a little charm but must remain direct and readable.
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 32-40px, stamp labels 15-18px, body 15-17px. Short uppercase labels can work for stamps.
 
 ## Geometry And Components

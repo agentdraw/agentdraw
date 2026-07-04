@@ -23,6 +23,8 @@ Use for clear, friendly diagrams that need freshness without becoming playful. I
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 32-38px, card titles 20-24px, body labels 15-17px. Use sentence case. Keep body lines short.
 
 ## Geometry And Components

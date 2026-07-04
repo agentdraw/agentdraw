@@ -18,6 +18,8 @@ Canvas white, ink `#1A1A1A`, warm surface `#FFF7E1`, blue-violet `#535D9E`, yell
 
 ## Typography
 
+- Font family: use Excalidraw sans (`fontFamily: 2`) for readable multilingual text; avoid Virgil/handwritten text unless the user explicitly asks for it.
+
 Title 34-42px, section 19-23px, body 15-17px. Prefer balanced labels and moderate line length.
 
 ## Geometry And Components
