@@ -21,17 +21,30 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
     const [apiReady, setApiReady] = useState(false);
     const replayEnabled = replay?.enabled === true && scene.elements.length > 0;
     const suppressChangeRef = useRef(replayEnabled);
+    const fitSceneKeyRef = useRef<string | null>(null);
+    const normalizedElements = useMemo(
+      () => normalizeElementsForExcalidraw(scene.elements),
+      [scene.elements],
+    );
+    const sceneKey = useMemo(
+      () =>
+        normalizedElements
+          .map((element, index) => (isElementRecord(element) ? element.id : `unknown-${index}`))
+          .join(":"),
+      [normalizedElements],
+    );
     const styledAppState = useMemo(
-      () => applyStyleToAppState(scene.appState as Partial<AppState>, style),
+      () => applyStyleToAppState(sanitizeInitialAppState(scene.appState), style),
       [scene.appState, style],
     );
     const initialData = useMemo(
       (): ExcalidrawInitialDataState => ({
-        elements: replayEnabled ? [] : (scene.elements as readonly ExcalidrawElement[]),
+        elements: replayEnabled ? [] : (normalizedElements as readonly ExcalidrawElement[]),
         appState: styledAppState,
         files: scene.files as BinaryFiles,
+        scrollToContent: !replayEnabled,
       }),
-      [scene.elements, scene.files, replayEnabled, styledAppState],
+      [normalizedElements, scene.files, replayEnabled, styledAppState],
     );
 
     useEffect(() => {
@@ -47,10 +60,11 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
 
       let cancelled = false;
       let visibleCount = 0;
-      const orderedElements = orderElementsForReplay(scene.elements);
+      const orderedElements = orderElementsForReplay(normalizedElements);
       const batchSize = replay.batchSize ?? 1;
       const intervalMs = replay.intervalMs ?? 70;
       suppressChangeRef.current = true;
+      fitSceneKeyRef.current = sceneKey;
 
       api.updateScene({
         elements: [],
@@ -83,9 +97,10 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
         }
 
         api.updateScene({
-          elements: scene.elements as readonly ExcalidrawElement[],
+          elements: normalizedElements as readonly ExcalidrawElement[],
           appState: styledAppState as AppState,
         });
+        fitBoardToContent(api, normalizedElements);
         window.setTimeout(() => {
           if (!cancelled) {
             suppressChangeRef.current = false;
@@ -103,9 +118,22 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
       apiReady,
       replayEnabled,
       replay,
-      scene.elements,
+      sceneKey,
+      normalizedElements,
       styledAppState,
     ]);
+
+    useEffect(() => {
+      const api = apiRef.current;
+      if (!api || !apiReady || replayEnabled || normalizedElements.length === 0) {
+        return;
+      }
+      if (fitSceneKeyRef.current) {
+        return;
+      }
+      fitSceneKeyRef.current = sceneKey;
+      window.setTimeout(() => fitBoardToContent(api, normalizedElements), 120);
+    }, [apiReady, replayEnabled, sceneKey, normalizedElements]);
 
     useImperativeHandle(ref, () => ({
       getSnapshot: () => snapshotFromApi(apiRef.current),
@@ -201,6 +229,99 @@ const orderElementsForReplay = (elements: readonly unknown[]) => {
       return xDiff === 0 ? left.index - right.index : xDiff;
     })
     .map(({ element }) => element);
+};
+
+const normalizeElementsForExcalidraw = (elements: readonly unknown[]) =>
+  elements.map((element) => {
+    if (!isElementRecord(element)) {
+      return element;
+    }
+    if (element.type !== "text") {
+      return element;
+    }
+
+    const text = typeof element.text === "string" ? element.text : "";
+    const fontSize = typeof element.fontSize === "number" ? element.fontSize : 18;
+    const lineHeight = typeof element.lineHeight === "number" ? element.lineHeight : 1.25;
+    return {
+      ...element,
+      text,
+      originalText: typeof element.originalText === "string" ? element.originalText : text,
+      fontSize,
+      fontFamily: typeof element.fontFamily === "number" ? element.fontFamily : 1,
+      textAlign: typeof element.textAlign === "string" ? element.textAlign : "left",
+      verticalAlign: typeof element.verticalAlign === "string" ? element.verticalAlign : "middle",
+      autoResize: typeof element.autoResize === "boolean" ? element.autoResize : false,
+      lineHeight,
+      baseline:
+        typeof element.baseline === "number"
+          ? element.baseline
+          : Math.round(fontSize * lineHeight * Math.max(1, text.split("\n").length) * 0.78),
+      backgroundColor:
+        typeof element.backgroundColor === "string" ? element.backgroundColor : "transparent",
+    };
+  });
+
+const sanitizeInitialAppState = (appState: Record<string, unknown>) => {
+  const {
+    scrollX,
+    scrollY,
+    zoom,
+    offsetLeft,
+    offsetTop,
+    width,
+    height,
+    showWelcomeScreen,
+    selectedElementIds,
+    selectedGroupIds,
+    editingTextElement,
+    editingGroupId,
+    newElement,
+    activeEmbeddable,
+    openMenu,
+    openPopup,
+    openSidebar,
+    openDialog,
+    toast,
+    ...safeAppState
+  } = appState;
+  void scrollX;
+  void scrollY;
+  void zoom;
+  void offsetLeft;
+  void offsetTop;
+  void width;
+  void height;
+  void showWelcomeScreen;
+  void selectedElementIds;
+  void selectedGroupIds;
+  void editingTextElement;
+  void editingGroupId;
+  void newElement;
+  void activeEmbeddable;
+  void openMenu;
+  void openPopup;
+  void openSidebar;
+  void openDialog;
+  void toast;
+  return safeAppState as Partial<AppState>;
+};
+
+const fitBoardToContent = (
+  api: ExcalidrawImperativeAPI,
+  elements: readonly unknown[],
+) => {
+  const drawableElements = elements.filter(isElementRecord) as unknown as readonly ExcalidrawElement[];
+  if (drawableElements.length === 0) {
+    return;
+  }
+  api.scrollToContent(drawableElements, {
+    animate: false,
+    fitToViewport: true,
+    viewportZoomFactor: 0.76,
+    minZoom: 0.35,
+    maxZoom: 1,
+  });
 };
 
 const replayStage = (element: unknown) => {

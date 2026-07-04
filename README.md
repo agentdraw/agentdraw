@@ -41,7 +41,7 @@ agentdraw guide
 No global install:
 
 ```bash
-npx @aidraw/agentdraw@latest open board.agentdraw.json --no-open
+npx @aidraw/agentdraw@latest open board.agentdraw.json --background --open
 ```
 
 See [INSTALL.md](./INSTALL.md) for agent-specific install options.
@@ -140,7 +140,7 @@ engineering problems:
 Run directly from npm:
 
 ```bash
-npx @aidraw/agentdraw@latest open board.agentdraw.json --no-open
+npx @aidraw/agentdraw@latest open board.agentdraw.json --background --open
 ```
 
 Or use the repo:
@@ -160,7 +160,13 @@ http://127.0.0.1:3927
 For WSL or remote usage, run the server on the machine that has a browser:
 
 ```bash
-pnpm agentdraw open examples/complex-agentdraw-workbench.agentdraw.json --no-open
+pnpm agentdraw open examples/complex-agentdraw-workbench.agentdraw.json --background --open
+```
+
+For a headless host, keep the server in the background and return the URL:
+
+```bash
+pnpm agentdraw open examples/complex-agentdraw-workbench.agentdraw.json --background --no-open --format json
 ```
 
 ## CLI
@@ -176,13 +182,13 @@ pnpm agentdraw guide styles --json
 Open a board:
 
 ```bash
-pnpm agentdraw open examples/getting-started.agentdraw.json
+pnpm agentdraw open examples/getting-started.agentdraw.json --background --open
 ```
 
 Open without launching the system browser:
 
 ```bash
-pnpm agentdraw open examples/getting-started.agentdraw.json --no-open
+pnpm agentdraw open examples/getting-started.agentdraw.json --background --no-open --format json
 ```
 
 Create a scene file without starting the editor:

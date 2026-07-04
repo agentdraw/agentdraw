@@ -34,7 +34,7 @@ agentdraw doctor --json
 4. Create or patch a `.agentdraw.json` scene using editable primitives.
 5. Run `agentdraw validate <file> --style <style-id> --format json` and repair reported element ids until validation passes.
 6. Run `agentdraw quality <file> --style <style-id> --format json`. Use it as preflight, then self-check task fit against the original prompt.
-7. Run `agentdraw open <file> --no-open` and return the printed local URL to the user.
+7. If a local browser is available, run `agentdraw open <file> --background --open --format json`. On a remote or headless host, run `agentdraw open <file> --background --no-open --format json` and return the printed URL to the user.
 
 ## Quality Bar
 
@@ -66,7 +66,8 @@ agentdraw init .agentdraw/board.agentdraw.json
 agentdraw validate .agentdraw/board.agentdraw.json --style system-formal --format json
 agentdraw quality .agentdraw/board.agentdraw.json --style system-formal --format json
 agentdraw validate-style system-formal --json
-agentdraw open .agentdraw/board.agentdraw.json --no-open
+agentdraw open .agentdraw/board.agentdraw.json --background --open --format json
+agentdraw open .agentdraw/board.agentdraw.json --background --no-open --format json
 ```
 
 ## Hard Rules
@@ -74,6 +75,8 @@ agentdraw open .agentdraw/board.agentdraw.json --no-open
 - Do not make screenshots when an editable board is expected.
 - Do not use a design style as a palette swap; load its guide and contract before generating.
 - Keep text editable and generously sized.
+- For Excalidraw text, include `text`, `originalText`, `fontSize`, `fontFamily`, `lineHeight`, `baseline`, `textAlign`, `verticalAlign`, and `autoResize`.
+- Do not persist viewport runtime fields such as `scrollX`, `scrollY`, `zoom`, `width`, `height`, `offsetTop`, `selectedElementIds`, or `editingTextElement`.
 - Run validation before opening or delivering the scene.
 - Run quality scoring before opening or delivering the scene; remember task fit still needs prompt-aware review.
 - If the board intentionally uses hard shadows or decorative shapes, mark those elements with `customData.role: "shadow"` or `customData.role: "decoration"`.

@@ -93,11 +93,53 @@ const sanitizeAppState = (appState: Record<string, unknown>) => {
     suggestedBindings,
     startBoundElement,
     cursorButton,
+    scrollX,
+    scrollY,
+    zoom,
+    offsetLeft,
+    offsetTop,
+    width,
+    height,
+    showWelcomeScreen,
+    selectedElementIds,
+    selectedGroupIds,
+    previousSelectedElementIds,
+    hoveredElementIds,
+    editingTextElement,
+    editingGroupId,
+    newElement,
+    activeEmbeddable,
+    openMenu,
+    openPopup,
+    openSidebar,
+    openDialog,
+    toast,
     ...persisted
   } = appState;
   void collaborators;
   void suggestedBindings;
   void startBoundElement;
   void cursorButton;
+  void scrollX;
+  void scrollY;
+  void zoom;
+  void offsetLeft;
+  void offsetTop;
+  void width;
+  void height;
+  void showWelcomeScreen;
+  void selectedElementIds;
+  void selectedGroupIds;
+  void previousSelectedElementIds;
+  void hoveredElementIds;
+  void editingTextElement;
+  void editingGroupId;
+  void newElement;
+  void activeEmbeddable;
+  void openMenu;
+  void openPopup;
+  void openSidebar;
+  void openDialog;
+  void toast;
   return persisted;
 };

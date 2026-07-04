@@ -4,20 +4,20 @@ Local-first editable whiteboard workspace for coding agents.
 
 ```bash
 npm install -g @aidraw/agentdraw
-agentdraw open board.agentdraw.json --no-open
+agentdraw open board.agentdraw.json --background --open
 ```
 
 Or run without installing:
 
 ```bash
-npx @aidraw/agentdraw@latest open board.agentdraw.json --no-open
+npx @aidraw/agentdraw@latest open board.agentdraw.json --background --open
 ```
 
 Commands:
 
 ```bash
 agentdraw --help
-agentdraw open [file] [--host 127.0.0.1] [--port 3927] [--open|--no-open]
+agentdraw open [file] [--host 127.0.0.1] [--port 3927] [--open|--no-open] [--background]
 agentdraw init [file]
 agentdraw validate <file...> [--style <style-id>] [--format json|text]
 agentdraw quality <file...> [--style <style-id>] [--format json|text]

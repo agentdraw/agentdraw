@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { spawn } from "node:child_process";
 import { readFileSync } from "node:fs";
+import net from "node:net";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import {
@@ -46,6 +47,7 @@ type OpenOptions = GlobalOptions & {
   host: string;
   port: number;
   openBrowser: boolean;
+  background: boolean;
 };
 
 type InitOptions = GlobalOptions & {
@@ -217,6 +219,11 @@ const main = async () => {
 const openCommand = async (options: OpenOptions) => {
   const filePath = resolveScenePath(options.filePath, options.cwd);
   await readOrCreateSceneFile(filePath);
+
+  if (options.background) {
+    await openBackgroundCommand(options, filePath);
+    return;
+  }
 
   const server = await startAgentDrawServer({
     host: options.host,
@@ -442,7 +449,8 @@ const parseGlobalOptions = (argv: string[]): CommandContext => {
   for (let index = 0; index < argv.length; index += 1) {
     const arg = argv[index];
     if (arg === "--") {
-      continue;
+      rest.push(...argv.slice(index + 1));
+      break;
     }
     if (arg === "--json") {
       globals.format = "json";
@@ -476,7 +484,7 @@ const parseGlobalOptions = (argv: string[]): CommandContext => {
 
 const parseOpenOptions = (args: string[], globals: GlobalOptions): OpenOptions => {
   const values = parseCommandFlags(args, {
-    booleanFlags: ["--no-open", "--open"],
+    booleanFlags: ["--no-open", "--open", "--background", "--detach"],
     valueFlags: ["--host", "--port"],
   });
   assertNoUnknownFlags(values.unknownFlags, "open");
@@ -497,6 +505,7 @@ const parseOpenOptions = (args: string[], globals: GlobalOptions): OpenOptions =
       : values.booleanFlags.has("--open")
         ? true
         : process.stdout.isTTY,
+    background: values.booleanFlags.has("--background") || values.booleanFlags.has("--detach"),
   };
 };
 
@@ -710,6 +719,85 @@ const writeOutput = (json: unknown, text: string, options: GlobalOptions) => {
 
 const outputFormat = (options: GlobalOptions): OutputFormat =>
   options.format ?? (process.stdout.isTTY ? "text" : "json");
+
+const openBackgroundCommand = async (options: OpenOptions, filePath: string) => {
+  await assertPortAvailable(options.host, options.port);
+
+  const cliPath = fileURLToPath(import.meta.url);
+  const args = [
+    cliPath,
+    "open",
+    filePath,
+    "--host",
+    options.host,
+    "--port",
+    String(options.port),
+    options.openBrowser ? "--open" : "--no-open",
+  ];
+  const child = spawn(process.execPath, args, {
+    cwd: options.cwd,
+    detached: true,
+    env: process.env,
+    stdio: "ignore",
+  });
+  child.unref();
+
+  const url = `${displayBaseUrl(options.host, options.port)}/?file=${encodeURIComponent(filePath)}`;
+  writeOutput(
+    {
+      ok: true,
+      command: "open",
+      background: true,
+      filePath,
+      url,
+      host: options.host,
+      port: options.port,
+      browserOpened: options.openBrowser,
+      pid: child.pid,
+      message: "AgentDraw server started in the background.",
+    },
+    [
+      `AgentDraw ${VERSION}`,
+      `File: ${filePath}`,
+      `URL: ${url}`,
+      `Background server pid: ${child.pid}`,
+    ].join("\n"),
+    options,
+  );
+};
+
+const displayBaseUrl = (host: string, port: number) => {
+  const displayHost = host === "0.0.0.0" || host === "::" ? "127.0.0.1" : host;
+  return `http://${displayHost}:${port}`;
+};
+
+const assertPortAvailable = async (host: string, port: number) => {
+  await new Promise<void>((resolve, reject) => {
+    const probe = net.createServer();
+    probe.once("error", (error) => {
+      reject(
+        new CliError("port_unavailable", `Cannot start AgentDraw on ${host}:${port}.`, {
+          suggestion: "Choose another port with --port, or stop the existing AgentDraw server.",
+          retryable: true,
+          input: {
+            host,
+            port,
+            cause: error instanceof Error ? error.message : String(error),
+          },
+        }),
+      );
+    });
+    probe.listen(port, host, () => {
+      probe.close((error) => {
+        if (error) {
+          reject(error);
+          return;
+        }
+        resolve();
+      });
+    });
+  });
+};
 
 const validateSceneWithContract = (scene: AgentDrawScene, styleId?: string) => {
   const layoutResult = validateScene(scene);
@@ -1065,7 +1153,7 @@ const guidePayload = (topic: string, detail?: string) => {
           "Create or patch a .agentdraw.json scene with editable primitives.",
           "Run agentdraw validate <file> --format json and repair reported element ids.",
           "Run agentdraw quality <file> --style <style-id> --format json, then self-check task fit against the original prompt.",
-          "Run agentdraw open <file> --no-open and return the printed local URL.",
+          "Run agentdraw open <file> --background --open --format json when a local browser is available. On a remote or headless host, use --background --no-open and return the printed local URL.",
         ],
         commands: {
           help: "agentdraw --help",
@@ -1077,7 +1165,7 @@ const guidePayload = (topic: string, detail?: string) => {
           validate: "agentdraw validate .agentdraw/board.agentdraw.json --format json",
           qualityCheck: "agentdraw quality .agentdraw/board.agentdraw.json --style system-formal --format json",
           validateStyle: "agentdraw validate-style system-formal --format json",
-          open: "agentdraw open .agentdraw/board.agentdraw.json --no-open",
+          open: "agentdraw open .agentdraw/board.agentdraw.json --background --open --format json",
         },
       };
     case "quality":
@@ -1161,6 +1249,8 @@ const guidePayload = (topic: string, detail?: string) => {
         notes: [
           "The scene is editable output, not a screenshot.",
           "Use editable text, rectangles, ellipses, diamonds, arrows, and lines.",
+          "For Excalidraw text, include text, originalText, fontSize, fontFamily, lineHeight, baseline, textAlign, verticalAlign, and autoResize. AgentDraw repairs missing display defaults, but complete text fields are more portable.",
+          "Do not persist viewport runtime fields such as scrollX, scrollY, zoom, width, height, offsetTop, selectedElementIds, or editingTextElement.",
           "Keep style guidance in the design system, not as extra metadata in the scene.",
         ],
       };
@@ -1172,6 +1262,7 @@ const guidePayload = (topic: string, detail?: string) => {
           "Do not use a style as a palette swap; follow its typography, layout, components, and avoid rules.",
           "Use agentdraw guide contract <style-id> as the machine-readable design constraint.",
           "Keep text editable and generously sized.",
+          "Do not rely on saved zoom or scroll state for presentation; AgentDraw fits the board on open.",
           "Run validation before opening or delivering the scene.",
           "Mark intentional shadows or decorative shapes with customData.role set to shadow or decoration.",
         ],
@@ -1342,6 +1433,7 @@ const formatGuideText = (topic: string, detail?: string) => {
   if (topic === "scene") {
     const sceneGuide = guidePayload("scene") as {
       envelope: Record<string, unknown>;
+      notes: string[];
     };
     return [
       "# AgentDraw Scene Contract",
@@ -1353,6 +1445,10 @@ const formatGuideText = (topic: string, detail?: string) => {
       "```",
       "",
       "The scene is the editable output. The design system is guidance for creating it, not extra metadata that must be embedded in the file.",
+      "",
+      "## Notes",
+      "",
+      ...sceneGuide.notes.map((note) => `- ${note}`),
     ].join("\n");
   }
 
@@ -1462,7 +1558,8 @@ const helpText = (command: string | undefined) => {
         "AgentDraw - local editable whiteboard workspace for coding agents.",
         "",
         "Examples:",
-        "  agentdraw open board.agentdraw.json --no-open",
+        "  agentdraw open board.agentdraw.json --background --open",
+        "  agentdraw open board.agentdraw.json --background --no-open --format json",
         "  agentdraw validate board.agentdraw.json --format json",
         "  agentdraw quality board.agentdraw.json --style system-formal --format json",
         "  agentdraw validate-style system-formal --format json",
@@ -1497,12 +1594,14 @@ const helpText = (command: string | undefined) => {
         "Start the local AgentDraw editor for a scene file.",
         "",
         "Examples:",
+        "  agentdraw open board.agentdraw.json --background --open",
+        "  agentdraw open board.agentdraw.json --background --no-open --format json",
         "  agentdraw open board.agentdraw.json --no-open",
         "  agentdraw open .agentdraw/current.agentdraw.json --host 0.0.0.0 --port 3927",
         "  agentdraw open --json --no-open",
         "",
         "Usage:",
-        "  agentdraw open [file] [--host <host>] [--port <port>] [--open|--no-open]",
+        "  agentdraw open [file] [--host <host>] [--port <port>] [--open|--no-open] [--background]",
         "",
         "Arguments:",
         `  file                Optional scene path. Default: ${DEFAULT_SCENE}`,
@@ -1512,6 +1611,8 @@ const helpText = (command: string | undefined) => {
         `  --port <port>       TCP port. Default: ${DEFAULT_PORT}`,
         "  --open              Launch the system browser.",
         "  --no-open           Do not launch the system browser.",
+        "  --background        Start the server in the background and return immediately.",
+        "  --detach            Alias for --background.",
         "  --format json|text  Output format.",
         "  --json              Shortcut for --format json.",
       ].join("\n");
@@ -1638,17 +1739,21 @@ const commandSchema = (commandPath: string[]) => {
   const commands = {
     open: {
       description: "Start the local editor for a scene file.",
-      usage: "agentdraw open [file] [--host <host>] [--port <port>] [--no-open]",
+      usage: "agentdraw open [file] [--host <host>] [--port <port>] [--open|--no-open] [--background]",
       arguments: [{ name: "file", required: false, default: DEFAULT_SCENE }],
       flags: [
         { name: "--host", type: "string", required: false, default: DEFAULT_HOST },
         { name: "--port", type: "integer", required: false, default: DEFAULT_PORT },
         { name: "--open", type: "boolean", required: false },
         { name: "--no-open", type: "boolean", required: false },
+        { name: "--background", type: "boolean", required: false },
+        { name: "--detach", type: "boolean", required: false },
         { name: "--format", type: "enum", values: ["json", "text"], required: false },
         { name: "--json", type: "boolean", required: false },
       ],
       examples: [
+        "agentdraw open board.agentdraw.json --background --open",
+        "agentdraw open board.agentdraw.json --background --no-open --format json",
         "agentdraw open board.agentdraw.json --no-open",
         "agentdraw open .agentdraw/current.agentdraw.json --host 0.0.0.0 --port 3927",
       ],
