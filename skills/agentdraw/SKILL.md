@@ -5,15 +5,18 @@ description: Use AgentDraw when the user wants a local editable whiteboard, diag
 
 # AgentDraw
 
-AgentDraw is an SVG-first local whiteboard workflow for coding agents.
+AgentDraw is a local editable whiteboard workflow for coding agents. Use Mermaid import for
+standard flowcharts and decision flows; use SVG import for high-design boards, architecture maps,
+matrices, and custom layouts.
 
 The primary workflow is:
 
 ```text
-prompt -> design system -> restricted SVG -> import-svg -> editable .agentdraw.json -> validate/repair/export/open
+prompt -> design system -> Mermaid or restricted SVG -> import -> editable .agentdraw.json -> validate/repair/export/open
 ```
 
-Do not start new boards by hand-writing `.agentdraw.json`. Write a clean SVG first, inspect it, then convert it into an editable AgentDraw board.
+Do not start new boards by hand-writing `.agentdraw.json`. Write a clean Mermaid flowchart or SVG
+source first, inspect it, then convert it into an editable AgentDraw board.
 
 ## Runtime
 
@@ -56,9 +59,15 @@ agentdraw doctor --json
 2. Run `agentdraw guide styles --json` and choose one style id by audience, density, and tone.
 3. State the style choice and reason in one short sentence before generating. If the user did not express a visual preference and the choice is not obvious, run `agentdraw gallery --open --format json` and ask which visual direction they prefer. In headless mode, run `agentdraw gallery --no-open --format json` and return the generated URL or path.
 4. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the guide and treat the contract as hard design constraints.
-5. Create `.agentdraw/board.svg` as the source draft. Use the supported SVG subset below.
-6. Inspect the SVG or export/open it when possible. Fix alignment, text wrapping, connectors, grouping, and hierarchy while it is still SVG.
+5. Choose the source path. For conventional process diagrams, create `.agentdraw/flow.mmd` with `flowchart TD`, `flowchart TB`, or `flowchart LR`. For high-design boards, create `.agentdraw/board.svg` with the supported SVG subset below.
+6. Inspect the Mermaid/SVG source or export/open it when possible. Fix alignment, text wrapping, connectors, grouping, and hierarchy while it is still source text.
 7. Convert it:
+
+```bash
+agentdraw import-mermaid .agentdraw/flow.mmd --out .agentdraw/board.agentdraw.json --style <style-id> --title "<title>" --format json
+```
+
+or:
 
 ```bash
 agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style <style-id> --title "<title>" --format json
@@ -184,6 +193,7 @@ agentdraw guide styles --json
 agentdraw gallery --open --format json
 agentdraw guide style <style-id> --format text
 agentdraw guide contract <style-id> --json
+agentdraw import-mermaid .agentdraw/flow.mmd --out .agentdraw/board.agentdraw.json --style <style-id> --title "<title>" --format json
 agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style <style-id> --title "<title>" --format json
 agentdraw repair .agentdraw/board.agentdraw.json --style <style-id> --write --format json
 agentdraw validate .agentdraw/board.agentdraw.json --style <style-id> --format json
@@ -195,8 +205,8 @@ agentdraw open .agentdraw/board.agentdraw.json --background --no-open --format j
 
 ## Hard Rules
 
-- Generate restricted SVG first for new boards.
-- Convert SVG with `agentdraw import-svg`; do not hand-write `.agentdraw.json` as the primary generation path.
+- Generate Mermaid or restricted SVG first for new boards.
+- Convert Mermaid with `agentdraw import-mermaid` or SVG with `agentdraw import-svg`; do not hand-write `.agentdraw.json` as the primary generation path.
 - Do not use a design style as a palette swap; load its guide and contract before generating.
 - Do not silently default to the same style every time. Do not choose `system-formal` just because examples or previous runs used it. State the selected style and reason; if unsure, show the theme gallery and ask.
 - Avoid emoji and decorative pictograms unless the user explicitly requests them.

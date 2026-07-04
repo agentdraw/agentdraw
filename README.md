@@ -47,6 +47,7 @@ agentdraw guide
 No global install:
 
 ```bash
+npx @aidraw/agentdraw@latest import-mermaid flow.mmd --out flow.agentdraw.json --style blueprint-formal --json
 npx @aidraw/agentdraw@latest import-svg board.svg --out board.agentdraw.json --style boardroom --json
 npx @aidraw/agentdraw@latest open board.agentdraw.json --background --open
 ```
@@ -285,6 +286,12 @@ Convert a restricted SVG into an editable board:
 pnpm agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style boardroom --title "Agent workflow" --json
 ```
 
+Convert a Mermaid flowchart into an editable board:
+
+```bash
+pnpm agentdraw import-mermaid .agentdraw/flow.mmd --out .agentdraw/flow.agentdraw.json --style blueprint-formal --title "Decision flow" --json
+```
+
 Export a rendered preview for visual review:
 
 ```bash
@@ -316,10 +323,11 @@ the command. Style-contract drift is reported as warnings so agents can repair w
 blocking intentionally custom boards. A typical agent loop should be:
 
 ```text
-choose style -> load design guide + contract -> generate restricted SVG -> inspect SVG -> import-svg -> repair -> validate -> score quality -> export preview when quality matters -> revise SVG if needed -> open board
+choose style -> load design guide + contract -> choose Mermaid for standard flowcharts or SVG for high-design boards -> inspect source -> import -> repair -> validate -> score quality -> export preview when quality matters -> revise source if needed -> open board
 ```
 
-Use `agentdraw guide scene` and `agentdraw guide patterns --json` before generating SVG. The SVG
+Use `agentdraw import-mermaid` for conventional flowcharts and decision flows. Use
+`agentdraw guide scene` and `agentdraw guide patterns --json` before generating SVG. The SVG
 contract keeps the source draft simple enough to import into editable objects while preserving the
 layout quality agents usually achieve with SVG. `agentdraw repair` normalizes deterministic display
 defaults after import. Use `agentdraw gallery --open` when the user has not expressed a visual
@@ -448,6 +456,7 @@ agentdraw gallery --no-open --format json
 agentdraw guide style system-formal --format text
 agentdraw guide contract system-formal --json
 agentdraw guide patterns --json
+agentdraw import-mermaid .agentdraw/flow.mmd --out .agentdraw/flow.agentdraw.json --style blueprint-formal --json
 agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style system-formal --json
 agentdraw repair .agentdraw/board.agentdraw.json --style system-formal --write --json
 agentdraw validate .agentdraw/board.agentdraw.json --style system-formal --json

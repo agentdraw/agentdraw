@@ -1232,6 +1232,7 @@ const parseMermaidFlowchart = (source: string): MermaidFlowchart => {
   if (nodes.size === 0) {
     throw new CliError("empty_mermaid", "The Mermaid file did not contain any flowchart nodes.", {
       exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Add at least one node or edge, for example: A[Start] --> B[Done].",
     });
   }
 
@@ -1346,7 +1347,9 @@ const mermaidFlowchartToScene = (
       }),
     );
     if (edge.label) {
-      const labelPoint = connectorLabelPoint(connector);
+      const siblings = flowchart.edges.filter((candidate) => candidate.from === edge.from);
+      const siblingIndex = siblings.findIndex((candidate) => candidate === edge);
+      const labelPoint = connectorLabelPoint(connector, flowchart.direction, siblingIndex, siblings.length);
       elements.push(
         textElement(`mermaid-edge-label-${edge.from}-${edge.to}-${nextSeed()}`, labelPoint.x - 40, labelPoint.y - 10, 80, 20, edge.label, {
           seed: nextSeed(),
@@ -1458,8 +1461,8 @@ const layoutMermaidNodes = (flowchart: MermaidFlowchart): MermaidLayoutNode[] =>
     groups.set(layer, group);
   }
 
-  const layerGap = flowchart.direction === "LR" ? 250 : 154;
-  const rowGap = flowchart.direction === "LR" ? 142 : 218;
+  const layerGap = flowchart.direction === "LR" ? 282 : 190;
+  const rowGap = flowchart.direction === "LR" ? 154 : 248;
   const originX = 120;
   const originY = 130;
   const maxLayerSize = Math.max(...[...groups.values()].map((group) => group.length));
@@ -1523,6 +1526,23 @@ const connectorBetween = (from: MermaidLayoutNode, to: MermaidLayoutNode, direct
       ],
     };
   }
+  if (to.layer > from.layer + 1) {
+    const startX = from.x + from.width;
+    const startY = from.y + from.height / 2;
+    const endX = to.x + to.width;
+    const endY = to.y + to.height / 2;
+    const detourX = Math.max(startX, endX) + 58;
+    return {
+      x: startX,
+      y: startY,
+      points: [
+        [0, 0],
+        [detourX - startX, 0],
+        [detourX - startX, endY - startY],
+        [endX - startX, endY - startY],
+      ],
+    };
+  }
   const startX = from.x + from.width / 2;
   const startY = from.y + from.height;
   const endX = to.x + to.width / 2;
@@ -1540,7 +1560,38 @@ const connectorBetween = (from: MermaidLayoutNode, to: MermaidLayoutNode, direct
   };
 };
 
-const connectorLabelPoint = (connector: { x: number; y: number; points: number[][] }) => {
+const connectorLabelPoint = (
+  connector: { x: number; y: number; points: number[][] },
+  direction: "TD" | "LR",
+  siblingIndex = 0,
+  siblingCount = 1,
+) => {
+  const branchOffset =
+    siblingCount > 1 ? (siblingIndex - (siblingCount - 1) / 2) * 148 : 76;
+  if (direction === "TD") {
+    const firstBend = connector.points[1];
+    if (firstBend && firstBend[0] !== 0) {
+      return { x: connector.x + 38, y: connector.y - 26 };
+    }
+    return { x: connector.x + branchOffset, y: connector.y + 24 };
+  }
+  if (direction === "LR") {
+    return { x: connector.x + 52, y: connector.y + branchOffset };
+  }
+  const [, firstBend, secondBend] = connector.points;
+  if (firstBend && secondBend) {
+    const isVerticalFirst = firstBend[0] === 0;
+    if (isVerticalFirst) {
+      return {
+        x: connector.x + secondBend[0] / 2,
+        y: connector.y + firstBend[1] - 18,
+      };
+    }
+    return {
+      x: connector.x + firstBend[0] - 44,
+      y: connector.y + secondBend[1] / 2,
+    };
+  }
   const point = connector.points[Math.floor(connector.points.length / 2)] ?? [0, 0];
   return { x: connector.x + point[0], y: connector.y + point[1] };
 };
@@ -2446,9 +2497,11 @@ const guidePayload = (topic: string, detail?: string) => {
           "Understand the board purpose, audience, density, and tone.",
           "Run agentdraw guide styles --json and choose one style id.",
           "Run agentdraw guide style <style-id> and agentdraw guide contract <style-id> to load the selected design system and machine-readable contract.",
-          "Create a restricted SVG first. Use visible SVG geometry, grid-aligned layout, real <text>/<tspan> labels, and the selected style rules.",
-          "Preview or inspect the SVG. Fix layout, alignment, text wrapping, arrows, and visual hierarchy while it is still simple SVG.",
-          "Run agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style <style-id> --title <title> --format json.",
+          "Choose the source path: use Mermaid for conventional flowcharts/decision flows, or restricted SVG for high-design boards, architecture maps, matrices, and custom layouts.",
+          "For Mermaid flowcharts, write .agentdraw/flow.mmd with flowchart TD/TB/LR syntax and run agentdraw import-mermaid .agentdraw/flow.mmd --out .agentdraw/board.agentdraw.json --style <style-id> --title <title> --format json.",
+          "For SVG boards, create a restricted SVG with visible geometry, grid-aligned layout, real <text>/<tspan> labels, and the selected style rules.",
+          "Preview or inspect the SVG/Mermaid source. Fix layout, alignment, text wrapping, arrows, and visual hierarchy while it is still source text.",
+          "Run agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style <style-id> --title <title> --format json when using SVG.",
           "If import warnings mention unsupported SVG tags, edit the SVG and import again.",
           "Run agentdraw repair <file> --style <style-id> --write, then validate.",
           "Run agentdraw quality <file> --style <style-id> --format json, then self-check task fit against the original prompt.",
@@ -2462,6 +2515,7 @@ const guidePayload = (topic: string, detail?: string) => {
           styles: "agentdraw guide styles --json",
           style: "agentdraw guide style <style-id>",
           contract: "agentdraw guide contract <style-id> --json",
+          importMermaid: "agentdraw import-mermaid .agentdraw/flow.mmd --out .agentdraw/board.agentdraw.json --style <style-id> --title <title> --format json",
           importSvg: "agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style <style-id> --title <title> --format json",
           validate: "agentdraw validate .agentdraw/board.agentdraw.json --style <style-id> --format json",
           repair: "agentdraw repair .agentdraw/board.agentdraw.json --style <style-id> --write --format json",
@@ -2560,6 +2614,15 @@ const guidePayload = (topic: string, detail?: string) => {
           command:
             "agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style <style-id> --title <title> --format json",
         },
+        mermaidImport: {
+          description:
+            "Use Mermaid import for conventional flowcharts and decision flows when speed and diagram semantics matter more than custom visual composition.",
+          supportedSyntax: ["flowchart TD", "flowchart TB", "flowchart LR", "graph TD", "graph LR"],
+          supportedNodes: ["A[Process]", "B{Decision}", "C(Start)", "D((State))"],
+          supportedEdges: ["A --> B", "A --- B", "A -->|label| B"],
+          command:
+            "agentdraw import-mermaid .agentdraw/flow.mmd --out .agentdraw/board.agentdraw.json --style <style-id> --title <title> --format json",
+        },
         editableOutput: {
           format: ".agentdraw.json",
           purpose:
@@ -2568,6 +2631,7 @@ const guidePayload = (topic: string, detail?: string) => {
         },
         notes: [
           "The SVG is the source draft; the .agentdraw.json scene is the editable browser output.",
+          "Mermaid import is a shortcut for standard flowcharts. Do not use it for custom editorial boards, architecture maps, or theme-heavy compositions.",
           "Use real SVG text, rectangles, ellipses, lines, and polylines. Keep labels as text/tspan, not outlined paths or screenshots.",
           "Use title-size text for one clear title, heading-size text for sections, and body-size text for details. Hierarchy should come from size, weight, contrast, spacing, and grouping.",
           "Avoid emoji in board text unless the user explicitly asks for them.",
@@ -2801,6 +2865,7 @@ const formatGuideText = (topic: string, detail?: string) => {
   if (topic === "scene") {
     const sceneGuide = guidePayload("scene") as {
       svgFirst: Record<string, unknown>;
+      mermaidImport: Record<string, unknown>;
       editableOutput: Record<string, unknown>;
       notes: string[];
     };
@@ -2811,6 +2876,12 @@ const formatGuideText = (topic: string, detail?: string) => {
       "",
       "```json",
       JSON.stringify(sceneGuide.svgFirst, null, 2),
+      "```",
+      "",
+      "Mermaid shortcut:",
+      "",
+      "```json",
+      JSON.stringify(sceneGuide.mermaidImport, null, 2),
       "```",
       "",
       "Editable output:",
@@ -2883,6 +2954,7 @@ const formatGuideText = (topic: string, detail?: string) => {
     "npx @aidraw/agentdraw@latest guide styles --json",
     "npx @aidraw/agentdraw@latest gallery --open --format json",
     "npx @aidraw/agentdraw@latest guide style <style-id>",
+    "npx @aidraw/agentdraw@latest import-mermaid .agentdraw/flow.mmd --out .agentdraw/board.agentdraw.json --style <style-id> --format json",
     "npx @aidraw/agentdraw@latest import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style <style-id> --format json",
     "```",
     "",
