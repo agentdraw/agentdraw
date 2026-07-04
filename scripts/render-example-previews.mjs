@@ -4,7 +4,7 @@ import path from "node:path";
 const themeFiles = (await readdir("examples"))
   .filter(
     (file) =>
-      (file.startsWith("theme-") || file.startsWith("capability-")) &&
+      file.startsWith("theme-") &&
       file.endsWith(".agentdraw.json"),
   )
   .sort();

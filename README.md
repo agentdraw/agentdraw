@@ -55,30 +55,14 @@ See [INSTALL.md](./INSTALL.md) for agent-specific install options.
 
 ## Gallery
 
-AgentDraw examples are generated previews. Capability previews link to editable `.agentdraw.json`
-scenes. Theme previews link to the `design.md` system that produced the look.
+AgentDraw examples are generated previews. Theme previews link to the `design.md` system that
+produced the look.
 
 ### Complex Board
 
 <a href="./examples/complex-agentdraw-workbench.agentdraw.json">
   <img src="./assets/examples/complex-agentdraw-workbench.svg" alt="Complex AgentDraw Workbench preview" />
 </a>
-
-### Diagram Capability Examples
-
-<table>
-<tr>
-<td width="33%"><a href="./examples/capability-flowchart.agentdraw.json"><img src="./assets/examples/capability-flowchart.svg" alt="Agent runtime flowchart preview" /></a><br />
-<sub><a href="./examples/capability-flowchart.agentdraw.json"><b>Flowchart</b></a> · terminators, process blocks, and decisions</sub>
-</td>
-<td width="33%"><a href="./examples/capability-sequence.agentdraw.json"><img src="./assets/examples/capability-sequence.svg" alt="SVG import sequence diagram preview" /></a><br />
-<sub><a href="./examples/capability-sequence.agentdraw.json"><b>Sequence Diagram</b></a> · lifelines and aligned messages</sub>
-</td>
-<td width="33%"><a href="./examples/capability-class-map.agentdraw.json"><img src="./assets/examples/capability-class-map.svg" alt="AgentDraw module class map preview" /></a><br />
-<sub><a href="./examples/capability-class-map.agentdraw.json"><b>Class / Module Map</b></a> · UML-style compartments and relations</sub>
-</td>
-</tr>
-</table>
 
 ### Theme Examples
 
