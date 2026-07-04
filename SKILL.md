@@ -14,10 +14,17 @@ Run without installing:
 npx @aidraw/agentdraw open .agentdraw/board.agentdraw.json --no-open
 ```
 
+Discover the CLI contract:
+
+```bash
+npx @aidraw/agentdraw --help
+npx @aidraw/agentdraw schema open --json
+```
+
 Validate a generated scene:
 
 ```bash
-npx @aidraw/agentdraw validate .agentdraw/board.agentdraw.json
+npx @aidraw/agentdraw validate .agentdraw/board.agentdraw.json --format json
 ```
 
 The `open` command prints a local URL. Give that URL to the user so they can inspect and manually edit the board in the browser.
@@ -64,7 +71,7 @@ pnpm validate:scene path/to/board.agentdraw.json
 2. Read [`CATALOG.md`](./CATALOG.md) and choose one style id.
 3. Read only that style's `packages/styles/designs/<style-id>/design.md`.
 4. Generate or patch a `.agentdraw.json` scene using editable primitives: text, rectangles, ellipses, diamonds, arrows, and lines.
-5. Run `npx @aidraw/agentdraw validate <file>` or `agentdraw validate <file>`.
+5. Run `npx @aidraw/agentdraw validate <file> --format json` or `agentdraw validate <file> --format json`.
 6. Repair reported element ids until validation passes.
 7. Open the board with `npx @aidraw/agentdraw open <file> --no-open` or `agentdraw open <file> --no-open`.
 8. Return the printed local URL to the user.

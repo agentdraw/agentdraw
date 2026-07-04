@@ -19,7 +19,7 @@ pnpm --filter @aidraw/agentdraw publish --access public
 Smoke-test the packed CLI tarball:
 
 ```bash
-npm install -g ./npm/aidraw-agentdraw-0.1.0.tgz
+npm install -g ./npm/aidraw-agentdraw-0.1.1.tgz
 agentdraw open examples/getting-started.agentdraw.json --no-open
 ```
 

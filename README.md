@@ -106,7 +106,7 @@ engineering problems:
 Run directly from npm:
 
 ```bash
-npx @aidraw/agentdraw open board.agentdraw.json
+npx @aidraw/agentdraw open board.agentdraw.json --no-open
 ```
 
 Or use the repo:
@@ -131,6 +131,13 @@ pnpm agentdraw open examples/complex-agentdraw-workbench.agentdraw.json --no-ope
 
 ## CLI
 
+Discover commands:
+
+```bash
+pnpm agentdraw --help
+pnpm agentdraw schema open --json
+```
+
 Open a board:
 
 ```bash
@@ -141,6 +148,12 @@ Open without launching the system browser:
 
 ```bash
 pnpm agentdraw open examples/getting-started.agentdraw.json --no-open
+```
+
+Create a scene file without starting the editor:
+
+```bash
+pnpm agentdraw init .agentdraw/board.agentdraw.json
 ```
 
 Boards replay their final scene by default when opened, so users can watch the diagram being drawn.
@@ -156,6 +169,7 @@ Validate a generated scene:
 
 ```bash
 pnpm validate:scene examples/complex-agentdraw-workbench.agentdraw.json
+pnpm agentdraw validate examples/complex-agentdraw-workbench.agentdraw.json --format json
 ```
 
 The validator returns a non-zero exit code for layout errors. Warnings are printed but do not fail
