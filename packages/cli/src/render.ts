@@ -1,5 +1,6 @@
 import { Resvg } from "@resvg/resvg-js";
 import type { AgentDrawScene } from "@agentdraw/scene";
+import { existsSync } from "node:fs";
 
 export type RenderFormat = "svg" | "png";
 
@@ -42,6 +43,13 @@ export const renderScenePng = (scene: AgentDrawScene, options: RenderOptions = {
     fitTo: {
       mode: "original",
     },
+    font: {
+      loadSystemFonts: true,
+      fontDirs: systemFontDirs(),
+      defaultFontFamily: "Noto Sans CJK SC",
+      sansSerifFamily: "Noto Sans CJK SC",
+    },
+    languages: ["zh-CN", "en"],
   }).render().asPng();
 };
 
@@ -97,10 +105,10 @@ const renderText = (element: ElementRecord) => {
       : fontSize;
   const family =
     element.fontFamily === 1
-      ? "Virgil, Comic Sans MS, cursive"
+      ? `${CJK_FONT_STACK}, Virgil, Comic Sans MS, cursive`
       : element.fontFamily === 3
-        ? "Menlo, Consolas, monospace"
-        : "Inter, Arial, sans-serif";
+        ? `${CJK_MONO_FONT_STACK}, Menlo, Consolas, monospace`
+        : `${CJK_FONT_STACK}, Inter, Arial, sans-serif`;
 
   return [
     `<text x="${textX}" y="${y + offsetY}" fill="${stroke(element)}" font-family="${family}" font-size="${fontSize}" font-weight="${fontWeight(element)}" text-anchor="${anchor}">`,
@@ -210,6 +218,37 @@ const radius = (element: ElementRecord) => {
 };
 
 const fontWeight = (element: ElementRecord) => (number(element.fontSize, 16) >= 24 ? 700 : 500);
+
+const CJK_FONT_STACK = [
+  "Noto Sans CJK SC",
+  "Noto Sans SC",
+  "Source Han Sans SC",
+  "PingFang SC",
+  "Hiragino Sans GB",
+  "Microsoft YaHei",
+  "SimSun",
+  "WenQuanYi Micro Hei",
+  "Arial Unicode MS",
+].join(", ");
+
+const CJK_MONO_FONT_STACK = [
+  "Noto Sans Mono CJK SC",
+  "Noto Sans CJK SC",
+  "Source Han Sans SC",
+  "Microsoft YaHei",
+  "SimSun",
+  "WenQuanYi Micro Hei",
+].join(", ");
+
+const systemFontDirs = () =>
+  [
+    "/usr/share/fonts",
+    "/usr/local/share/fonts",
+    "/System/Library/Fonts",
+    "/Library/Fonts",
+    `${process.env.HOME ?? ""}/Library/Fonts`,
+    `${process.env.HOME ?? ""}/.local/share/fonts`,
+  ].filter((dir) => dir && existsSync(dir));
 
 const number = (value: unknown, fallback = 0) =>
   typeof value === "number" && Number.isFinite(value) ? value : fallback;

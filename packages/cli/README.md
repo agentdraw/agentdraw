@@ -23,6 +23,7 @@ agentdraw validate <file...> [--style <style-id>] [--format json|text]
 agentdraw repair <file> [--style <style-id>] [--write|--dry-run] [--format json|text]
 agentdraw quality <file...> [--style <style-id>] [--format json|text]
 agentdraw export <file> [--format svg|png] [--out <path>] [--scale <number>]
+agentdraw gallery [output.html] [--open|--no-open] [--out <path>]
 agentdraw validate-style [style-id...] [--format json|text]
 agentdraw guide [workflow|quality|styles|style|contract|scene|patterns|rules] [style-id]
 agentdraw schema [command] [--json]
@@ -34,7 +35,10 @@ AgentDraw opens a local Excalidraw-based editor, saves back to `.agentdraw.json`
 For generated Excalidraw scenes, run `agentdraw guide patterns --json` before writing JSON and
 `agentdraw repair <file> --style <style-id> --write --json` before the second validation pass.
 Repair is conservative: it normalizes fonts, contained text geometry, vertical-centering fields,
-and connector defaults, but skips writing if validation would get worse.
+connector defaults, and formal outer frames, but skips writing if validation would get worse.
+
+When the user has not chosen a visual direction, run `agentdraw gallery --open` to generate a local
+HTML theme gallery and ask which style they prefer.
 
 For agents, prefer `--format json` or `--json`. Non-TTY command results default to JSON.
 

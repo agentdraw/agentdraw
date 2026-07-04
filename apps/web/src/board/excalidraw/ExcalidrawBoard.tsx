@@ -237,6 +237,12 @@ const normalizeElementsForExcalidraw = (
 ) => {
   const profile = getStyleRenderProfile(style);
   const expectedFontFamily = fontFamilyForProfile(profile.fontFamily);
+  const elementById = new Map(
+    elements
+      .filter(isElementRecord)
+      .filter((element) => typeof element.id === "string")
+      .map((element) => [String(element.id), element]),
+  );
   return elements.map((element) => {
     if (!isElementRecord(element)) {
       return element;
@@ -248,24 +254,126 @@ const normalizeElementsForExcalidraw = (
     const text = typeof element.text === "string" ? element.text : "";
     const fontSize = typeof element.fontSize === "number" ? element.fontSize : 18;
     const lineHeight = typeof element.lineHeight === "number" ? element.lineHeight : 1.25;
+    const containedBox = containedTextBox(element, elementById);
+    const normalizedBox = containedBox
+      ? insetBounds(containedBox, defaultTextPadding(containedBox))
+      : null;
+    const width = normalizedBox?.width ?? element.width;
+    const height = normalizedBox?.height ?? element.height;
     return {
       ...element,
+      ...(normalizedBox
+        ? {
+            x: normalizedBox.x,
+            y: normalizedBox.y,
+            width: normalizedBox.width,
+            height: normalizedBox.height,
+          }
+        : null),
       text,
       originalText: typeof element.originalText === "string" ? element.originalText : text,
       fontSize,
       fontFamily: expectedFontFamily,
-      textAlign: typeof element.textAlign === "string" ? element.textAlign : "left",
-      verticalAlign: typeof element.verticalAlign === "string" ? element.verticalAlign : "middle",
-      autoResize: typeof element.autoResize === "boolean" ? element.autoResize : false,
+      textAlign:
+        typeof element.textAlign === "string" ? element.textAlign : containedBox ? "center" : "left",
+      verticalAlign: containedBox
+        ? "middle"
+        : typeof element.verticalAlign === "string"
+          ? element.verticalAlign
+          : "middle",
+      autoResize: containedBox ? false : typeof element.autoResize === "boolean" ? element.autoResize : false,
       lineHeight,
-      baseline:
-        typeof element.baseline === "number"
+      baseline: containedBox
+        ? centeredBaseline(text, fontSize, lineHeight, typeof height === "number" ? height : undefined)
+        : typeof element.baseline === "number"
           ? element.baseline
           : Math.round(fontSize * lineHeight * Math.max(1, text.split("\n").length) * 0.78),
+      width,
+      height,
       backgroundColor:
         typeof element.backgroundColor === "string" ? element.backgroundColor : "transparent",
     };
   });
+};
+
+type Box = {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+};
+
+const containedTextBox = (
+  text: Record<string, unknown>,
+  elementById: Map<string, Record<string, unknown>>,
+): Box | null => {
+  if (typeof text.containerId === "string") {
+    const container = toBox(elementById.get(text.containerId));
+    if (container) {
+      return container;
+    }
+  }
+
+  for (const element of elementById.values()) {
+    if (
+      !["rectangle", "diamond", "ellipse"].includes(String(element.type)) ||
+      !Array.isArray(element.boundElements)
+    ) {
+      continue;
+    }
+    const boundToText = element.boundElements.some((bound) =>
+      Boolean(
+        bound &&
+          typeof bound === "object" &&
+          (bound as { id?: unknown; type?: unknown }).id === text.id &&
+          (bound as { type?: unknown }).type === "text",
+      ),
+    );
+    if (boundToText) {
+      return toBox(element);
+    }
+  }
+  return null;
+};
+
+const toBox = (element: Record<string, unknown> | undefined): Box | null => {
+  if (
+    !element ||
+    typeof element.x !== "number" ||
+    typeof element.y !== "number" ||
+    typeof element.width !== "number" ||
+    typeof element.height !== "number"
+  ) {
+    return null;
+  }
+  return {
+    x: Math.min(element.x, element.x + element.width),
+    y: Math.min(element.y, element.y + element.height),
+    width: Math.abs(element.width),
+    height: Math.abs(element.height),
+  };
+};
+
+const insetBounds = (box: Box, padding: number): Box => ({
+  x: box.x + padding,
+  y: box.y + padding,
+  width: Math.max(1, box.width - padding * 2),
+  height: Math.max(1, box.height - padding * 2),
+});
+
+const defaultTextPadding = (box: Box) =>
+  Math.max(8, Math.min(20, Math.round(Math.min(box.width, box.height) * 0.16)));
+
+const centeredBaseline = (
+  text: string,
+  fontSize: number,
+  lineHeight: number,
+  height: number | undefined,
+) => {
+  if (typeof height !== "number") {
+    return Math.round(fontSize * lineHeight * Math.max(1, text.split("\n").length) * 0.78);
+  }
+  return Math.round((height - text.split("\n").length * fontSize * lineHeight) / 2 + fontSize);
 };
 
 const sanitizeInitialAppState = (appState: Record<string, unknown>) => {

@@ -248,6 +248,7 @@ pnpm agentdraw validate examples/complex-agentdraw-workbench.agentdraw.json --st
 pnpm agentdraw repair examples/complex-agentdraw-workbench.agentdraw.json --style system-formal --write --format json
 pnpm agentdraw quality examples/complex-agentdraw-workbench.agentdraw.json --style system-formal --format json
 pnpm agentdraw export examples/complex-agentdraw-workbench.agentdraw.json --format png --out .agentdraw/complex.preview.png --json
+pnpm agentdraw gallery --no-open --format json
 ```
 
 The validator returns a non-zero exit code for layout errors. Warnings are printed but do not fail
@@ -262,7 +263,9 @@ Use `agentdraw guide patterns --json` before generating Excalidraw-backed scenes
 copyable centered-label and edge-arrow primitives, which prevents common failures such as text
 sticking to the top of a box, Chinese text using a handwritten font, or connector colors drifting
 from the selected style. `agentdraw repair` can normalize these deterministic defaults after
-generation; it skips writing if the repaired scene would validate worse than the original.
+generation; it skips writing if the repaired scene would validate worse than the original. Use
+`agentdraw gallery --open` when the user has not expressed a visual preference and should choose
+between theme directions.
 
 ## Scene Format
 
@@ -309,6 +312,7 @@ Agents should load both the narrative guide and the machine-readable contract:
 agentdraw guide style system-formal --format text
 agentdraw guide contract system-formal --json
 agentdraw guide patterns --json
+agentdraw gallery --open --format json
 agentdraw validate-style system-formal --json
 ```
 
@@ -373,6 +377,7 @@ for version-matched guidance:
 
 ```bash
 agentdraw guide styles --json
+agentdraw gallery --no-open --format json
 agentdraw guide style system-formal --format text
 agentdraw guide contract system-formal --json
 agentdraw guide patterns --json

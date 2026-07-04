@@ -17,6 +17,7 @@ npx @aidraw/agentdraw@latest guide --format text
 npx @aidraw/agentdraw@latest guide quality --format text
 npx @aidraw/agentdraw@latest guide patterns --json
 npx @aidraw/agentdraw@latest guide styles --json
+npx @aidraw/agentdraw@latest gallery --open --format json
 npx @aidraw/agentdraw@latest guide contract system-formal --json
 ```
 
@@ -31,14 +32,15 @@ agentdraw doctor --json
 
 1. Run `agentdraw guide` or `npx @aidraw/agentdraw@latest guide` for the current workflow.
 2. Run `agentdraw guide styles --json` and choose one style id by audience, density, and tone.
-3. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the design guide and treat the contract as hard constraints.
-4. Run `agentdraw guide patterns --json` and reuse the centered-label and edge-arrow patterns instead of hand-calculating Excalidraw text layout.
-5. Create or patch a `.agentdraw.json` scene using editable primitives.
-6. Run `agentdraw validate <file> --style <style-id> --format json` and repair reported element ids until validation passes.
-7. If text, font, or connector defaults are inconsistent, run `agentdraw repair <file> --style <style-id> --write --format json`, then validate again. Repair is conservative and skips writes when it would make validation worse.
-8. Run `agentdraw quality <file> --style <style-id> --format json`. Use it as preflight, then self-check task fit against the original prompt.
-9. When the user asks for higher quality or when the board is complex, run `agentdraw export <file> --format png --out <preview.png> --json` and inspect the rendered preview before opening.
-10. If a local browser is available, run `agentdraw open <file> --background --open --format json`. On a remote or headless host, run `agentdraw open <file> --background --no-open --format json` and return the printed URL to the user.
+3. State the style choice and the reason in one short sentence before generating. If the user did not express a visual preference and the choice is not obvious, run `agentdraw gallery --open --format json` and ask the user which visual direction they prefer. In headless mode, run `agentdraw gallery --no-open --format json` and return the generated URL or path.
+4. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the design guide and treat the contract as hard constraints.
+5. Run `agentdraw guide patterns --json` and reuse the centered-label and edge-arrow patterns instead of hand-calculating Excalidraw text layout.
+6. Create or patch a `.agentdraw.json` scene using editable primitives.
+7. Run `agentdraw validate <file> --style <style-id> --format json` and repair reported element ids until validation passes.
+8. Run `agentdraw repair <file> --style <style-id> --write --format json`, then validate again. Repair normalizes text boxes, fonts, connector defaults, and formal outer frames; it skips writes when validation would get worse.
+9. Run `agentdraw quality <file> --style <style-id> --format json`. Use it as preflight, then self-check task fit against the original prompt.
+10. When the user asks for higher quality or when the board is complex, run `agentdraw export <file> --format png --out <preview.png> --json` and inspect the rendered preview before opening.
+11. If a local browser is available, run `agentdraw open <file> --background --open --format json`. On a remote or headless host, run `agentdraw open <file> --background --no-open --format json` and return the printed URL to the user.
 
 ## Quality Bar
 
@@ -49,6 +51,7 @@ Before delivering:
 - The board has a clear title and reading path.
 - Major sections are grouped into visible regions.
 - Architecture, layered system, and workflow boards have an outer frame, titled system boundary, or enclosing region unless the selected design guide says to keep the canvas open.
+- The agent states why it selected the theme. If the user has no clear preference, the agent offers `agentdraw gallery` before committing to a style.
 - The selected style changes layout, typography, spacing, components, connector treatment, and geometry, not only colors.
 - The board follows `agentdraw guide contract <style-id> --json` for palette, type scale, roughness, stroke width, spacing, and avoid rules.
 - Connectors attach to meaningful shapes and avoid crossing labels.
@@ -66,6 +69,7 @@ agentdraw schema --json
 agentdraw guide quality
 agentdraw guide scene
 agentdraw guide patterns --json
+agentdraw gallery --open --format json
 agentdraw guide rules
 agentdraw guide style system-formal --format text
 agentdraw guide contract system-formal --json
@@ -83,6 +87,7 @@ agentdraw open .agentdraw/board.agentdraw.json --background --no-open --format j
 
 - Do not make screenshots when an editable board is expected.
 - Do not use a design style as a palette swap; load its guide and contract before generating.
+- Do not silently default to the same style every time. State the selected style and reason; if unsure, show the theme gallery and ask.
 - Keep text editable and generously sized.
 - For centered text inside a shape, use `agentdraw guide patterns --json`: inset the text box by 12-20px, set `textAlign: "center"`, `verticalAlign: "middle"`, `autoResize: false`, `fontFamily: 2`, and `lineHeight: 1.25`.
 - Do not place contained text at the container top-left with `autoResize: true`; this often renders as top-aligned or cramped text.

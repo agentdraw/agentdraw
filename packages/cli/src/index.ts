@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import net from "node:net";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import {
   normalizeScenePath,
   repairScene,
@@ -79,6 +79,11 @@ type ExportOptions = GlobalOptions & {
   outputPath?: string;
   renderFormat: RenderFormat;
   scale: number;
+};
+
+type GalleryOptions = GlobalOptions & {
+  outputPath?: string;
+  openBrowser: boolean;
 };
 
 type DoctorOptions = GlobalOptions;
@@ -218,6 +223,9 @@ const main = async () => {
     case "export":
       await exportCommand(parseExportOptions(args, context.globals));
       return;
+    case "gallery":
+      await galleryCommand(parseGalleryOptions(args, context.globals));
+      return;
     case "validate-style":
       await validateStyleCommand(parseValidateStyleOptions(args, context.globals));
       return;
@@ -348,6 +356,8 @@ const repairCommand = async (options: RepairOptions) => {
     fontFamily: excalidrawFontFamily(contract.typography.fontFamily),
     connectorColor: contract.palette.muted,
     connectorStrokeWidth: contract.connectors.minStrokeWidth,
+    addOuterFrame: contract.formality === "high",
+    frameColor: contract.palette.muted,
   });
   const afterValidation = validateSceneWithContract(repaired.scene, options.styleId);
   const skippedWrite = options.write && isValidationWorse(afterValidation, beforeValidation);
@@ -453,6 +463,32 @@ const exportCommand = async (options: ExportOptions) => {
       message: `Exported ${options.renderFormat.toUpperCase()} preview.`,
     },
     `Exported ${options.renderFormat.toUpperCase()}: ${outputPath}`,
+    options,
+  );
+};
+
+const galleryCommand = async (options: GalleryOptions) => {
+  const outputPath = options.outputPath
+    ? path.resolve(options.cwd, options.outputPath)
+    : path.resolve(options.cwd, ".agentdraw/theme-gallery.html");
+  await mkdir(path.dirname(outputPath), { recursive: true });
+  await writeFile(outputPath, themeGalleryHtml(), "utf8");
+  const url = pathToFileURL(outputPath).toString();
+
+  if (options.openBrowser) {
+    openSystemBrowser(url);
+  }
+
+  writeOutput(
+    {
+      ok: true,
+      command: "gallery",
+      outputPath,
+      url,
+      browserOpened: options.openBrowser,
+      styleCount: styles.length,
+    },
+    [`Theme gallery: ${outputPath}`, `URL: ${url}`].join("\n"),
     options,
   );
 };
@@ -715,6 +751,30 @@ const parseExportOptions = (args: string[], globals: GlobalOptions): ExportOptio
     outputPath,
     renderFormat: readRenderFormat(values.valueFlags["--format"], outputPath),
     scale: readScale(values.valueFlags["--scale"] ?? "1"),
+  };
+};
+
+const parseGalleryOptions = (args: string[], globals: GlobalOptions): GalleryOptions => {
+  const values = parseCommandFlags(args, {
+    booleanFlags: ["--open", "--no-open"],
+    valueFlags: ["--out", "--output"],
+  });
+  assertNoUnknownFlags(values.unknownFlags, "gallery");
+  if (values.positionals.length > 1) {
+    throw new CliError("too_many_arguments", "The gallery command accepts at most one output path.", {
+      exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Run: agentdraw gallery [output.html] --open",
+      input: { args },
+    });
+  }
+  return {
+    ...globals,
+    outputPath: values.valueFlags["--out"] ?? values.valueFlags["--output"] ?? values.positionals[0],
+    openBrowser: values.booleanFlags.has("--no-open")
+      ? false
+      : values.booleanFlags.has("--open")
+        ? true
+        : process.stdout.isTTY,
   };
 };
 
@@ -1414,6 +1474,7 @@ const guidePayload = (topic: string, detail?: string) => {
           repair: "agentdraw repair .agentdraw/board.agentdraw.json --style system-formal --write --format json",
           qualityCheck: "agentdraw quality .agentdraw/board.agentdraw.json --style system-formal --format json",
           exportPreview: "agentdraw export .agentdraw/board.agentdraw.json --format png --out .agentdraw/board.preview.png --json",
+          gallery: "agentdraw gallery --open --format json",
           validateStyle: "agentdraw validate-style system-formal --format json",
           open: "agentdraw open .agentdraw/board.agentdraw.json --background --open --format json",
         },
@@ -1600,6 +1661,8 @@ const guidePayload = (topic: string, detail?: string) => {
           styles: group.styles.map(styleSummary),
         })),
         heuristics: [
+          "If the user did not state a visual preference, run agentdraw gallery --open --format json and ask which direction they prefer.",
+          "If you choose a style without asking, state the reason in one sentence before generating.",
           "Formal and square: system-formal, boardroom, blueprint-formal, raw-grid, neo-grid-bold.",
           "Editorial and refined: grove, editorial-forest, macchiato, reading-room, linen-cut.",
           "Journey or customer experience: coral, berry-pop, soft-editorial, confetti-wedge.",
@@ -1832,6 +1895,107 @@ const formatGuideText = (topic: string, detail?: string) => {
   ].join("\n");
 };
 
+const themeGalleryHtml = () => {
+  const groups = styleGroups.map((group) => ({
+    level: group.level,
+    styles: group.styles,
+  }));
+  return [
+    "<!doctype html>",
+    '<html lang="en">',
+    "<head>",
+    '<meta charset="utf-8" />',
+    '<meta name="viewport" content="width=device-width, initial-scale=1" />',
+    "<title>AgentDraw Theme Gallery</title>",
+    "<style>",
+    [
+      ":root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#172033;background:#f7f9fc}",
+      "body{margin:0}",
+      "main{max-width:1180px;margin:0 auto;padding:40px 24px 64px}",
+      "header{margin-bottom:28px}",
+      "h1{font-size:34px;line-height:1.1;margin:0 0 10px}",
+      "p{margin:0;color:#64748b;line-height:1.55}",
+      "section{margin-top:34px}",
+      "h2{font-size:18px;margin:0 0 14px;text-transform:capitalize}",
+      ".grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}",
+      ".card{border:1px solid #d9e0ea;background:#fff;border-radius:8px;overflow:hidden}",
+      ".preview{display:block;width:100%;height:auto;border-bottom:1px solid #e2e8f0}",
+      ".body{padding:12px 14px 14px}",
+      ".name{display:flex;align-items:center;justify-content:space-between;gap:8px;font-weight:750}",
+      ".id{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:#64748b;font-size:12px}",
+      ".vibe{font-size:13px;color:#475569;margin-top:7px;min-height:40px}",
+      ".swatches{display:flex;gap:5px;margin-top:12px}",
+      ".swatch{width:22px;height:22px;border-radius:4px;border:1px solid rgba(0,0,0,.16)}",
+      ".hint{margin-top:18px;padding:12px 14px;border:1px solid #d9e0ea;background:#fff;border-radius:8px;font-size:14px;color:#475569}",
+      "code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}",
+    ].join("\n"),
+    "</style>",
+    "</head>",
+    "<body>",
+    "<main>",
+    "<header>",
+    "<h1>AgentDraw Theme Gallery</h1>",
+    `<p>Choose a design system by audience, density, and tone. AgentDraw includes ${styles.length} bundled styles. Use the selected id with <code>agentdraw guide style &lt;style-id&gt;</code> and <code>agentdraw guide contract &lt;style-id&gt; --json</code>.</p>`,
+    '<div class="hint">Agents: if the user did not express a visual preference, show this gallery URL and ask which direction they prefer. If you choose without asking, state the reason explicitly.</div>',
+    "</header>",
+    ...groups.flatMap((group) => [
+      "<section>",
+      `<h2>${escapeHtml(group.level)}</h2>`,
+      '<div class="grid">',
+      ...group.styles.map((style) => themeCardHtml(style)),
+      "</div>",
+      "</section>",
+    ]),
+    "</main>",
+    "</body>",
+    "</html>",
+    "",
+  ].join("\n");
+};
+
+const themeCardHtml = (style: (typeof styles)[number]) => {
+  const palette = style.palette;
+  const swatches = Object.values(palette)
+    .map(
+      (colorValue) =>
+        `<span class="swatch" title="${escapeHtml(colorValue)}" style="background:${escapeHtml(colorValue)}"></span>`,
+    )
+    .join("");
+  return [
+    '<article class="card">',
+    themePreviewSvg(style),
+    '<div class="body">',
+    '<div class="name">',
+    `<span>${escapeHtml(style.name)}</span>`,
+    `<span class="id">${escapeHtml(style.id)}</span>`,
+    "</div>",
+    `<div class="vibe">${escapeHtml(style.vibe)}</div>`,
+    `<div class="swatches">${swatches}</div>`,
+    "</div>",
+    "</article>",
+  ].join("");
+};
+
+const themePreviewSvg = (style: (typeof styles)[number]) => {
+  const p = style.palette;
+  const rough = style.formality === "low" ? 6 : style.formality === "medium" ? 4 : 2;
+  const radius = style.formality === "high" ? 2 : style.formality === "medium" ? 8 : 14;
+  return [
+    `<svg class="preview" viewBox="0 0 320 170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="${escapeHtml(style.name)} preview">`,
+    `<rect width="320" height="170" fill="${escapeHtml(p.canvas)}"/>`,
+    `<rect x="18" y="18" width="284" height="134" rx="${radius}" fill="${escapeHtml(p.panel)}" stroke="${escapeHtml(p.ink)}" stroke-width="${rough}"/>`,
+    `<rect x="34" y="36" width="92" height="42" rx="${radius}" fill="${escapeHtml(p.accent2)}" stroke="${escapeHtml(p.ink)}" stroke-width="2"/>`,
+    `<rect x="194" y="36" width="92" height="42" rx="${radius}" fill="${escapeHtml(p.accent)}" stroke="${escapeHtml(p.ink)}" stroke-width="2"/>`,
+    `<path d="M128 57 L190 57" fill="none" stroke="${escapeHtml(p.accent3)}" stroke-width="3" stroke-linecap="round"/>`,
+    `<path d="M184 50 L194 57 L184 64" fill="none" stroke="${escapeHtml(p.accent3)}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>`,
+    `<rect x="34" y="98" width="252" height="30" rx="${Math.max(2, radius - 4)}" fill="${escapeHtml(p.canvas)}" stroke="${escapeHtml(p.muted)}" stroke-width="2"/>`,
+    `<text x="48" y="62" fill="${escapeHtml(p.ink)}" font-size="15" font-weight="700" font-family="Inter,Arial,sans-serif">Input</text>`,
+    `<text x="212" y="62" fill="${escapeHtml(p.canvas)}" font-size="15" font-weight="700" font-family="Inter,Arial,sans-serif">Output</text>`,
+    `<text x="48" y="118" fill="${escapeHtml(p.ink)}" font-size="13" font-family="Inter,Arial,sans-serif">${escapeHtml(style.level)} · ${escapeHtml(style.formality)}</text>`,
+    "</svg>",
+  ].join("");
+};
+
 const styleSummary = (style: (typeof styles)[number]) => ({
   id: style.id,
   name: style.name,
@@ -1894,6 +2058,13 @@ const titleCase = (input: string) =>
     .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
     .join(" ");
 
+const escapeHtml = (value: unknown) =>
+  String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+
 const printHelp = (command: string | undefined, options: GlobalOptions) => {
   const text = helpText(command);
   if (outputFormat({ ...options, format: options.format ?? "text" }) === "json") {
@@ -1917,6 +2088,7 @@ const helpText = (command: string | undefined) => {
         "  agentdraw repair board.agentdraw.json --style system-formal --write --format json",
         "  agentdraw quality board.agentdraw.json --style system-formal --format json",
         "  agentdraw export board.agentdraw.json --format png --out board.preview.png --json",
+        "  agentdraw gallery --open --format json",
         "  agentdraw validate-style system-formal --format json",
         "  agentdraw schema open --format json",
         "",
@@ -1927,6 +2099,7 @@ const helpText = (command: string | undefined) => {
         "  repair     Normalize deterministic scene display defaults, then validate.",
         "  quality    Score scene quality against the AgentDraw rubric.",
         "  export     Export a rendered SVG or PNG preview for visual review.",
+        "  gallery    Generate a local HTML gallery for choosing AgentDraw themes.",
         "  validate-style",
         "             Validate installed design guides against the design-contract baseline.",
         "  doctor     Check local runtime details.",
@@ -2073,6 +2246,26 @@ const helpText = (command: string | undefined) => {
         "Notes:",
         "  Use this before opening when an agent needs a visual preview for quality review.",
       ].join("\n");
+    case "gallery":
+      return [
+        "Generate a local HTML gallery for choosing AgentDraw themes.",
+        "",
+        "Examples:",
+        "  agentdraw gallery --open",
+        "  agentdraw gallery .agentdraw/theme-gallery.html --no-open --json",
+        "",
+        "Usage:",
+        "  agentdraw gallery [output.html] [--open|--no-open] [--out <path>]",
+        "",
+        "Arguments:",
+        "  output.html         Optional HTML output path. Default: .agentdraw/theme-gallery.html",
+        "",
+        "Flags:",
+        "  --open              Launch the system browser.",
+        "  --no-open           Do not launch the system browser.",
+        "  --out <path>        Output HTML path.",
+        "  --output <path>     Alias for --out.",
+      ].join("\n");
     case "validate-style":
       return [
         "Validate installed AgentDraw design guides against the design-contract baseline.",
@@ -2109,6 +2302,7 @@ const helpText = (command: string | undefined) => {
         "  agentdraw guide style system-formal",
         "  agentdraw guide contract system-formal --json",
         "  agentdraw guide patterns --json",
+        "  agentdraw gallery --open",
         "  agentdraw guide scene",
         "  agentdraw guide rules",
         "",
@@ -2240,6 +2434,26 @@ const commandSchema = (commandPath: string[]) => {
       ],
       notes: [
         "Use exported previews when an agent or reviewer needs to inspect rendered output before opening the editor.",
+      ],
+    },
+    gallery: {
+      description: "Generate a local HTML gallery for choosing AgentDraw themes.",
+      usage: "agentdraw gallery [output.html] [--open|--no-open] [--out <path>]",
+      arguments: [{ name: "output.html", required: false, default: ".agentdraw/theme-gallery.html" }],
+      flags: [
+        { name: "--open", type: "boolean", required: false },
+        { name: "--no-open", type: "boolean", required: false },
+        { name: "--out", type: "string", required: false },
+        { name: "--output", type: "string", required: false },
+        { name: "--format", type: "enum", values: ["json", "text"], required: false },
+        { name: "--json", type: "boolean", required: false },
+      ],
+      examples: [
+        "agentdraw gallery --open",
+        "agentdraw gallery .agentdraw/theme-gallery.html --no-open --json",
+      ],
+      notes: [
+        "Use this when the user has not expressed a visual preference. Show the URL and ask which direction they prefer.",
       ],
     },
     "validate-style": {

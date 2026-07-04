@@ -5,6 +5,8 @@ export type SceneRepairOptions = {
   connectorColor?: string;
   connectorStrokeWidth?: number;
   containerPadding?: number;
+  addOuterFrame?: boolean;
+  frameColor?: string;
 };
 
 export type SceneRepairChange = {
@@ -29,6 +31,7 @@ type ElementRecord = Record<string, unknown> & {
   strokeColor?: string;
   strokeWidth?: number;
   points?: unknown;
+  customData?: Record<string, unknown>;
 };
 
 type Bounds = {
@@ -50,6 +53,7 @@ export const repairScene = (
   const fontFamily = options.fontFamily ?? 2;
   const connectorColor = options.connectorColor;
   const connectorStrokeWidth = options.connectorStrokeWidth ?? 2;
+  const frameColor = options.frameColor ?? connectorColor ?? "#CBD5E1";
   const elements = scene.elements.map((element) =>
     isElementRecord(element) ? { ...element } : element,
   );
@@ -67,6 +71,10 @@ export const repairScene = (
     if (CONNECTOR_TYPES.has(element.type ?? "")) {
       repairConnectorElement(element, connectorColor, connectorStrokeWidth, changes);
     }
+  }
+
+  if (options.addOuterFrame) {
+    addOuterFrame(elements, frameColor, changes);
   }
 
   return {
@@ -278,6 +286,80 @@ const toBounds = (element: ElementRecord | undefined): Bounds | null => {
     width: Math.abs(element.width),
     height: Math.abs(element.height),
   };
+};
+
+const addOuterFrame = (
+  elements: unknown[],
+  frameColor: string,
+  changes: SceneRepairChange[],
+) => {
+  const drawableBounds = elements
+    .filter(isElementRecord)
+    .filter((element) => !CONNECTOR_TYPES.has(element.type ?? ""))
+    .filter((element) => element.customData?.role !== "frame")
+    .map(toBounds)
+    .filter((bounds): bounds is Bounds => Boolean(bounds));
+  if (drawableBounds.length < 4 || hasOuterFrame(elements, drawableBounds)) {
+    return;
+  }
+
+  const x = Math.min(...drawableBounds.map((bounds) => bounds.x));
+  const y = Math.min(...drawableBounds.map((bounds) => bounds.y));
+  const right = Math.max(...drawableBounds.map((bounds) => bounds.x + bounds.width));
+  const bottom = Math.max(...drawableBounds.map((bounds) => bounds.y + bounds.height));
+  const padding = 32;
+  const frame = {
+    id: "agentdraw-system-frame",
+    type: "rectangle",
+    x: x - padding,
+    y: y - padding,
+    width: right - x + padding * 2,
+    height: bottom - y + padding * 2,
+    angle: 0,
+    strokeColor: frameColor,
+    backgroundColor: "transparent",
+    fillStyle: "solid",
+    strokeWidth: 1,
+    roughness: 0,
+    opacity: 100,
+    groupIds: [],
+    boundElements: null,
+    roundness: { type: 2 },
+    seed: 1,
+    version: 1,
+    versionNonce: 1,
+    isDeleted: false,
+    updated: Date.now(),
+    link: null,
+    locked: false,
+    customData: { role: "frame" },
+  };
+  elements.unshift(frame);
+  changes.push({
+    elementId: frame.id,
+    code: "outer-frame",
+    message: "Added a low-contrast outer frame for the formal diagram.",
+  });
+};
+
+const hasOuterFrame = (elements: unknown[], drawableBounds: Bounds[]) => {
+  const x = Math.min(...drawableBounds.map((bounds) => bounds.x));
+  const y = Math.min(...drawableBounds.map((bounds) => bounds.y));
+  const right = Math.max(...drawableBounds.map((bounds) => bounds.x + bounds.width));
+  const bottom = Math.max(...drawableBounds.map((bounds) => bounds.y + bounds.height));
+  return elements
+    .filter(isElementRecord)
+    .filter((element) => SHAPE_TYPES.has(element.type ?? ""))
+    .some((element) => {
+      const bounds = toBounds(element);
+      return Boolean(
+        bounds &&
+          bounds.x <= x - 12 &&
+          bounds.y <= y - 12 &&
+          bounds.x + bounds.width >= right + 12 &&
+          bounds.y + bounds.height >= bottom + 12,
+      );
+    });
 };
 
 const isElementRecord = (element: unknown): element is ElementRecord =>
