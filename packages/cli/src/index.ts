@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { spawn } from "node:child_process";
+import { randomUUID } from "node:crypto";
 import { readFileSync } from "node:fs";
 import { mkdir, writeFile } from "node:fs/promises";
 import net from "node:net";
@@ -84,6 +85,13 @@ type ExportOptions = GlobalOptions & {
 
 type ImportSvgOptions = GlobalOptions & {
   svgPath: string;
+  outputPath?: string;
+  title?: string;
+  styleId?: string;
+};
+
+type ImportMermaidOptions = GlobalOptions & {
+  mermaidPath: string;
   outputPath?: string;
   title?: string;
   styleId?: string;
@@ -233,6 +241,9 @@ const main = async () => {
       return;
     case "import-svg":
       await importSvgCommand(parseImportSvgOptions(args, context.globals));
+      return;
+    case "import-mermaid":
+      await importMermaidCommand(parseImportMermaidOptions(args, context.globals));
       return;
     case "gallery":
       await galleryCommand(parseGalleryOptions(args, context.globals));
@@ -514,6 +525,59 @@ const importSvgCommand = async (options: ImportSvgOptions) => {
       `Imported SVG into AgentDraw scene: ${outputPath}`,
       `Elements: ${result.scene.elements.length}`,
       result.warnings.length ? `Warnings: ${result.warnings.length}` : "Warnings: 0",
+      `Validation: ${validation.errorCount} error(s), ${validation.warningCount} warning(s)`,
+    ].join("\n"),
+    options,
+  );
+};
+
+const importMermaidCommand = async (options: ImportMermaidOptions) => {
+  const mermaidPath = path.isAbsolute(options.mermaidPath)
+    ? options.mermaidPath
+    : path.resolve(options.cwd, options.mermaidPath);
+  const outputPath = options.outputPath
+    ? path.isAbsolute(options.outputPath)
+      ? options.outputPath
+      : path.resolve(options.cwd, options.outputPath)
+    : defaultImportedScenePath(mermaidPath);
+  const source = readFileSync(mermaidPath, "utf8");
+  const parsed = parseMermaidFlowchart(source);
+  const scene = mermaidFlowchartToScene(parsed, {
+    title: options.title ?? path.basename(mermaidPath, path.extname(mermaidPath)),
+    styleId: options.styleId ?? "system-formal",
+  });
+  const contract = getDesignContract(scene.styleId ?? "system-formal");
+  const repaired = repairScene(scene, {
+    fontFamily: excalidrawFontFamily(contract.typography.fontFamily),
+    connectorColor: contract.palette.muted,
+    connectorStrokeWidth: contract.connectors.minStrokeWidth,
+    addOuterFrame: false,
+    frameColor: contract.palette.muted,
+    maxCornerRadiusPx: contract.geometry.cornerRadiusPx[1],
+    allowedColors: contract.allowedColors,
+  });
+  await writeSceneFile(outputPath, repaired.scene);
+  const validation = validateSceneWithContract(repaired.scene, options.styleId);
+
+  writeOutput(
+    {
+      ok: true,
+      command: "import-mermaid",
+      mermaidPath,
+      outputPath,
+      styleId: repaired.scene.styleId,
+      nodeCount: parsed.nodes.length,
+      edgeCount: parsed.edges.length,
+      elementCount: repaired.scene.elements.length,
+      repairedChangeCount: repaired.changes.length,
+      validationOk: validation.errorCount === 0,
+      validation,
+    },
+    [
+      `Imported Mermaid flowchart into AgentDraw scene: ${outputPath}`,
+      `Nodes: ${parsed.nodes.length}`,
+      `Edges: ${parsed.edges.length}`,
+      `Elements: ${repaired.scene.elements.length}`,
       `Validation: ${validation.errorCount} error(s), ${validation.warningCount} warning(s)`,
     ].join("\n"),
     options,
@@ -834,6 +898,31 @@ const parseImportSvgOptions = (args: string[], globals: GlobalOptions): ImportSv
   };
 };
 
+const parseImportMermaidOptions = (
+  args: string[],
+  globals: GlobalOptions,
+): ImportMermaidOptions => {
+  const values = parseCommandFlags(args, {
+    booleanFlags: [],
+    valueFlags: ["--out", "--output", "--title", "--style"],
+  });
+  assertNoUnknownFlags(values.unknownFlags, "import-mermaid");
+  if (values.positionals.length !== 1) {
+    throw new CliError("missing_argument", "The import-mermaid command requires one Mermaid file.", {
+      exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Run: agentdraw import-mermaid <file.mmd> --out <board.agentdraw.json>",
+      input: { args },
+    });
+  }
+  return {
+    ...globals,
+    mermaidPath: values.positionals[0],
+    outputPath: values.valueFlags["--out"] ?? values.valueFlags["--output"],
+    title: values.valueFlags["--title"],
+    styleId: values.valueFlags["--style"],
+  };
+};
+
 const parseGalleryOptions = (args: string[], globals: GlobalOptions): GalleryOptions => {
   const values = parseCommandFlags(args, {
     booleanFlags: ["--open", "--no-open"],
@@ -1049,6 +1138,542 @@ const defaultImportedScenePath = (svgPath: string) => {
   const parsed = path.parse(svgPath);
   return path.join(parsed.dir, `${parsed.name}.agentdraw.json`);
 };
+
+type MermaidNodeShape = "rectangle" | "rounded" | "diamond" | "ellipse";
+
+type MermaidNode = {
+  id: string;
+  label: string;
+  shape: MermaidNodeShape;
+};
+
+type MermaidEdge = {
+  from: string;
+  to: string;
+  label?: string;
+  arrow: boolean;
+};
+
+type MermaidFlowchart = {
+  direction: "TD" | "LR";
+  nodes: MermaidNode[];
+  edges: MermaidEdge[];
+};
+
+type MermaidLayoutNode = MermaidNode & {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  layer: number;
+};
+
+type MermaidSceneOptions = {
+  title: string;
+  styleId: string;
+};
+
+const parseMermaidFlowchart = (source: string): MermaidFlowchart => {
+  const lines = source
+    .split(/\r?\n/)
+    .map((line) => line.replace(/%%.*$/, "").trim())
+    .filter(Boolean);
+  const header = lines.shift();
+  const headerMatch = header?.match(/^(flowchart|graph)\s+(TD|TB|BT|LR|RL)$/i);
+  if (!headerMatch) {
+    throw new CliError("unsupported_mermaid", "Only Mermaid flowchart/graph diagrams are supported.", {
+      exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Start the file with: flowchart TD",
+      input: { firstLine: header ?? "" },
+    });
+  }
+
+  const direction = headerMatch[2].toUpperCase();
+  if (direction === "BT" || direction === "RL") {
+    throw new CliError("unsupported_mermaid_direction", `Unsupported Mermaid direction: ${direction}`, {
+      exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Use TD/TB for vertical diagrams or LR for horizontal diagrams.",
+      input: { direction },
+    });
+  }
+
+  const nodes = new Map<string, MermaidNode>();
+  const edges: MermaidEdge[] = [];
+
+  for (const rawLine of lines) {
+    const line = rawLine.replace(/;$/, "").trim();
+    if (!line || line.startsWith("subgraph ") || line === "end") {
+      continue;
+    }
+    const edge = parseMermaidEdge(line);
+    if (edge) {
+      registerMermaidNode(nodes, edge.fromNode);
+      registerMermaidNode(nodes, edge.toNode);
+      edges.push({
+        from: edge.fromNode.id,
+        to: edge.toNode.id,
+        label: edge.label,
+        arrow: edge.arrow,
+      });
+      continue;
+    }
+    const node = parseMermaidNode(line);
+    if (node) {
+      registerMermaidNode(nodes, node);
+      continue;
+    }
+    throw new CliError("unsupported_mermaid_line", "Unsupported Mermaid flowchart line.", {
+      exitCode: EXIT_USAGE_ERROR,
+      suggestion: "Use simple node declarations and edges such as A[Label] --> B{Decision}.",
+      input: { line },
+    });
+  }
+
+  if (nodes.size === 0) {
+    throw new CliError("empty_mermaid", "The Mermaid file did not contain any flowchart nodes.", {
+      exitCode: EXIT_USAGE_ERROR,
+    });
+  }
+
+  return {
+    direction: direction === "LR" ? "LR" : "TD",
+    nodes: [...nodes.values()],
+    edges,
+  };
+};
+
+const parseMermaidEdge = (line: string) => {
+  const operators = ["-->", "---", "-.->", "==>"];
+  for (const operator of operators) {
+    const parts = line.split(operator);
+    if (parts.length !== 2) continue;
+    const left = parts[0].trim();
+    let right = parts[1].trim();
+    let label: string | undefined;
+    const labelMatch = right.match(/^\|([^|]+)\|\s*(.+)$/);
+    if (labelMatch) {
+      label = cleanMermaidLabel(labelMatch[1]);
+      right = labelMatch[2].trim();
+    }
+    const fromNode = parseMermaidNode(left);
+    const toNode = parseMermaidNode(right);
+    if (!fromNode || !toNode) return null;
+    return {
+      fromNode,
+      toNode,
+      label,
+      arrow: operator !== "---",
+    };
+  }
+  return null;
+};
+
+const parseMermaidNode = (raw: string): MermaidNode | null => {
+  const input = raw.trim();
+  if (!input) return null;
+  const parsed = parseMermaidShapedNode(input, "diamond", /^\s*([A-Za-z0-9_:-]+)\s*\{(.+)\}\s*$/);
+  if (parsed) return parsed;
+  const ellipse = parseMermaidShapedNode(input, "ellipse", /^\s*([A-Za-z0-9_:-]+)\s*\(\((.+)\)\)\s*$/);
+  if (ellipse) return ellipse;
+  const rounded = parseMermaidShapedNode(input, "rounded", /^\s*([A-Za-z0-9_:-]+)\s*\((.+)\)\s*$/);
+  if (rounded) return rounded;
+  const rectangle = parseMermaidShapedNode(input, "rectangle", /^\s*([A-Za-z0-9_:-]+)\s*\[(.+)\]\s*$/);
+  if (rectangle) return rectangle;
+  const bare = input.match(/^\s*([A-Za-z0-9_:-]+)\s*$/);
+  return bare ? { id: bare[1], label: bare[1], shape: "rectangle" } : null;
+};
+
+const parseMermaidShapedNode = (
+  input: string,
+  shape: MermaidNodeShape,
+  pattern: RegExp,
+): MermaidNode | null => {
+  const match = input.match(pattern);
+  if (!match) return null;
+  return { id: match[1], label: cleanMermaidLabel(match[2]), shape };
+};
+
+const cleanMermaidLabel = (value: string) =>
+  value.trim().replace(/^["']|["']$/g, "").replace(/<br\s*\/?>/gi, "\n");
+
+const registerMermaidNode = (nodes: Map<string, MermaidNode>, node: MermaidNode) => {
+  const existing = nodes.get(node.id);
+  if (!existing || existing.label === existing.id) {
+    nodes.set(node.id, node);
+  }
+};
+
+const mermaidFlowchartToScene = (
+  flowchart: MermaidFlowchart,
+  options: MermaidSceneOptions,
+): AgentDrawScene => {
+  const style = styles.find((candidate) => candidate.id === options.styleId) ?? styles[0];
+  const contract = getDesignContract(style);
+  const layout = layoutMermaidNodes(flowchart);
+  const seedStart = Date.now() % 100000;
+  let seed = seedStart;
+  const nextSeed = () => {
+    seed += 1;
+    return seed;
+  };
+  const elements: unknown[] = [];
+  const bounds = layoutBounds(layout);
+  const margin = 56;
+  elements.push(
+    shapeElement(`mermaid-frame-${nextSeed()}`, "rectangle", bounds.x - margin, bounds.y - margin, bounds.width + margin * 2, bounds.height + margin * 2, {
+      seed: nextSeed(),
+      strokeColor: contract.palette.muted,
+      backgroundColor: "transparent",
+      strokeWidth: 1,
+      roughness: contract.geometry.roughness[0],
+      roundness: contract.formality === "high" ? null : { type: 3 },
+    }),
+  );
+
+  for (const edge of flowchart.edges) {
+    const from = layout.find((node) => node.id === edge.from);
+    const to = layout.find((node) => node.id === edge.to);
+    if (!from || !to) continue;
+    const connector = connectorBetween(from, to, flowchart.direction);
+    elements.push(
+      connectorElement(`mermaid-edge-${edge.from}-${edge.to}-${nextSeed()}`, connector.x, connector.y, connector.points, {
+        seed: nextSeed(),
+        strokeColor: contract.palette.muted,
+        strokeWidth: contract.connectors.minStrokeWidth,
+        roughness: contract.geometry.roughness[0],
+        arrow: edge.arrow,
+        elbowed: connector.points.length > 2,
+      }),
+    );
+    if (edge.label) {
+      const labelPoint = connectorLabelPoint(connector);
+      elements.push(
+        textElement(`mermaid-edge-label-${edge.from}-${edge.to}-${nextSeed()}`, labelPoint.x - 40, labelPoint.y - 10, 80, 20, edge.label, {
+          seed: nextSeed(),
+          fontSize: contract.typography.bodyPx[0],
+          fontFamily: excalidrawFontFamily(contract.typography.fontFamily),
+          strokeColor: contract.palette.muted,
+          textAlign: "center",
+          verticalAlign: "middle",
+        }),
+      );
+    }
+  }
+
+  for (const node of layout) {
+    const isDecision = node.shape === "diamond";
+    const isTerminal = node.shape === "rounded" || node.shape === "ellipse";
+    const fill = isDecision ? contract.palette.accent2 : isTerminal ? contract.palette.panel : "#FFFFFF";
+    elements.push(
+      shapeElement(`mermaid-node-${node.id}`, nodeShapeType(node), node.x, node.y, node.width, node.height, {
+        seed: nextSeed(),
+        strokeColor: contract.palette.ink,
+        backgroundColor: fill,
+        strokeWidth: Math.max(contract.geometry.strokeWidth[0], 2),
+        roughness: contract.geometry.roughness[0],
+        roundness: isDecision || contract.formality === "high" ? null : { type: 3 },
+        customData: { mermaidId: node.id, mermaidShape: node.shape },
+      }),
+    );
+    elements.push(
+      textElement(`mermaid-label-${node.id}`, node.x + 18, node.y + 16, node.width - 36, node.height - 32, node.label, {
+        seed: nextSeed(),
+        fontSize: contract.typography.bodyPx[1],
+        fontFamily: excalidrawFontFamily(contract.typography.fontFamily),
+        strokeColor: contract.palette.ink,
+        textAlign: "center",
+        verticalAlign: "middle",
+      }),
+    );
+  }
+
+  return {
+    type: "agentdraw/scene",
+    version: 1,
+    id: randomUUID(),
+    title: options.title,
+    styleId: style.id,
+    providerId: "excalidraw",
+    updatedAt: new Date().toISOString(),
+    elements,
+    appState: {
+      viewBackgroundColor: contract.palette.canvas,
+      currentItemStrokeColor: contract.palette.ink,
+      currentItemBackgroundColor: contract.palette.panel,
+      currentItemFillStyle: "solid",
+      currentItemStrokeWidth: Math.max(contract.geometry.strokeWidth[0], 2),
+      currentItemStrokeStyle: "solid",
+      currentItemRoughness: contract.geometry.roughness[0],
+      currentItemFontFamily: excalidrawFontFamily(contract.typography.fontFamily),
+      currentItemRoundness: contract.formality === "high" ? "sharp" : "round",
+      currentItemArrowType: contract.connectors.preferred,
+      currentItemStartArrowhead: null,
+      currentItemEndArrowhead: "arrow",
+      scrollX: 80,
+      scrollY: 64,
+      zoom: { value: 0.72 },
+    },
+    files: {},
+  };
+};
+
+const layoutMermaidNodes = (flowchart: MermaidFlowchart): MermaidLayoutNode[] => {
+  const byId = new Map(flowchart.nodes.map((node) => [node.id, node]));
+  const outgoing = new Map<string, string[]>();
+  const incoming = new Map<string, number>();
+  for (const node of flowchart.nodes) {
+    outgoing.set(node.id, []);
+    incoming.set(node.id, 0);
+  }
+  for (const edge of flowchart.edges) {
+    if (!byId.has(edge.from) || !byId.has(edge.to)) continue;
+    outgoing.get(edge.from)?.push(edge.to);
+    incoming.set(edge.to, (incoming.get(edge.to) ?? 0) + 1);
+  }
+
+  const roots = flowchart.nodes.filter((node) => (incoming.get(node.id) ?? 0) === 0);
+  const queue = roots.length ? roots.map((node) => node.id) : [flowchart.nodes[0].id];
+  const layers = new Map<string, number>();
+  for (const id of queue) layers.set(id, 0);
+  while (queue.length > 0) {
+    const id = queue.shift()!;
+    const layer = layers.get(id) ?? 0;
+    for (const child of outgoing.get(id) ?? []) {
+      const nextLayer = Math.max(layers.get(child) ?? 0, layer + 1);
+      if (nextLayer !== layers.get(child)) {
+        layers.set(child, nextLayer);
+        queue.push(child);
+      }
+    }
+  }
+  for (const node of flowchart.nodes) {
+    if (!layers.has(node.id)) layers.set(node.id, 0);
+  }
+
+  const groups = new Map<number, MermaidNode[]>();
+  for (const node of flowchart.nodes) {
+    const layer = layers.get(node.id) ?? 0;
+    const group = groups.get(layer) ?? [];
+    group.push(node);
+    groups.set(layer, group);
+  }
+
+  const layerGap = flowchart.direction === "LR" ? 250 : 154;
+  const rowGap = flowchart.direction === "LR" ? 142 : 218;
+  const originX = 120;
+  const originY = 130;
+  const maxLayerSize = Math.max(...[...groups.values()].map((group) => group.length));
+
+  return [...groups.entries()]
+    .sort(([a], [b]) => a - b)
+    .flatMap(([layer, group]) => {
+      const offset = ((maxLayerSize - group.length) * rowGap) / 2;
+      return group.map((node, index) => {
+        const size = mermaidNodeSize(node);
+        return flowchart.direction === "LR"
+          ? {
+              ...node,
+              ...size,
+              layer,
+              x: originX + layer * layerGap,
+              y: originY + offset + index * rowGap,
+            }
+          : {
+              ...node,
+              ...size,
+              layer,
+              x: originX + offset + index * rowGap,
+              y: originY + layer * layerGap,
+            };
+      });
+    });
+};
+
+const mermaidNodeSize = (node: MermaidNode) => {
+  const lines = node.label.split("\n");
+  const longest = Math.max(...lines.map((line) => line.length), 4);
+  const width = Math.max(node.shape === "diamond" ? 184 : 176, Math.min(280, longest * 11 + 56));
+  const height = Math.max(node.shape === "diamond" ? 106 : 82, lines.length * 24 + 42);
+  return { width, height };
+};
+
+const layoutBounds = (nodes: MermaidLayoutNode[]) => {
+  const minX = Math.min(...nodes.map((node) => node.x));
+  const minY = Math.min(...nodes.map((node) => node.y));
+  const maxX = Math.max(...nodes.map((node) => node.x + node.width));
+  const maxY = Math.max(...nodes.map((node) => node.y + node.height));
+  return { x: minX, y: minY, width: maxX - minX, height: maxY - minY };
+};
+
+const connectorBetween = (from: MermaidLayoutNode, to: MermaidLayoutNode, direction: "TD" | "LR") => {
+  if (direction === "LR") {
+    const startX = from.x + from.width;
+    const startY = from.y + from.height / 2;
+    const endX = to.x;
+    const endY = to.y + to.height / 2;
+    const midX = startX + Math.max(28, (endX - startX) / 2);
+    return {
+      x: startX,
+      y: startY,
+      points: [
+        [0, 0],
+        [midX - startX, 0],
+        [midX - startX, endY - startY],
+        [endX - startX, endY - startY],
+      ],
+    };
+  }
+  const startX = from.x + from.width / 2;
+  const startY = from.y + from.height;
+  const endX = to.x + to.width / 2;
+  const endY = to.y;
+  const midY = startY + Math.max(28, (endY - startY) / 2);
+  return {
+    x: startX,
+    y: startY,
+    points: [
+      [0, 0],
+      [0, midY - startY],
+      [endX - startX, midY - startY],
+      [endX - startX, endY - startY],
+    ],
+  };
+};
+
+const connectorLabelPoint = (connector: { x: number; y: number; points: number[][] }) => {
+  const point = connector.points[Math.floor(connector.points.length / 2)] ?? [0, 0];
+  return { x: connector.x + point[0], y: connector.y + point[1] };
+};
+
+const shapeElement = (
+  id: string,
+  type: "rectangle" | "ellipse" | "diamond",
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  options: {
+    seed: number;
+    strokeColor: string;
+    backgroundColor: string;
+    strokeWidth: number;
+    roughness: number;
+    roundness: unknown;
+    customData?: Record<string, unknown>;
+  },
+) => ({
+  ...baseMermaidElement(id, type, x, y, width, height, options.seed),
+  strokeColor: options.strokeColor,
+  backgroundColor: options.backgroundColor,
+  fillStyle: "solid",
+  strokeWidth: options.strokeWidth,
+  strokeStyle: "solid",
+  roughness: options.roughness,
+  roundness: options.roundness,
+  ...(options.customData ? { customData: options.customData } : {}),
+});
+
+const nodeShapeType = (node: MermaidLayoutNode): "rectangle" | "ellipse" | "diamond" => {
+  if (node.shape === "diamond") return "diamond";
+  if (node.shape === "ellipse") return "ellipse";
+  return "rectangle";
+};
+
+const textElement = (
+  id: string,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  text: string,
+  options: {
+    seed: number;
+    fontSize: number;
+    fontFamily: number;
+    strokeColor: string;
+    textAlign: "left" | "center" | "right";
+    verticalAlign: "top" | "middle";
+  },
+) => ({
+  ...baseMermaidElement(id, "text", x, y, width, height, options.seed),
+  strokeColor: options.strokeColor,
+  backgroundColor: "transparent",
+  fillStyle: "solid",
+  strokeWidth: 2,
+  strokeStyle: "solid",
+  roughness: 0,
+  text,
+  fontSize: options.fontSize,
+  fontFamily: options.fontFamily,
+  textAlign: options.textAlign,
+  verticalAlign: options.verticalAlign,
+  containerId: null,
+  originalText: text,
+  lineHeight: 1.25,
+});
+
+const connectorElement = (
+  id: string,
+  x: number,
+  y: number,
+  points: number[][],
+  options: {
+    seed: number;
+    strokeColor: string;
+    strokeWidth: number;
+    roughness: number;
+    arrow: boolean;
+    elbowed: boolean;
+  },
+) => ({
+  ...baseMermaidElement(id, options.arrow ? "arrow" : "line", x, y, pointsWidth(points), pointsHeight(points), options.seed),
+  strokeColor: options.strokeColor,
+  backgroundColor: "transparent",
+  fillStyle: "solid",
+  strokeWidth: options.strokeWidth,
+  strokeStyle: "solid",
+  roughness: options.roughness,
+  points,
+  lastCommittedPoint: null,
+  startBinding: null,
+  endBinding: null,
+  startArrowhead: null,
+  endArrowhead: options.arrow ? "arrow" : null,
+  elbowed: options.elbowed,
+  roundness: null,
+});
+
+const baseMermaidElement = (
+  id: string,
+  type: string,
+  x: number,
+  y: number,
+  width: number,
+  height: number,
+  seed: number,
+) => ({
+  id,
+  type,
+  x,
+  y,
+  width,
+  height,
+  angle: 0,
+  opacity: 100,
+  groupIds: [],
+  frameId: null,
+  seed,
+  version: 1,
+  versionNonce: seed + 1,
+  isDeleted: false,
+  boundElements: null,
+  updated: Date.now(),
+  link: null,
+  locked: false,
+});
+
+const pointsWidth = (points: number[][]) => Math.max(1, Math.max(...points.map((point) => point[0])));
+const pointsHeight = (points: number[][]) => Math.max(1, Math.max(...points.map((point) => point[1])));
 
 const assertSafePath = (filePath: string) => {
   const segments = filePath.split(path.sep).filter(Boolean);
@@ -2479,6 +3104,7 @@ const helpText = (command: string | undefined) => {
         "",
         "Examples:",
         "  agentdraw import-svg diagram.svg --out board.agentdraw.json --style boardroom --json",
+        "  agentdraw import-mermaid flow.mmd --out flow.agentdraw.json --style blueprint-formal --json",
         "  agentdraw open board.agentdraw.json --background --open",
         "  agentdraw open board.agentdraw.json --background --no-open --format json",
         "  agentdraw validate board.agentdraw.json --format json",
@@ -2497,6 +3123,8 @@ const helpText = (command: string | undefined) => {
         "  quality    Score scene quality against the AgentDraw rubric.",
         "  export     Export a rendered SVG or PNG preview for visual review.",
         "  import-svg Convert a restricted SVG into an editable AgentDraw scene.",
+        "  import-mermaid",
+        "             Convert a Mermaid flowchart into an editable AgentDraw scene.",
         "  gallery    Generate a local HTML gallery for choosing AgentDraw themes.",
         "  validate-style",
         "             Validate installed design guides against the design-contract baseline.",
@@ -2669,6 +3297,29 @@ const helpText = (command: string | undefined) => {
         "  Supported transforms: translate(x y) and translate(x,y).",
         "  Avoid foreignObject, image, clipPath, mask, filter, gradients, and arbitrary path geometry.",
         "  The command succeeds when conversion succeeds. Validation errors are returned as advisory data for repair/validate follow-up.",
+      ].join("\n");
+    case "import-mermaid":
+      return [
+        "Convert a Mermaid flowchart into an editable AgentDraw scene.",
+        "",
+        "Examples:",
+        "  agentdraw import-mermaid flow.mmd --out flow.agentdraw.json --style blueprint-formal --json",
+        "  agentdraw import-mermaid flow.mmd --title \"Decision flow\"",
+        "",
+        "Usage:",
+        "  agentdraw import-mermaid <file.mmd> [--out <board.agentdraw.json>] [--style <style-id>] [--title <title>]",
+        "",
+        "Arguments:",
+        "  file.mmd            Required Mermaid file path.",
+        "",
+        "Flags:",
+        "  --out <path>        Output AgentDraw JSON path. Default: same basename with .agentdraw.json.",
+        "  --output <path>     Alias for --out.",
+        "  --style <style-id>  Scene style id. Default: system-formal.",
+        "  --title <title>     Scene title.",
+        "",
+        "Supported subset:",
+        "  flowchart/graph with TD/TB/LR direction, simple nodes, decision diamonds, rounded terminals, ellipses, and edge labels.",
       ].join("\n");
     case "gallery":
       return [
@@ -2877,6 +3528,26 @@ const commandSchema = (commandPath: string[]) => {
       ],
       notes: [
         "Supported SVG subset: svg, g, rect, circle, ellipse, text/tspan, line, polyline, defs, marker, and g translate(). Unsupported tags are skipped with warnings.",
+      ],
+    },
+    "import-mermaid": {
+      description: "Convert a Mermaid flowchart into an editable AgentDraw scene.",
+      usage: "agentdraw import-mermaid <file.mmd> [--out <board.agentdraw.json>] [--style <style-id>] [--title <title>]",
+      arguments: [{ name: "file.mmd", required: true }],
+      flags: [
+        { name: "--out", type: "string", required: false },
+        { name: "--output", type: "string", required: false },
+        { name: "--style", type: "string", required: false, default: "system-formal" },
+        { name: "--title", type: "string", required: false },
+        { name: "--format", type: "enum", values: ["json", "text"], required: false },
+        { name: "--json", type: "boolean", required: false },
+      ],
+      examples: [
+        "agentdraw import-mermaid flow.mmd --out flow.agentdraw.json --style blueprint-formal --json",
+      ],
+      notes: [
+        "Supported Mermaid subset: flowchart/graph with TD/TB/LR direction, simple nodes, decision diamonds, rounded terminals, ellipses, and edge labels.",
+        "Use SVG import for high-design boards and Mermaid import for conventional process diagrams that should remain editable.",
       ],
     },
     gallery: {

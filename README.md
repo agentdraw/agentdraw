@@ -61,7 +61,7 @@ produced the look.
 ### Complex Board
 
 <a href="./examples/complex-agentdraw-workbench.agentdraw.json">
-  <img src="./assets/examples/complex-agentdraw-workbench.svg" alt="Complex AgentDraw Workbench preview" />
+  <img src="./assets/examples/complex-agentdraw-workbench-en.svg" alt="Complex AgentDraw Workbench preview" />
 </a>
 
 ### Theme Examples

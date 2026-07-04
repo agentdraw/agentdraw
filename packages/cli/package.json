@@ -1,6 +1,6 @@
 {
   "name": "@aidraw/agentdraw",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "type": "module",
   "description": "Local-first editable whiteboard workspace for coding agents.",
   "license": "MIT",
