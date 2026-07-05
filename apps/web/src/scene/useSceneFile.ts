@@ -1,9 +1,9 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { loadScene, saveScene, SceneApiError } from "./api";
-import type { AgentDrawScene, SaveState } from "./types";
+import type { AgentDrawScene, SaveState, SceneChangeOptions } from "./types";
 
 export const useSceneFile = () => {
-  const filePath = useMemo(() => readFilePathFromUrl(), []);
+  const [filePath, setFilePath] = useState(() => readFilePathFromUrl());
   const [scene, setScene] = useState<AgentDrawScene | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [saveState, setSaveState] = useState<SaveState>("idle");
@@ -11,7 +11,13 @@ export const useSceneFile = () => {
   const latestSaveId = useRef(0);
   const baseUpdatedAt = useRef<string | null>(null);
   const saveInFlight = useRef(false);
-  const pendingSave = useRef<{ scene: AgentDrawScene; saveId: number; force: boolean } | null>(null);
+  const pendingSave = useRef<{
+    scene: AgentDrawScene;
+    saveId: number;
+    filePath: string;
+    force: boolean;
+    updateUrl: boolean;
+  } | null>(null);
   const lastSavedKey = useRef<string | null>(null);
   const lastQueuedKey = useRef<string | null>(null);
 
@@ -44,10 +50,13 @@ export const useSceneFile = () => {
     const pending = pendingSave.current;
     pendingSave.current = null;
     saveInFlight.current = true;
-    const saveBaseUpdatedAt = baseUpdatedAt.current ?? pending.scene.updatedAt;
+    const isCurrentFile = pending.filePath === filePath;
+    const saveBaseUpdatedAt = isCurrentFile
+      ? baseUpdatedAt.current ?? pending.scene.updatedAt
+      : undefined;
 
     saveScene(
-      filePath,
+      pending.filePath,
       {
         styleId: pending.scene.styleId,
         providerId: pending.scene.providerId,
@@ -64,6 +73,10 @@ export const useSceneFile = () => {
         lastQueuedKey.current = lastSavedKey.current;
         if (latestSaveId.current === pending.saveId) {
           setScene(envelope.scene);
+          if (pending.updateUrl || pending.filePath !== filePath) {
+            setFilePath(envelope.filePath);
+            writeFilePathToUrl(envelope.filePath);
+          }
           setSaveState(pendingSave.current ? "saving" : "saved");
           setError(null);
         }
@@ -101,14 +114,16 @@ export const useSceneFile = () => {
       files: Record<string, unknown>,
       styleId?: string,
       providerId?: string,
-      options?: { replace?: boolean },
+      options?: SceneChangeOptions,
     ) => {
       if (!scene) {
         return;
       }
       const sanitizedAppState = sanitizeAppState(appState);
+      const targetFilePath = options?.filePath ?? filePath;
       const nextScene: AgentDrawScene = {
         ...scene,
+        title: options?.title ?? scene.title,
         styleId: styleId ?? scene.styleId,
         providerId: providerId ?? scene.providerId,
         elements,
@@ -117,7 +132,11 @@ export const useSceneFile = () => {
         updatedAt: new Date().toISOString(),
       };
       const nextSaveKey = saveKey(nextScene);
-      if (nextSaveKey === lastSavedKey.current || nextSaveKey === lastQueuedKey.current) {
+      const savesCurrentFile = targetFilePath === filePath;
+      if (
+        savesCurrentFile &&
+        (nextSaveKey === lastSavedKey.current || nextSaveKey === lastQueuedKey.current)
+      ) {
         return;
       }
       if (!options?.replace && scene.elements.length > 0 && elements.length === 0) {
@@ -136,11 +155,17 @@ export const useSceneFile = () => {
       }
 
       saveTimer.current = window.setTimeout(() => {
-        pendingSave.current = { scene: nextScene, saveId, force: options?.replace === true };
+        pendingSave.current = {
+          scene: nextScene,
+          saveId,
+          filePath: targetFilePath,
+          force: options?.replace === true,
+          updateUrl: options?.updateUrl === true,
+        };
         flushPendingSave();
       }, 500);
     },
-    [flushPendingSave, scene],
+    [filePath, flushPendingSave, scene],
   );
 
   return {
@@ -155,6 +180,12 @@ export const useSceneFile = () => {
 const readFilePathFromUrl = () => {
   const filePath = new URLSearchParams(window.location.search).get("file");
   return filePath?.trim() || ".agentdraw/untitled.agentdraw.json";
+};
+
+const writeFilePathToUrl = (filePath: string) => {
+  const url = new URL(window.location.href);
+  url.searchParams.set("file", filePath);
+  window.history.replaceState(null, "", url);
 };
 
 const sanitizeAppState = (appState: Record<string, unknown>) => {

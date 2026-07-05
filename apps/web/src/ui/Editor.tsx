@@ -12,7 +12,7 @@ import {
   type BoardReplayProgress,
   type BoardSnapshot,
 } from "../board/types";
-import type { AgentDrawScene, SaveState } from "../scene/types";
+import type { AgentDrawScene, SaveState, SceneChangeOptions } from "../scene/types";
 
 type EditorProps = {
   filePath: string;
@@ -25,7 +25,7 @@ type EditorProps = {
     files: Record<string, unknown>,
     styleId?: string,
     providerId?: string,
-    options?: { replace?: boolean },
+    options?: SceneChangeOptions,
   ) => void;
 };
 
@@ -149,6 +149,7 @@ export const Editor = ({
     try {
       const imported = parseImportedScene(await file.text());
       const nextStyleId = imported.styleId ? getStyleById(imported.styleId).id : selectedStyleId;
+      const importFilePath = importedFilePath(filePath, file.name);
       setSelectedStyleId(nextStyleId);
       setBoardInstanceKey(`import:${Date.now()}:${file.name}`);
       setImportError(null);
@@ -158,7 +159,12 @@ export const Editor = ({
         imported.files,
         nextStyleId,
         imported.providerId ?? scene.providerId,
-        { replace: true },
+        {
+          replace: true,
+          filePath: importFilePath,
+          title: imported.title ?? titleFromFileName(file.name),
+          updateUrl: true,
+        },
       );
     } catch (importFailure) {
       setImportError(
@@ -212,14 +218,8 @@ export const Editor = ({
           <button type="button" onClick={exportJson} title="Export JSON">
             <FileJson size={17} />
           </button>
-          <button
-            className="action-button action-button--label"
-            type="button"
-            onClick={() => importInputRef.current?.click()}
-            title="Import JSON"
-          >
+          <button type="button" onClick={() => importInputRef.current?.click()} title="Import JSON">
             <Upload size={17} />
-            <span>Import</span>
           </button>
           <input
             ref={importInputRef}
@@ -360,7 +360,28 @@ const copyText = async (text: string) => {
   textarea.remove();
 };
 
-const parseImportedScene = (rawJson: string): BoardSnapshot & { styleId?: string } => {
+const importedFilePath = (currentFilePath: string, importedFileName: string) => {
+  const normalized = currentFilePath.replaceAll("\\", "/");
+  const lastSlash = normalized.lastIndexOf("/");
+  const directory = lastSlash >= 0 ? normalized.slice(0, lastSlash + 1) : "";
+  return `${directory}${safeImportFileName(importedFileName)}`;
+};
+
+const safeImportFileName = (fileName: string) => {
+  const normalized = fileName.replaceAll("\\", "/").split("/").pop()?.trim();
+  return normalized || "imported.agentdraw.json";
+};
+
+const titleFromFileName = (fileName: string) =>
+  safeImportFileName(fileName)
+    .replace(/\.agentdraw\.json$/i, "")
+    .replace(/\.json$/i, "")
+    .replace(/[-_]+/g, " ")
+    .trim() || "Imported Board";
+
+const parseImportedScene = (
+  rawJson: string,
+): BoardSnapshot & { styleId?: string; title?: string } => {
   const parsed = JSON.parse(rawJson) as Record<string, unknown>;
   const source =
     parsed.scene && typeof parsed.scene === "object"
@@ -370,6 +391,7 @@ const parseImportedScene = (rawJson: string): BoardSnapshot & { styleId?: string
     throw new Error("Imported JSON must contain an elements array.");
   }
   return {
+    title: typeof source.title === "string" ? source.title : undefined,
     styleId: typeof source.styleId === "string" ? source.styleId : undefined,
     providerId: typeof source.providerId === "string" ? source.providerId : undefined,
     elements: source.elements,

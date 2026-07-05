@@ -28,4 +28,11 @@ export type SaveSceneOptions = {
   force?: boolean;
 };
 
+export type SceneChangeOptions = {
+  replace?: boolean;
+  filePath?: string;
+  title?: string;
+  updateUrl?: boolean;
+};
+
 export type SaveState = "idle" | "saving" | "saved" | "error";
