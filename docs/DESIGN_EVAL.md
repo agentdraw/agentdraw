@@ -95,3 +95,6 @@ If boards are structurally good but mechanically weak, improve `agentdraw qualit
 
 If agents repeatedly choose the same unsuitable style, improve `skills/agentdraw/SKILL.md` and
 `agentdraw guide styles`.
+
+If agents choose a good style but the board still communicates poorly, run the playbook eval in
+`docs/PLAYBOOK_EVAL.md` and improve `skills/agentdraw/playbooks/`.

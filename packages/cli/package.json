@@ -1,6 +1,6 @@
 {
   "name": "@aidraw/agentdraw",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "type": "module",
   "description": "Local-first editable whiteboard workspace for coding agents.",
   "license": "MIT",
@@ -11,13 +11,15 @@
     "dist",
     "web-dist",
     "designs",
+    "skills",
     "README.md"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json && esbuild src/index.ts --bundle --platform=node --format=esm --target=node20 --external:@resvg/resvg-js --outfile=dist/index.js",
     "bundle:web": "rm -rf web-dist && cp -R ../../apps/web/dist web-dist",
     "bundle:designs": "rm -rf designs && cp -R ../../packages/styles/designs designs",
-    "prepack": "pnpm build && pnpm bundle:web && pnpm bundle:designs",
+    "bundle:skills": "rm -rf skills && mkdir -p skills && cp -R ../../skills/agentdraw skills/agentdraw",
+    "prepack": "pnpm build && pnpm bundle:web && pnpm bundle:designs && pnpm bundle:skills",
     "start": "tsx src/index.ts",
     "typecheck": "pnpm --filter @agentdraw/server build && tsc -p tsconfig.json --noEmit"
   },

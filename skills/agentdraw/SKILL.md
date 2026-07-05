@@ -12,11 +12,33 @@ matrices, and custom layouts.
 The primary workflow is:
 
 ```text
-prompt -> design system -> Mermaid or restricted SVG -> import -> editable .agentdraw.json -> validate/repair/export/open
+prompt -> scene playbook -> design system -> Mermaid or restricted SVG -> import -> editable .agentdraw.json -> validate/repair/export/open
 ```
 
 Do not start new boards by hand-writing `.agentdraw.json`. Write a clean Mermaid flowchart or SVG
 source first, inspect it, then convert it into an editable AgentDraw board.
+
+## Expression Strategy First
+
+Do not treat visual style as the same thing as the diagram type. AgentDraw has two independent
+dimensions:
+
+- Scene playbook: how the information should be organized so the reader understands it.
+- Design style: how the board should look and feel.
+
+Always choose the playbook first, then choose a style.
+
+Before generating, read `method/drawing-method.md`. Then load the closest playbook:
+
+- `playbooks/layered-architecture.md`: product, platform, system, agent, runtime, or capability architecture.
+- `playbooks/technical-flowchart.md`: process logic, decisions, validation, user registration/login, runbooks.
+- `playbooks/article-visual.md`: blog posts, newsletters, self-media explainers, public idea graphics.
+- `playbooks/ppt-visual.md`: slide-like visuals, executive summaries, deck pages, strategy narratives.
+- `playbooks/teaching-board.md`: live education, concept walkthroughs, tutoring, step-by-step lessons.
+
+If none fits exactly, use `method/drawing-method.md` to create a short scene plan and adapt the
+nearest playbook. A style guide may recommend suitable scenarios, but no style is locked to one
+scenario.
 
 ## Runtime
 
@@ -56,12 +78,15 @@ agentdraw doctor --json
 ## Workflow
 
 1. Run `agentdraw guide` for the current workflow.
-2. Run `agentdraw guide styles --json` and choose one style id by audience, density, and tone.
-3. State the style choice and reason in one short sentence before generating. If the user did not express a visual preference and the choice is not obvious, run `agentdraw gallery --open --format json` and ask which visual direction they prefer. In headless mode, run `agentdraw gallery --no-open --format json` and return the generated URL or path.
-4. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the guide and treat the contract as hard design constraints.
-5. Choose the source path. For conventional process diagrams, create `.agentdraw/flow.mmd` with `flowchart TD`, `flowchart TB`, or `flowchart LR`. For high-design boards, create `.agentdraw/board.svg` with the supported SVG subset below.
-6. Inspect the Mermaid/SVG source or export/open it when possible. Fix alignment, text wrapping, connectors, grouping, and hierarchy while it is still source text.
-7. Convert it:
+2. Read `method/drawing-method.md`.
+3. Select and read one scene playbook. State the playbook choice and reason in one short sentence.
+4. Run `agentdraw guide styles --json` and choose one style id by audience, density, and tone.
+5. State the style choice and reason in one short sentence before generating. If the user did not express a visual preference and the choice is not obvious, run `agentdraw gallery --open --format json` and ask which visual direction they prefer. In headless mode, run `agentdraw gallery --no-open --format json` and return the generated URL or path.
+6. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the guide and treat the contract as hard design constraints.
+7. Write a short layout plan using the template in `method/drawing-method.md`.
+8. Choose the source path. For conventional process diagrams, create `.agentdraw/flow.mmd` with `flowchart TD`, `flowchart TB`, or `flowchart LR`. For high-design boards, create `.agentdraw/board.svg` with the supported SVG subset below.
+9. Inspect the Mermaid/SVG source or export/open it when possible. Fix alignment, text wrapping, connectors, grouping, and hierarchy while it is still source text.
+10. Convert it:
 
 ```bash
 agentdraw import-mermaid .agentdraw/flow.mmd --out .agentdraw/board.agentdraw.json --style <style-id> --title "<title>" --format json
@@ -73,8 +98,8 @@ or:
 agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style <style-id> --title "<title>" --format json
 ```
 
-8. If `import-svg` reports unsupported tags, edit the SVG and import again.
-9. Run:
+11. If `import-svg` reports unsupported tags, edit the SVG and import again.
+12. Run:
 
 ```bash
 agentdraw repair .agentdraw/board.agentdraw.json --style <style-id> --write --format json
@@ -82,13 +107,13 @@ agentdraw validate .agentdraw/board.agentdraw.json --style <style-id> --format j
 agentdraw quality .agentdraw/board.agentdraw.json --style <style-id> --format json
 ```
 
-10. For important boards, export and inspect a preview before opening:
+13. For important boards, export and inspect a preview before opening:
 
 ```bash
 agentdraw export .agentdraw/board.agentdraw.json --format png --out .agentdraw/board.preview.png --json
 ```
 
-11. Open the editable board:
+14. Open the editable board:
 
 ```bash
 agentdraw open .agentdraw/board.agentdraw.json --background --open --format json
