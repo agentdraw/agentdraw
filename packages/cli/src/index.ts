@@ -1939,14 +1939,14 @@ const isRunningAgentDrawServer = async (host: string, port: number) => {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 700);
   try {
-    const response = await fetch(displayBaseUrl(host, port), {
+    const response = await fetch(`${displayBaseUrl(host, port)}/api/health`, {
       signal: controller.signal,
     });
     if (!response.ok) {
       return false;
     }
-    const body = await response.text();
-    return body.includes("<title>AgentDraw</title>") || body.includes("AgentDraw");
+    const body = (await response.json()) as { ok?: unknown; name?: unknown };
+    return body.ok === true && body.name === "agentdraw";
   } catch {
     return false;
   } finally {

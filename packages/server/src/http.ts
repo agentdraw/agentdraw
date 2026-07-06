@@ -74,6 +74,15 @@ const handleApi = async (
 ) => {
   const url = new URL(request.url ?? "/", "http://localhost");
 
+  if (request.method === "GET" && url.pathname === "/api/health") {
+    sendJson(response, 200, {
+      ok: true,
+      name: "agentdraw",
+      service: "agentdraw-server",
+    });
+    return;
+  }
+
   if (request.method === "GET" && url.pathname === "/api/scene") {
     const filePath = normalizeScenePath(url.searchParams.get("file") ?? "", cwd);
     const scene = await readOrCreateSceneFile(filePath);

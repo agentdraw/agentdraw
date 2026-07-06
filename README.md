@@ -164,11 +164,71 @@ Agent-generated diagrams often fail in predictable ways: text overlaps, labels a
 arrows miss their targets, or raw whiteboard JSON drifts into messy coordinates. AgentDraw treats
 those as engineering problems:
 
-- agents draft diagrams as simple, inspectable SVG first;
+- agents route standard structured diagrams through Mermaid, and custom explanatory visuals through
+  restricted SVG;
 - SVG is converted into editable structured JSON, not screenshots;
 - styles are reusable design systems rather than one-off colors;
+- layout styles are explicit communication patterns, not free-form decoration;
 - imported scenes can be repaired and validated before opening;
 - humans can still edit the final board directly in the browser.
+
+The product goal is simple: spend fewer tokens, finish faster, and get a better first result. The
+agent should not hand-place raw whiteboard JSON unless it is patching an existing board. It should
+choose the cheapest reliable source format first, let AgentDraw convert it, then use validation and
+preview export only where quality matters.
+
+## Architecture
+
+AgentDraw separates the parts that usually get mixed together in AI diagram tools:
+
+```text
+intent/source
+  -> provider routing
+  -> design style
+  -> layout style
+  -> Mermaid or SVG source
+  -> editable .agentdraw.json
+  -> repair / validate / quality / preview
+  -> local browser editor
+```
+
+### Provider Routing
+
+Use Mermaid when the diagram already has a mature grammar: flowcharts, sequence diagrams, class
+diagrams, state diagrams, ER diagrams, timelines, journeys, and similar structured types. Mermaid is
+usually faster, cheaper in tokens, and more stable for these.
+
+Use restricted SVG for explanatory article visuals, architecture maps, layered structures,
+mechanism diagrams, strategy one-pagers, and slide-like single visuals. SVG gives the agent direct
+control over hierarchy, spacing, typography, and composition while still importing into editable
+objects.
+
+### Design Style vs Layout Style
+
+Design style controls the visual language: palette, typography, geometry, connector treatment,
+spacing, density, and avoid rules. Each bundled style has an agent-readable `design.md` and a
+machine-readable design contract.
+
+Layout style controls the information structure. AgentDraw now asks agents to choose a locked layout
+style such as contrast split, center mechanism, layered stack, pipeline, loop, matrix, timeline,
+orbit map, assertion pillars, hero evidence, bento brief, or decision ladder before drawing SVG.
+
+This split is the main quality-control mechanism. The agent should not "pick a theme and draw
+boxes"; it should pick the communication job, then the provider, then the visual system, then the
+layout pattern.
+
+### Quality Loop
+
+For important boards, the expected loop is:
+
+```text
+plan -> generate Mermaid/SVG -> import -> repair -> validate -> quality score -> export preview -> revise source -> open
+```
+
+`agentdraw validate` catches deterministic layout problems such as overlap, vertical-centering
+drift, connector endpoint errors, and style-contract drift. `agentdraw quality` adds a lightweight
+rubric for structure, readability, connector quality, and editability. The skill also defines P0/P1
+quality gates: P0/P1 issues should be fixed before the board is delivered.
 
 ## Why AgentDraw
 
@@ -240,6 +300,11 @@ Open the printed URL in a browser. By default the local server uses:
 http://127.0.0.1:3927
 ```
 
+When using `--background`, AgentDraw first checks the target port for an existing AgentDraw server.
+If one is already running, it reuses that server and returns a URL for the requested file instead of
+starting another process. If the port is occupied by something else, the command fails and asks for a
+different `--port`. This keeps repeated agent runs from leaking background servers.
+
 For WSL or remote usage, run the server on the machine that has a browser:
 
 ```bash
@@ -251,6 +316,25 @@ For a headless host, keep the server in the background and return the URL:
 ```bash
 pnpm agentdraw open examples/complex-agentdraw-workbench.agentdraw.json --background --no-open --format json
 ```
+
+## Multiple Boards
+
+An AgentDraw file is one editable infinite-canvas scene. You can place multiple related boards on
+the same canvas as separate panels or frame-like regions, for example:
+
+- an overview board plus two detail boards;
+- three article images in one review canvas;
+- before/after diagrams with a shared legend;
+- a flowchart next to an architecture explainer.
+
+For agents, the recommended approach is to generate one SVG containing multiple clearly separated
+regions, then import it into one `.agentdraw.json`. Use consistent gutters, titles, and outer
+boundaries so each region reads as its own board.
+
+AgentDraw does not yet have a first-class multi-page/artboard model or a `merge` command for
+combining several existing `.agentdraw.json` files. If you need a sequence of unrelated visuals
+today, generate separate files; if you need a single presentation canvas, compose multiple panels in
+one SVG before import.
 
 ## CLI
 
