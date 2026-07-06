@@ -110,11 +110,53 @@ AgentDraw 示例都是可编辑的真实 scene 文件。下面的图片只是 RE
 
 Agent 直接生成白板 JSON 经常会出现几类稳定问题：文字重叠、标签没居中、连线没有接到目标、坐标不对齐。AgentDraw 把这些问题当成工程问题处理：
 
-- 先用 SVG 生成和预览整齐布局；
+- 标准结构图走 Mermaid，自定义说明类视觉走受限 SVG；
 - 再转换成可编辑的结构化 JSON，不是截图；
 - 风格是可复用设计系统，不是一堆临时颜色；
+- 版式是明确的表达策略，不是自由拼装装饰；
 - 打开前可以先做修复、场景校验和质量评分；
 - 最后用户仍然可以在浏览器画板里直接编辑。
+
+AgentDraw 的目标很直接：尽可能少的 token，尽可能快的生成时间，尽可能好的第一版结果。Agent 不应该从零手写复杂白板 JSON，除非是在 patch 已有画板。它应该先选择最稳定、最省成本的源格式，让 AgentDraw 负责转换，然后只在重要图里使用校验、质量评分和预览导出来闭环。
+
+## 架构理念
+
+AgentDraw 把 AI 作图里经常混在一起的环节拆开：
+
+```text
+意图/输入材料
+  -> provider 路由
+  -> 设计风格
+  -> 版式风格
+  -> Mermaid 或 SVG 源文件
+  -> 可编辑 .agentdraw.json
+  -> repair / validate / quality / preview
+  -> 本地浏览器编辑器
+```
+
+### Provider 路由
+
+如果图本身已经有成熟语法，就优先用 Mermaid：流程图、时序图、类图、状态图、ER 图、时间线、用户旅程等。对这类结构明确的图，Mermaid 通常更省 token、更快，也更稳定。
+
+如果是说明类配图、文章插图、架构说明、分层结构、机制图、策略单页、类似 PPT 的单页视觉，就用受限 SVG。SVG 让 agent 能直接控制层级、间距、排版、字体和构图，同时仍然能导入成可编辑对象。
+
+### 设计风格 vs 版式风格
+
+设计风格控制视觉语言：配色、字体、几何形状、连线、间距、密度和避免规则。每个内置风格都有 agent 可读的 `design.md` 和机器可读的 design contract。
+
+版式风格控制信息结构。AgentDraw 要求 agent 在画 SVG 前先选一个固定版式，例如 contrast split、center mechanism、layered stack、pipeline、loop、matrix、timeline、orbit map、assertion pillars、hero evidence、bento brief、decision ladder。
+
+这层拆分是质量控制的核心。Agent 不应该只是“选一个主题然后画框”，而应该先判断表达场景，再选 provider，再选设计系统，最后选版式模式。
+
+### 质量闭环
+
+重要画板推荐走这个闭环：
+
+```text
+plan -> 生成 Mermaid/SVG -> import -> repair -> validate -> quality -> 导出预览 -> 修改源文件 -> open
+```
+
+`agentdraw validate` 会检查可确定的布局问题，例如元素重叠、文字垂直居中偏移、连线端点错误和风格 contract drift。`agentdraw quality` 会补一层轻量评分，用来评估结构、可读性、连线质量和可编辑性。skill 里也定义了 P0/P1 质量门槛：P0/P1 问题应该在交付前修掉。
 
 ## 能力
 
@@ -152,11 +194,26 @@ pnpm agentdraw open examples/complex-agentdraw-workbench.agentdraw.json
 http://127.0.0.1:3927
 ```
 
+使用 `--background` 时，AgentDraw 会先检查目标端口上是否已经有 AgentDraw server。如果已经在运行，就复用这个 server，并返回当前文件的 URL，不会再启动一个新进程。如果端口被其它服务占用，命令会失败并提示换一个 `--port`。这样多个 agent 反复执行 `open --background` 时不会持续泄漏后台服务。
+
 如果在 WSL 里工作，但浏览器在另一台机器上，可以在有浏览器的机器上启动：
 
 ```bash
 pnpm agentdraw open examples/complex-agentdraw-workbench.agentdraw.json --no-open
 ```
+
+## 多个画板
+
+一个 AgentDraw 文件是一个可编辑的无限画布 scene。你可以在同一个白板里放多个相关画板区域，例如：
+
+- 一个总览图加两个细节图；
+- 一次评审里放三张文章配图；
+- before / after 图加共享图例；
+- 流程图旁边放架构说明图。
+
+对 agent 来说，推荐做法是先生成一个包含多个清晰区域的 SVG，再导入成一个 `.agentdraw.json`。这些区域应该有一致的间距、标题和外边界，这样每个区域都能作为一个独立画板阅读。
+
+AgentDraw 目前还没有一等的多页/artboard 模型，也没有用于合并多个 `.agentdraw.json` 的 `merge` 命令。如果是互不相关的一组图，先生成多个文件；如果需要一个展示画布，就在一个 SVG 里排多个 panel 后再导入。
 
 ## CLI
 
