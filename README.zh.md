@@ -17,13 +17,13 @@ Powered by [Excalidraw](https://github.com/excalidraw/excalidraw)。
 ```text
 安装 AgentDraw：
 npm install -g @aidraw/agentdraw
-npx skills add chenhg5/agentdraw --skill agentdraw -g -y
+npx skills add agentdraw/agentdraw --skill agentdraw -g -y
 ```
 
 给 agent 的 bootstrap URL：
 
 ```text
-https://raw.githubusercontent.com/chenhg5/agentdraw/main/INSTALL.md
+https://raw.githubusercontent.com/agentdraw/agentdraw/main/INSTALL.md
 ```
 
 如果只是人手动使用 CLI：
@@ -415,10 +415,28 @@ examples/          示例场景
 scripts/           仓库工具脚本
 ```
 
+## 灵感来源
+
+AgentDraw 受到这些项目和理念的启发：
+
+- [Excalidraw](https://github.com/excalidraw/excalidraw)：提供了可编辑白板体验，让 AI 草稿可以继续被人手动调整。
+- [Mermaid](https://github.com/mermaid-js/mermaid)：适合标准结构图，尤其是流程图、时序图、类图等语法明确的图。
+- [Drawnix](https://github.com/plait-board/drawnix)：开源白板编辑和本地绘图工作流的重要参考。
+- [beautiful-feishu-whiteboard](https://github.com/zarazhangrui/beautiful-feishu-whiteboard)：证明了 agent 可读的设计指导可以显著提升白板视觉质量。
+- [open-design](https://github.com/nexu-io/open-design)：启发我们把 AI 视觉输出看成设计运行时问题，而不仅是 prompt 问题。
+- [Google design.md](https://github.com/google-labs-code/design.md)：启发我们把设计规则写成 agent 能读取和执行的规范。
+- [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill) 和
+  [html-ppt-skill](https://github.com/lewislulu/html-ppt-skill)：在版式纪律、主题系统和演示视觉约束上提供了参考。
+- [next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io)、
+  [ai-excalidraw](https://github.com/co-pine/ai-excalidraw)、
+  [fireworks-tech-graph](https://github.com/yizhiyanhua-ai/fireworks-tech-graph)、
+  [architecture-diagram-generator](https://github.com/Cocoon-AI/architecture-diagram-generator)，以及 GitHub 的
+  [excalidraw-diagram-generator skill](https://github.com/github/awesome-copilot/blob/main/skills/excalidraw-diagram-generator/SKILL.md)：这些 AI 辅助作图项目在 prompt 结构、架构图生成、Excalidraw 生成方式上都有参考价值，也帮助我们明确 AgentDraw 应该专注在本地、可编辑、面向 agent 的工作流。
+
 ## 仓库
 
 ```bash
-git remote add origin git@github.com:chenhg5/agentdraw.git
+git remote add origin git@github.com:agentdraw/agentdraw.git
 ```
 
 ## License

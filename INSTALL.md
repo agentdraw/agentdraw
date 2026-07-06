@@ -12,7 +12,7 @@ Paste this into Codex, Claude Code, Cursor, or another coding agent:
 ```text
 Install AgentDraw for this machine. Prefer:
 npm install -g @aidraw/agentdraw
-npx skills add chenhg5/agentdraw --skill agentdraw -g -y
+npx skills add agentdraw/agentdraw --skill agentdraw -g -y
 Then verify with:
 agentdraw doctor --json
 agentdraw guide styles --json
@@ -22,19 +22,19 @@ Or give the agent the install document directly:
 
 ```text
 Read and follow:
-https://raw.githubusercontent.com/chenhg5/agentdraw/main/INSTALL.md
+https://raw.githubusercontent.com/agentdraw/agentdraw/main/INSTALL.md
 ```
 
 Direct skill file:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/chenhg5/agentdraw/main/skills/agentdraw/SKILL.md
+curl -fsSL https://raw.githubusercontent.com/agentdraw/agentdraw/main/skills/agentdraw/SKILL.md
 ```
 
 ## One-Line Shell Install
 
 ```bash
-npm install -g @aidraw/agentdraw && npx skills add chenhg5/agentdraw --skill agentdraw -g -y
+npm install -g @aidraw/agentdraw && npx skills add agentdraw/agentdraw --skill agentdraw -g -y
 ```
 
 ## Install Only The Skill
@@ -42,15 +42,15 @@ npm install -g @aidraw/agentdraw && npx skills add chenhg5/agentdraw --skill age
 The skill can use `npx @aidraw/agentdraw@latest`, so a global CLI install is optional:
 
 ```bash
-npx skills add chenhg5/agentdraw --skill agentdraw -g -y
+npx skills add agentdraw/agentdraw --skill agentdraw -g -y
 ```
 
 Target one agent explicitly:
 
 ```bash
-npx skills add chenhg5/agentdraw --skill agentdraw -g -a codex -y
-npx skills add chenhg5/agentdraw --skill agentdraw -g -a claude-code -y
-npx skills add chenhg5/agentdraw --skill agentdraw -g -a cursor -y
+npx skills add agentdraw/agentdraw --skill agentdraw -g -a codex -y
+npx skills add agentdraw/agentdraw --skill agentdraw -g -a claude-code -y
+npx skills add agentdraw/agentdraw --skill agentdraw -g -a cursor -y
 ```
 
 ## Human CLI Install

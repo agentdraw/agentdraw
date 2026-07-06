@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/chenhg5/agentdraw.git",
+    "url": "git+ssh://git@github.com/agentdraw/agentdraw.git",
     "directory": "packages/server"
   },
   "publishConfig": {

@@ -27,13 +27,13 @@ Recommended: ask your coding agent to install both the CLI and the skill.
 ```text
 Install AgentDraw:
 npm install -g @aidraw/agentdraw
-npx skills add chenhg5/agentdraw --skill agentdraw -g -y
+npx skills add agentdraw/agentdraw --skill agentdraw -g -y
 ```
 
 Agent bootstrap URL:
 
 ```text
-https://raw.githubusercontent.com/chenhg5/agentdraw/main/INSTALL.md
+https://raw.githubusercontent.com/agentdraw/agentdraw/main/INSTALL.md
 ```
 
 For human CLI-only usage:
@@ -572,10 +572,38 @@ examples/          sample scenes
 scripts/           repo utility scripts
 ```
 
+## Inspired By
+
+AgentDraw is shaped by several projects and ideas:
+
+- [Excalidraw](https://github.com/excalidraw/excalidraw): the editable canvas experience that makes
+  AI drafts practical for human follow-up.
+- [Mermaid](https://github.com/mermaid-js/mermaid): the right source format for standard structured
+  diagrams where grammar and layout semantics matter more than custom composition.
+- [Drawnix](https://github.com/plait-board/drawnix): a reference point for open-source whiteboard
+  editing and local-first drawing workflows.
+- [beautiful-feishu-whiteboard](https://github.com/zarazhangrui/beautiful-feishu-whiteboard): an
+  early proof that agent-readable design guidance can produce more polished whiteboard visuals.
+- [open-design](https://github.com/nexu-io/open-design): inspiration for treating AI visual output
+  as a design-runtime problem, not only a prompt problem.
+- [Google design.md](https://github.com/google-labs-code/design.md): inspiration for making design
+  rules explicit and readable by coding agents.
+- [guizang-ppt-skill](https://github.com/op7418/guizang-ppt-skill) and
+  [html-ppt-skill](https://github.com/lewislulu/html-ppt-skill): references for layout discipline,
+  theme systems, and presentation-style visual constraints.
+- [next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io),
+  [ai-excalidraw](https://github.com/co-pine/ai-excalidraw),
+  [fireworks-tech-graph](https://github.com/yizhiyanhua-ai/fireworks-tech-graph),
+  [architecture-diagram-generator](https://github.com/Cocoon-AI/architecture-diagram-generator),
+  and GitHub's
+  [excalidraw-diagram-generator skill](https://github.com/github/awesome-copilot/blob/main/skills/excalidraw-diagram-generator/SKILL.md):
+  useful references for AI-assisted diagram generation, prompt structure, and where AgentDraw should
+  stay focused on local editable agent workflows.
+
 ## Repository
 
 ```bash
-git remote add origin git@github.com:chenhg5/agentdraw.git
+git remote add origin git@github.com:agentdraw/agentdraw.git
 ```
 
 ## License

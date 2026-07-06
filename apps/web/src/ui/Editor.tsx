@@ -276,7 +276,7 @@ export const Editor = ({
           </button>
           <a
             className="icon-link"
-            href="https://github.com/chenhg5/agentdraw"
+            href="https://github.com/agentdraw/agentdraw"
             target="_blank"
             rel="noreferrer"
             title="Open AgentDraw on GitHub"

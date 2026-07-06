@@ -42,4 +42,4 @@ HTML theme gallery and ask which style they prefer.
 
 For agents, prefer `--format json` or `--json`. Non-TTY command results default to JSON.
 
-Repository: https://github.com/chenhg5/agentdraw
+Repository: https://github.com/agentdraw/agentdraw

@@ -72,7 +72,7 @@ pnpm eval:design -- --source ./path/to/article.md --agent codex
 
 ```bash
 npm install -g @aidraw/agentdraw
-npx skills add chenhg5/agentdraw --skill agentdraw -p -a codex -y
+npx skills add agentdraw/agentdraw --skill agentdraw -p -a codex -y
 ```
 
 3. Pick one prompt from [`prompts.md`](./prompts.md).
