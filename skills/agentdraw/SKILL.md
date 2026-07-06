@@ -62,7 +62,14 @@ Always choose in this order:
 type direction -> provider -> design style -> layout style
 ```
 
-Before generating, read `method/drawing-method.md`. Then load the closest playbook:
+Before generating, read these method files:
+
+- `method/drawing-method.md`: overall workflow.
+- `method/provider-routing.md`: Mermaid vs SVG routing.
+- `method/layout-styles.md`: locked layout styles for SVG explanatory visuals.
+- `method/quality-levels.md`: P0-P3 quality gates.
+
+Then load the closest playbook:
 
 - `playbooks/technical-flowchart.md`: structured flows and Mermaid-supported process diagrams.
 - `playbooks/article-visual.md`: explanatory article/doc/review visuals.
@@ -112,27 +119,29 @@ agentdraw doctor --json
 
 1. Run `agentdraw guide` for the current workflow.
 2. Read `method/drawing-method.md`.
-3. Decide the type direction:
+3. Read `method/provider-routing.md`, `method/layout-styles.md`, and `method/quality-levels.md`.
+4. Decide the type direction:
    - structured diagram: Mermaid-supported flow/sequence/class/state/ER/timeline/journey diagrams;
    - explanatory visual: article image, architecture/structure explanation, mechanism map, review visual, or slide-like page.
-4. Choose the provider:
+5. Choose the provider:
    - Mermaid for structured diagram direction;
    - restricted SVG for explanatory visual direction.
-5. Select and read the closest playbook. State the provider and playbook choice with a reason.
-6. Run `agentdraw guide styles --json` and choose one design style by audience, density, and tone.
-7. Choose one layout style from `method/drawing-method.md`, such as contrast split, center mechanism,
-   layered stack, orbit map, matrix, timeline, or assertion pillars.
-8. State the design style and layout style before generating. If the user did not express a visual
+6. Select and read the closest playbook. State the provider and playbook choice with a reason.
+7. Run `agentdraw guide styles --json` and choose one design style by audience, density, and tone.
+8. Choose one layout style from `method/layout-styles.md`, such as `L01 Contrast Split`,
+   `L02 Center Mechanism`, `L03 Layered Stack`, `L06 Matrix`, `L09 Assertion Pillars`,
+   `L10 Hero Evidence`, `L11 Bento Brief`, or `L12 Decision Ladder`.
+9. State the design style and layout style before generating. If the user did not express a visual
    preference and the choice is not obvious, run `agentdraw gallery --open --format json` and ask
    which visual direction they prefer. In headless mode, run `agentdraw gallery --no-open --format json`
    and return the generated URL or path.
-9. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the guide and treat the contract as hard design constraints.
-10. Write a short layout plan using the template in `method/drawing-method.md`.
-11. Create the source:
+10. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the guide and treat the contract as hard design constraints.
+11. Write a short layout plan using the template in `method/drawing-method.md`.
+12. Create the source:
    - Mermaid provider: create `.agentdraw/diagram.mmd`;
    - SVG provider: create `.agentdraw/board.svg`.
-12. Inspect the Mermaid/SVG source or export/open it when possible. Fix alignment, text wrapping, connectors, grouping, and hierarchy while it is still source text.
-13. Convert it:
+13. Inspect the Mermaid/SVG source or export/open it when possible. Fix alignment, text wrapping, connectors, grouping, and hierarchy while it is still source text.
+14. Convert it:
 
 ```bash
 agentdraw import-mermaid .agentdraw/diagram.mmd --out .agentdraw/board.agentdraw.json --style <style-id> --title "<title>" --format json
@@ -144,8 +153,8 @@ or:
 agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json --style <style-id> --title "<title>" --format json
 ```
 
-14. If `import-svg` reports unsupported tags, edit the SVG and import again.
-15. Run:
+15. If `import-svg` reports unsupported tags, edit the SVG and import again.
+16. Run:
 
 ```bash
 agentdraw repair .agentdraw/board.agentdraw.json --style <style-id> --write --format json
@@ -153,13 +162,14 @@ agentdraw validate .agentdraw/board.agentdraw.json --style <style-id> --format j
 agentdraw quality .agentdraw/board.agentdraw.json --style <style-id> --format json
 ```
 
-16. For important boards, export and inspect a preview before opening:
+17. For important boards, export and inspect a preview before opening:
 
 ```bash
 agentdraw export .agentdraw/board.agentdraw.json --format png --out .agentdraw/board.preview.png --json
 ```
 
-17. Open the editable board:
+18. Apply `method/quality-levels.md`: fix all P0 and P1 issues before delivery.
+19. Open the editable board:
 
 ```bash
 agentdraw open .agentdraw/board.agentdraw.json --background --open --format json
@@ -236,6 +246,8 @@ Before delivering:
 - The board has a clear title and reading path.
 - The provider matches the type direction: Mermaid for structured diagram grammar, SVG for custom
   explanatory visuals.
+- The SVG layout style is one of the locked layout styles from `method/layout-styles.md`, or the
+  notes explain why a custom layout was necessary.
 - For explanatory visuals, the board has one memorable core message. It should not read like a
   generic collection of cards.
 - Major sections are grouped into visible regions.
@@ -254,6 +266,7 @@ Before delivering:
 - `agentdraw validate <file> --style <style-id> --format json` reports zero errors, or remaining errors are explicitly explained before delivery.
 - `agentdraw quality <file> --style <style-id> --format json` returns `verdict: "pass"` or the remaining weaknesses are intentionally accepted.
 - For important boards, export a PNG/SVG preview and inspect the rendered result before delivery.
+- P0/P1 quality issues from `method/quality-levels.md` are fixed, not accepted silently.
 - When inspecting the preview, zoom out first: the board should still show a deliberate structure, not scattered boxes. Then zoom in for text fit, connector endpoints, and whitespace.
 
 If the result looks generic or weak, revise the source SVG. Do not try to save a weak layout by changing only colors.
@@ -285,6 +298,8 @@ agentdraw open .agentdraw/board.agentdraw.json --background --no-open --format j
 - Decide provider first: Mermaid for Mermaid-supported structured diagram types; SVG for explanatory
   visuals, architecture, structure, and slide-like single visuals.
 - Choose design style and layout style separately.
+- Read `method/provider-routing.md`, `method/layout-styles.md`, and `method/quality-levels.md`
+  before generating important boards.
 - Do not turn every SVG source into a card wall. Choose a contrast split, mechanism, loop, stack,
   map, matrix, timeline, or assertion layout.
 - Do not route into hand-drawn education/sketch-note boards as a default capability.

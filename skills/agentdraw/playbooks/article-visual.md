@@ -20,8 +20,9 @@ Extract:
 - One headline insight: what should the reader remember after 5 seconds?
 - The article's tension: old model vs new model, problem vs solution, hidden mechanism, or tradeoff.
 - 2-4 supporting ideas that prove or explain the insight.
-- A layout style: contrast split, center mechanism, loop, stack, map, matrix, timeline, orbit map, or
-  assertion pillars.
+- A locked layout style from `../method/layout-styles.md`, usually `L01 Contrast Split`,
+  `L02 Center Mechanism`, `L05 Loop / Flywheel`, `L06 Matrix`, `L08 Orbit Map`,
+  `L10 Hero Evidence`, `L11 Bento Brief`, or `L12 Decision Ladder`.
 - A memorable metaphor only if the source naturally supports it.
 - One takeaway or implication.
 
@@ -96,7 +97,8 @@ Provider: SVG because this is an explanatory article image, not a Mermaid gramma
 Audience: technical newsletter readers
 Reader question: Why do agent diagrams still look weak?
 Main message: Output quality depends on expression strategy, not just visual style.
-Layout style: contrast split
+Layout style: L01 Contrast Split because the source argues weak theme-only output versus stronger
+playbook-led output.
 Reading path: headline -> contrast -> 3-part loop -> takeaway
 Regions:
 - Header: "Style is not strategy"

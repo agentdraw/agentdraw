@@ -91,7 +91,8 @@ Provider: SVG because this needs custom layers, boundaries, and explanatory comp
 Audience: engineering leads
 Reader question: How does the local agent drawing loop work end to end?
 Main message: AgentDraw turns prompt intent into validated, editable boards through a local loop.
-Layout style: layered stack
+Layout style: L03 Layered Stack because the source is about responsibility layers and runtime
+boundaries.
 Reading path: top-down layers
 Regions:
 - Header: title and one-line promise

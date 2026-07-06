@@ -12,7 +12,7 @@ Evaluate whether a fresh agent can:
 - choose Mermaid or SVG before drawing;
 - identify the right communication scenario;
 - choose a scene playbook before choosing a style;
-- state why the provider, playbook, design style, and layout style were selected;
+- state why the provider, playbook, design style, and locked layout style were selected;
 - produce a board with a strong information structure;
 - validate, export, inspect, and revise the result.
 
@@ -38,6 +38,15 @@ pnpm eval:design -- --case all --agent codex
 ```
 
 The script writes each run to `.agentdraw/evals/<run-name>/` with source documents, the exact prompt, rubric, and an `outputs/` directory. Omit `--agent` when you only want to generate the prompt package and run it yourself.
+
+Every generated prompt requires the agent to read:
+
+- `skills/agentdraw/method/provider-routing.md`
+- `skills/agentdraw/method/layout-styles.md`
+- `skills/agentdraw/method/quality-levels.md`
+
+The final `outputs/notes.md` should include provider choice, playbook choice, style choice, locked
+layout style, validation/quality summaries, and P0/P1 fixes.
 
 ## Eval Matrix
 

@@ -65,7 +65,8 @@ Provider: SVG because this is a designed single-page visual, not a structured Me
 Audience: product and engineering leadership
 Reader question: Why invest in editable agent-generated diagrams?
 Main message: Editable diagrams close the gap between fast AI drafts and trusted team artifacts.
-Layout style: assertion pillars
+Layout style: L09 Assertion Pillars because the source needs one leadership claim with three
+supporting reasons.
 Reading path: assertion -> three pillars -> investment implication
 Regions:
 - Header: assertion headline

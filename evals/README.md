@@ -6,6 +6,12 @@ The goal is not to prove that a generated board is perfect. The goal is to catch
 make quality discussable: task fit, structure, visual design, readability, connector quality, and
 validation.
 
+Current evals focus on two reliable directions:
+
+- Mermaid-backed structured diagrams for flowchart/sequence/class/state/ER/timeline style tasks.
+- SVG-backed explanatory visuals for article images, architecture boards, review visuals, and
+  slide-like single pages.
+
 ## One-Command Playbook Eval
 
 Prepare the full built-in eval suite without running an agent:
@@ -34,6 +40,15 @@ Built-in cases:
 - `self-media`: SVG-first public article illustration
 - `architecture`: SVG-first system architecture board
 - `all`: every case above
+
+Each generated prompt asks the agent to read:
+
+- `skills/agentdraw/method/provider-routing.md`
+- `skills/agentdraw/method/layout-styles.md`
+- `skills/agentdraw/method/quality-levels.md`
+
+The output notes should state the provider decision, selected playbook, selected design style,
+locked layout style, and P0/P1 fixes.
 
 Each run writes a self-contained folder under `.agentdraw/evals/<run-name>/`:
 

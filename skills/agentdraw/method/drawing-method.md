@@ -20,7 +20,7 @@ hand-drawn education board generator.
 2. Choose the provider: Mermaid or SVG.
 3. Select one scene playbook.
 4. Select one design style that fits the audience and tone.
-5. Select one layout style.
+5. Select one layout style from `layout-styles.md`.
 6. Plan the layout before writing Mermaid or SVG.
 7. Generate Mermaid or restricted SVG.
 8. Convert, repair, validate, export, inspect, and revise.
@@ -29,6 +29,8 @@ Never skip from prompt directly to a style. If the provider or layout style is w
 theme will still produce a weak board.
 
 ## Provider Selection
+
+See `provider-routing.md` for the full routing rules and ambiguous cases.
 
 ### Mermaid Provider
 
@@ -65,18 +67,23 @@ design style.
 
 ## Layout Styles
 
-Pick one layout style before drawing SVG. For Mermaid, pick the appropriate Mermaid diagram type
-instead of forcing a custom layout.
+Pick one locked layout style from `layout-styles.md` before drawing SVG. For Mermaid, pick the
+appropriate Mermaid diagram type instead of forcing a custom layout.
 
-- **Contrast split:** old vs new, problem vs solution, weak vs strong, before vs after.
-- **Center mechanism:** one central engine/process with causes, controls, and effects around it.
-- **Layered stack:** layers, foundations, dependencies, responsibility bands.
-- **Pipeline:** input -> transformation -> output, with optional support layer.
-- **Loop/flywheel:** repeated cycle, quality loop, operating rhythm, feedback system.
-- **Matrix:** tradeoffs, decision frame, capability comparison.
-- **Timeline:** evolution, phases, release sequence, migration path.
-- **Orbit map:** core idea in the center, surrounding actors/forces/principles.
-- **Assertion pillars:** one claim with 2-4 supporting pillars; use for slide-like visuals.
+Common SVG layout styles:
+
+- `L01 Contrast Split`
+- `L02 Center Mechanism`
+- `L03 Layered Stack`
+- `L04 Pipeline`
+- `L05 Loop / Flywheel`
+- `L06 Matrix`
+- `L07 Timeline`
+- `L08 Orbit Map`
+- `L09 Assertion Pillars`
+- `L10 Hero Evidence`
+- `L11 Bento Brief`
+- `L12 Decision Ladder`
 
 Do not default to three equal cards. Three pillars are acceptable only when the source genuinely has
 three parallel supports.
@@ -103,7 +110,7 @@ Provider: <Mermaid / SVG> because <reason>
 Audience: <engineers / executives / learners / broad readers>
 Reader question: <what should the reader understand in 5 seconds?>
 Main message: <one sentence>
-Layout style: <contrast split / center mechanism / layered stack / pipeline / loop / matrix / timeline / orbit map / assertion pillars>
+Layout style: <Lxx name from layout-styles.md>
 Reading path: <top-down / left-right / hub-spoke / before-after / timeline>
 Regions:
 - <region name>: <purpose>, <approx width/height>, <items>
@@ -167,3 +174,4 @@ Ask these questions after exporting a PNG:
 - Does any text touch the top edge or overflow its container?
 - Does the selected style affect layout, typography, geometry, and connectors, not only colors?
 - Would a user want to manually edit this, or is it a static poster pretending to be a board?
+- Have all P0/P1 issues from `quality-levels.md` been fixed?

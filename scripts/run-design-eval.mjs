@@ -275,8 +275,8 @@ For each board:
 - extract and state the source's one-sentence core message;
 - choose and state the provider before choosing style;
 - identify and state the selected scene playbook before choosing style;
-- read \`skills/agentdraw/method/drawing-method.md\` and the selected playbook;
-- choose and state one layout style before writing source;
+- read \`skills/agentdraw/method/drawing-method.md\`, \`skills/agentdraw/method/provider-routing.md\`, \`skills/agentdraw/method/layout-styles.md\`, \`skills/agentdraw/method/quality-levels.md\`, and the selected playbook;
+- choose and state one locked layout style before writing source;
 - write a short layout plan before writing Mermaid or SVG;
 - write a source \`.mmd\` or \`.svg\` under the output directory;
 - import it with \`pnpm agentdraw import-mermaid\` or \`pnpm agentdraw import-svg\`;
@@ -285,6 +285,7 @@ For each board:
 - run \`pnpm agentdraw quality --format json\`;
 - export a PNG preview;
 - revise the Mermaid or SVG source if quality or visual inspection reveals weak layout, misalignment, excessive whitespace, text issues, connector issues, or style-contract drift.
+- apply the P0/P1/P2/P3 checklist from \`quality-levels.md\`; fix all P0/P1 issues before final notes.
 
 Hard requirements:
 
@@ -307,6 +308,7 @@ Write \`${join(directory, "outputs", "notes.md")}\` with:
 - the layout plan for each board;
 - commands run;
 - validation and quality summaries;
+- P0/P1 fixes and P2/P3 accepted weaknesses;
 - any accepted weaknesses.
 
 Do not commit or publish anything.
