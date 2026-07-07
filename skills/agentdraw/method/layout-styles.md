@@ -6,6 +6,10 @@ controls information structure.
 For SVG explanatory visuals, choose one locked layout style before drawing. Do not invent a new page
 structure unless none of these fit.
 
+This file covers formal explanatory structures. For article images, document配图, public review
+visuals, thinking notes, and magazine-like boards, prefer `editorial-layouts.md` when a normal
+layout would become a generic card wall.
+
 ## L01 Contrast Split
 
 Use for old vs new, problem vs solution, weak vs strong, before vs after.

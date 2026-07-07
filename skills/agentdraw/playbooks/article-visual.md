@@ -24,13 +24,34 @@ Extract:
 - One headline insight: what should the reader remember after 5 seconds?
 - The article's tension: old model vs new model, problem vs solution, hidden mechanism, or tradeoff.
 - 2-4 supporting ideas that prove or explain the insight.
-- A locked layout style from `../method/layout-styles.md`, usually `L01 Contrast Split`,
-  `L02 Center Mechanism`, `L05 Loop / Flywheel`, `L06 Matrix`, `L08 Orbit Map`,
-  `L10 Hero Evidence`, `L11 Bento Brief`, or `L12 Decision Ladder`.
+- A locked layout system. Prefer `../method/editorial-layouts.md` when the output should be
+  public-facing, memorable, magazine-like, or more designed than a normal diagram. Use
+  `../method/layout-styles.md` when the source needs a formal structure map.
 - A memorable metaphor only if the source naturally supports it.
 - One takeaway or implication.
 
 Do not include every section from the article. A strong visual image is selective.
+
+## Editorial Layout First
+
+For article images, document配图, public explainers, review visuals, and thinking notes, start by
+testing whether one editorial layout fits before falling back to formal layout styles:
+
+- `E01 Monochrome Big Number`: 3-stage explanation, serious training note, refined argument.
+- `E02 Reading Room Overlap`: calm conceptual argument, tension/thesis/implication.
+- `E03 Swiss Statement Grid`: crisp old-vs-new claim, executive principle, strategic assertion.
+- `E04 Editorial Sidebar`: article hero with one large claim and 3 supporting notes.
+- `E05 Poster Ledger`: punchy migration, launch, contrast, or public social/article graphic.
+- `E06 Reading Room Index`: long document with 5-6 memorable anchors.
+- `E07 Strategic Quadrant`: SWOT, 2x2 analysis, positioning, tradeoff maps.
+- `E08 Editorial Timeline`: evolution, migration phases, incident narrative.
+- `E09 Roadmap Terrace`: phased plan, maturity ladder, rollout strategy.
+- `E10 Decision Scoreboard`: option comparison, prioritization, buy/build/partner.
+- `E11 Ecosystem Orbit`: stakeholder, platform, product ecosystem, force maps.
+- `E12 Pyramid Stack`: hierarchy, dependency, maturity, foundation-to-outcome model.
+
+If the draft starts to look like equal cards in a row, stop and choose one of these editorial
+layouts. Do not try to solve generic composition by changing only the palette.
 
 ## Layout Recipes
 
@@ -103,6 +124,9 @@ Reader question: Why do agent diagrams still look weak?
 Main message: Output quality depends on expression strategy, not just visual style.
 Layout style: L01 Contrast Split because the source argues weak theme-only output versus stronger
 playbook-led output.
+Editorial layout: E03 Swiss Statement Grid because the article's core idea is a sharp contrast
+between theme-only output and playbook-led output.
+Composition device: statement grid with a dominant left claim and four right-side proof cells.
 Reading path: headline -> contrast -> 3-part loop -> takeaway
 Regions:
 - Header: "Style is not strategy"
@@ -148,6 +172,8 @@ Risks: avoid making it look like a technical architecture diagram
 - A generic architecture layout for an opinion or explanatory article.
 - A slide-like executive layout unless the user explicitly asked for a slide.
 - A Mermaid-style flowchart for a conceptual or argumentative document.
+- A palette-swapped card wall when an editorial layout would make the article's point more
+  memorable.
 
 ## Quality Checklist
 
@@ -156,5 +182,7 @@ Risks: avoid making it look like a technical architecture diagram
 - It contains 2-4 supporting ideas, not 12.
 - It is legible as a thumbnail.
 - The visual metaphor or contrast supports the article argument.
+- The board uses either a clearly justified formal layout or one explicit editorial layout from
+  `editorial-layouts.md`.
 - The takeaway is visible without reading every card.
 - A reader can explain why this visual belongs to this article specifically.

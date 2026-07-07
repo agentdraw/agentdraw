@@ -26,8 +26,10 @@ Score each dimension from 1 to 4.
 ## 3. Visual Design
 
 - 4: The selected style is visible through layout, typography, spacing, geometry, and components.
+  For article/review/concept visuals, one editorial composition device is obvious at thumbnail
+  size.
 - 3: Style is visible but relies too much on color.
-- 2: Mostly a palette swap.
+- 2: Mostly a palette swap, generic card wall, or weak composition device.
 - 1: No intentional design system is visible.
 
 ## 4. Readability

@@ -19,6 +19,8 @@ Extract:
 - One data point, risk, or proof point per pillar.
 - Optional timeline, maturity ladder, or operating model.
 - Closing implication.
+- One composition device. For a slide-like board that should look less generic, choose from
+  `../method/editorial-layouts.md` before using a plain pillar layout.
 
 ## Layout Recipes
 
@@ -32,6 +34,8 @@ Subhead: frame the audience value
 
 Bottom: decision / implication
 ```
+
+Use this only when the source really has three peer supports. Otherwise prefer an editorial layout.
 
 ### Executive Ladder
 
@@ -48,6 +52,17 @@ Four quadrants
 Highlight recommended quadrant
 Short implication
 ```
+
+### Editorial Statement Page
+
+```text
+Dominant left statement or number
+Right proof grid, sidebar, ledger, or index modules
+Bottom: decision / implication
+```
+
+Use `E03 Swiss Statement Grid`, `E04 Editorial Sidebar`, or `E05 Poster Ledger` when the visual
+should feel like a sharp presentation page rather than a generic strategy slide.
 
 ## Recommended Styles
 
@@ -67,6 +82,8 @@ Reader question: Why invest in editable agent-generated diagrams?
 Main message: Editable diagrams close the gap between fast AI drafts and trusted team artifacts.
 Layout style: L09 Assertion Pillars because the source needs one leadership claim with three
 supporting reasons.
+Editorial layout: E03 Swiss Statement Grid if the point needs a stronger, less generic composition.
+Composition device: dominant assertion plus compact proof grid.
 Reading path: assertion -> three pillars -> investment implication
 Regions:
 - Header: assertion headline
@@ -106,6 +123,8 @@ Risks: too much text; keep each pillar to one short proof line
 - Dense paragraph cards.
 - Flowchart complexity on a presentation slide.
 - Decorative background that competes with the message.
+- Equal card rows when a single statement, sidebar, or poster-ledger composition would communicate
+  faster.
 
 ## Quality Checklist
 
@@ -114,3 +133,4 @@ Risks: too much text; keep each pillar to one short proof line
 - Every card supports the headline.
 - There is one visual hierarchy: title, pillars, implication.
 - It would fit naturally inside a slide deck.
+- If it uses an editorial layout, the composition device is obvious before reading the small text.

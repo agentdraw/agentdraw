@@ -67,3 +67,43 @@ creative assets, launch calendar, feedback loops, and metrics. It should feel en
 organized enough for weekly execution.
 
 Expected style candidates: `riso-brut`, `bold-poster`, `burst-panel`.
+
+## AD-EVAL-009: Magazine Article Visual
+
+Create an editable magazine-like article visual about why generic AI diagrams fail. It should make
+one argument memorable at thumbnail size, use one explicit editorial layout, and avoid a plain
+three-card row.
+
+Expected layout candidates: `E03 Swiss Statement Grid`, `E04 Editorial Sidebar`, `E05 Poster Ledger`.
+
+Expected style candidates: `monochrome`, `reading-room`, `bold-poster`, `boardroom`.
+
+## AD-EVAL-010: Long-Form Synthesis Board
+
+Create one editable board that summarizes a long technical essay without turning it into a dense
+table. It should use 5-6 selective anchors, strong reading order, and one visible editorial
+composition device.
+
+Expected layout candidates: `E01 Monochrome Big Number`, `E06 Reading Room Index`, `E02 Reading Room Overlap`.
+
+Expected style candidates: `reading-room`, `monochrome`, `long-table`, `macchiato`.
+
+## AD-EVAL-011: Strategic SWOT Quadrant
+
+Create an editable SWOT board for a product launch. It should use meaningful axes, four equal
+quadrants, compact evidence in each quadrant, and one highlighted strategic move. It should not look
+like a spreadsheet or a default 2x2 table.
+
+Expected layout candidates: `E07 Strategic Quadrant`.
+
+Expected style candidates: `boardroom`, `long-table`, `monochrome`, `raw-grid`.
+
+## AD-EVAL-012: Editorial Timeline
+
+Create an editable timeline showing how a product strategy evolved through five phases. It should
+have one visually stronger inflection point and aligned callouts. It should not be a plain row of
+identical milestone cards.
+
+Expected layout candidates: `E08 Editorial Timeline`, `E09 Roadmap Terrace`.
+
+Expected style candidates: `reading-room`, `macchiato`, `blueprint-formal`, `boardroom`.

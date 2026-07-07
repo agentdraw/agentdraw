@@ -23,8 +23,11 @@ hand-drawn education board generator.
 1. Identify the type direction: structured diagram or explanatory visual.
 2. Choose the provider: Mermaid or SVG.
 3. Select one scene playbook.
-4. Select one design style that fits the audience and tone.
-5. Select one layout style from `layout-styles.md`.
+4. Select one layout system:
+   - formal explanatory structures use `layout-styles.md`;
+   - article/review/concept visuals that should feel memorable use `editorial-layouts.md`.
+5. Select one design style that fits the audience, tone, and recommended styles for the selected
+   layout.
 6. Plan the layout before writing Mermaid or SVG.
 7. Generate Mermaid or restricted SVG.
 8. Convert, repair, validate, export, inspect, and revise.
@@ -74,10 +77,13 @@ Use restricted SVG when the output is:
 SVG is better for these because it gives control over composition, hierarchy, visual rhythm, and
 design style.
 
-## Layout Styles
+## Layout Systems
 
-Pick one locked layout style from `layout-styles.md` before drawing SVG. For Mermaid, pick the
-appropriate Mermaid diagram type instead of forcing a custom layout.
+Pick one locked layout system before drawing SVG. For Mermaid, pick the appropriate Mermaid diagram
+type instead of forcing a custom layout.
+
+Use `layout-styles.md` for formal explanatory structures, architecture maps, process-like custom
+SVG, matrices, timelines, and operating models.
 
 Common SVG layout styles:
 
@@ -96,6 +102,28 @@ Common SVG layout styles:
 
 Do not default to three equal cards. Three pillars are acceptable only when the source genuinely has
 three parallel supports.
+
+Use `editorial-layouts.md` when the user wants a document配图, article image, public review visual,
+thinking note, strategy one-pager, or a board that should feel less generic and more magazine-like.
+
+Common editorial layouts:
+
+- `E01 Monochrome Big Number`
+- `E02 Reading Room Overlap`
+- `E03 Swiss Statement Grid`
+- `E04 Editorial Sidebar`
+- `E05 Poster Ledger`
+- `E06 Reading Room Index`
+- `E07 Strategic Quadrant`
+- `E08 Editorial Timeline`
+- `E09 Roadmap Terrace`
+- `E10 Decision Scoreboard`
+- `E11 Ecosystem Orbit`
+- `E12 Pyramid Stack`
+
+These are layout recipes, not just example screenshots. Each recipe binds a composition device,
+recommended styles, structural regions, and anti-patterns. When a normal layout would become a wall
+of similar cards, switch to an editorial layout before changing colors.
 
 ## Scene Intent Classes
 
@@ -120,6 +148,8 @@ Audience: <engineers / executives / learners / broad readers>
 Reader question: <what should the reader understand in 5 seconds?>
 Main message: <one sentence>
 Layout style: <Lxx name from layout-styles.md>
+Editorial layout: <E01-E06 name, if using editorial-layouts.md>
+Composition device: <giant number / statement grid / asymmetric sidebar / poster ledger / index>
 Reading path: <top-down / left-right / hub-spoke / before-after / timeline>
 Regions:
 - <region name>: <purpose>, <approx width/height>, <items>
@@ -147,6 +177,10 @@ Risks: <likely layout failure to avoid>
 - Write text as edit-friendly labels. Avoid long paragraphs inside cards.
 - Do not make every output a three-card row. Three cards are acceptable only when the article's
   argument is genuinely three parallel pillars.
+- For article, concept, review, and slide-like visuals, make one composition device visible at
+  thumbnail size: giant number, asymmetric sidebar, poster ledger, reading-room index, field-guide
+  modules, Swiss statement grid, quadrant, timeline rail, roadmap terrace, scoreboard, orbit, or
+  pyramid.
 
 ## Mermaid Layout Heuristics
 
@@ -182,5 +216,7 @@ Ask these questions after exporting a PNG:
 - Is any card floating in a huge container with excessive empty space?
 - Does any text touch the top edge or overflow its container?
 - Does the selected style affect layout, typography, geometry, and connectors, not only colors?
+- If this is an article/review/concept visual, did it use an editorial layout or another clearly
+  justified non-generic composition?
 - Would a user want to manually edit this, or is it a static poster pretending to be a board?
 - Have all P0/P1 issues from `quality-levels.md` been fixed?

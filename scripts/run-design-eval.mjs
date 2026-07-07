@@ -30,6 +30,38 @@ const evalCases = {
     prompt:
       "Create a public-facing article illustration that makes the core contrast memorable and readable as a blog hero image.",
   },
+  editorial: {
+    id: "editorial",
+    title: "Magazine-like article visual",
+    source: join(evalCaseRoot, "editorial-article.md"),
+    expectedPlaybook: "article-visual with editorial-layouts",
+    prompt:
+      "Create one magazine-like editable board for this article. Avoid a generic card wall. State the selected editorial layout and composition device before drawing.",
+  },
+  "longform-editorial": {
+    id: "longform-editorial",
+    title: "Long-form editorial synthesis board",
+    source: join(evalCaseRoot, "longform-editorial-synthesis.md"),
+    expectedPlaybook: "article-visual with editorial-layouts, especially a reading-room index if suitable",
+    prompt:
+      "Create one polished long-form synthesis board. It should help a reader remember the whole argument without becoming a dense table. State the selected editorial layout and composition device before drawing.",
+  },
+  swot: {
+    id: "swot",
+    title: "Strategic SWOT quadrant board",
+    source: join(evalCaseRoot, "strategic-swot.md"),
+    expectedPlaybook: "article-visual with editorial-layouts, especially E07 Strategic Quadrant",
+    prompt:
+      "Create one editable SWOT/strategy board. Use a real quadrant layout with meaningful axes and one highlighted strategic move. Avoid a plain four-cell table.",
+  },
+  timeline: {
+    id: "timeline",
+    title: "Editorial timeline board",
+    source: join(evalCaseRoot, "editorial-timeline.md"),
+    expectedPlaybook: "article-visual with editorial-layouts, especially E08 Editorial Timeline",
+    prompt:
+      "Create one editable timeline visual. Make one inflection point visually stronger. Avoid identical milestone cards on a plain horizontal line.",
+  },
   flow: {
     id: "flow",
     title: "Technical flowchart",
@@ -175,6 +207,15 @@ function caseAlias(value) {
     article: "self-media",
     blog: "self-media",
     media: "self-media",
+    editorial: "editorial",
+    magazine: "editorial",
+    "article-editorial": "editorial",
+    longform: "longform-editorial",
+    synthesis: "longform-editorial",
+    swot: "swot",
+    quadrant: "swot",
+    timeline: "timeline",
+    history: "timeline",
     ppt: "ppt",
     slide: "ppt",
     slides: "ppt",
@@ -268,7 +309,7 @@ Choose the provider before drawing:
 - use Mermaid for Mermaid-supported structured diagrams such as flowcharts, sequence diagrams, class diagrams, state diagrams, ER diagrams, timelines, and journeys;
 - use restricted SVG for explanatory visuals, article images, architecture/structure explanations, mechanism maps, matrices, comparisons, and slide-like single-page visuals.
 
-If no style test plan is provided, pick the most suitable AgentDraw style for each board, or reuse one style if you have a clear reason. State the provider, style, and layout-style choices in your notes.
+If no style test plan is provided, pick the most suitable AgentDraw style for each board, or reuse one style if you have a clear reason. State the provider, layout-system, and style choices in your notes.
 
 For each board:
 
@@ -276,7 +317,8 @@ For each board:
 - choose and state the provider before choosing style;
 - identify and state the selected scene playbook before choosing style;
 - read \`skills/agentdraw/method/drawing-method.md\`, \`skills/agentdraw/method/provider-routing.md\`, \`skills/agentdraw/method/layout-styles.md\`, \`skills/agentdraw/method/quality-levels.md\`, and the selected playbook;
-- choose and state one locked layout style before writing source;
+- read \`skills/agentdraw/method/editorial-layouts.md\` when the board is an article image, review visual, concept visual, public-facing visual, or should feel less generic;
+- choose and state one locked layout system before writing source. For editorial layouts, also state the composition device;
 - write a short layout plan before writing Mermaid or SVG;
 - write a source \`.mmd\` or \`.svg\` under the output directory;
 - import it with \`pnpm agentdraw import-mermaid\` or \`pnpm agentdraw import-svg\`;
@@ -297,6 +339,8 @@ Hard requirements:
 - large lanes/panels should use width deliberately, not leave tiny floating cards;
 - coordinates and sizes should follow a 4/8/16px rhythm;
 - final boards should look intentionally designed when zoomed out.
+- article/review/concept visuals should not collapse into equal-card walls unless the source truly
+  requires equal peer cards.
 - use the repo-local CLI with \`pnpm agentdraw\`; do not use a globally installed \`agentdraw\`
   binary because it may be an older published version and would not test the current repository.
 
@@ -304,6 +348,7 @@ Write \`${join(directory, "outputs", "notes.md")}\` with:
 
 - the playbook selected for each board and why;
 - the source's core message, provider choice, and layout style for each board;
+- editorial layout and composition device when used;
 - the style selected for each board and why;
 - the layout plan for each board;
 - commands run;
@@ -323,7 +368,7 @@ function taskListForSources(sources) {
 2. **process-or-mechanism**: explain the most important process, mechanism, or decision flow.
 3. **audience-summary**: create either a slide-like or article-like visual for the source's main message.`;
   }
-  return `Create **one polished editable board per source document**. Use the expected playbook as a strong hint, but still state your own provider, playbook, style, and layout-style choices with reasons. Name outputs with each case id, for example \`flow.mmd\` or \`technical-article.svg\`, plus \`<case>.agentdraw.json\` and \`<case>.png\`.`;
+  return `Create **one polished editable board per source document**. Use the expected playbook as a strong hint, but still state your own provider, playbook, layout-system, and style choices with reasons. Name outputs with each case id, for example \`flow.mmd\` or \`technical-article.svg\`, plus \`<case>.agentdraw.json\` and \`<case>.png\`.`;
 }
 
 function rubric() {

@@ -36,7 +36,7 @@ argument maps, review visuals, and slide-like single page visuals.
 The primary workflow is:
 
 ```text
-intent/source -> type direction -> provider (Mermaid or SVG) -> design style -> layout style -> source -> import -> editable .agentdraw.json -> validate/repair/export/open
+intent/source -> type direction -> provider (Mermaid or SVG) -> scene playbook -> layout system -> design style -> source -> import -> editable .agentdraw.json -> validate/repair/export/open
 ```
 
 Do not start new boards by hand-writing `.agentdraw.json`. Write a clean Mermaid flowchart or SVG
@@ -67,21 +67,46 @@ Important distinction:
 
 After the provider decision, choose two separate visual layers:
 
-- Design style: how the board should look and feel.
 - Layout style: how the information is arranged on the canvas.
+- Design style: how the board should look and feel. Editorial layouts recommend compatible styles;
+  choose from those recommendations unless the user gave a clear preference.
+
+Editorial layouts are reference composition systems, not rigid templates. You may adapt
+proportions, region sizes, emphasis, and content density to fit the source, but preserve the
+layout's core composition device, reading path, alignment discipline, and quality rules.
 
 Always choose in this order:
 
 ```text
-type direction -> provider -> design style -> layout style
+type direction -> provider -> scene playbook -> layout system -> design style
 ```
 
-Before generating, read these method files:
+Fast layout routing:
+
+| User intent / source shape | Provider | Start here |
+| --- | --- | --- |
+| Formal flowchart, sequence, class, state, ER, journey | Mermaid | `playbooks/technical-flowchart.md` |
+| Architecture, layers, runtime structure, ownership map | SVG | `playbooks/layered-architecture.md` + `method/layout-styles.md` |
+| Article配图, concept visual, thinking note, review visual | SVG | `playbooks/article-visual.md` + `method/editorial-layouts.md` |
+| SWOT, 2x2, option scoring, stakeholder map, timeline with visual emphasis | SVG | `method/editorial-layouts.md` |
+| Slide-like one-page visual or executive summary | SVG | `playbooks/ppt-visual.md` + `method/editorial-layouts.md` or `method/layout-styles.md` |
+
+Use progressive loading. Do not load every design document up front. First read only the routing
+and quality files, then load the one playbook and one layout system that match the task.
+
+Always read these method files:
 
 - `method/drawing-method.md`: overall workflow.
 - `method/provider-routing.md`: Mermaid vs SVG routing.
-- `method/layout-styles.md`: locked layout styles for SVG explanatory visuals.
 - `method/quality-levels.md`: P0-P3 quality gates.
+
+Load these only when relevant:
+
+- `method/layout-styles.md`: formal SVG explanatory structures, architecture maps, matrices,
+  pipelines, timelines, and operating models.
+- `method/editorial-layouts.md`: magazine-like article images, review visuals, concept visuals,
+  SWOT/quadrant boards, editorial timelines, roadmap terraces, scoreboards, ecosystem maps, and
+  memorable single-board explanations.
 
 Then load the closest playbook:
 
@@ -133,7 +158,7 @@ agentdraw doctor --json
 
 1. Run `agentdraw guide` for the current workflow.
 2. Read `method/drawing-method.md`.
-3. Read `method/provider-routing.md`, `method/layout-styles.md`, and `method/quality-levels.md`.
+3. Read `method/provider-routing.md` and `method/quality-levels.md`.
 4. Decide the type direction:
    - structured diagram: explicit Mermaid-supported flow/sequence/class/state/ER/timeline/journey diagrams;
    - explanatory visual: article image, concept/argument visual, architecture/structure explanation, mechanism map, review visual, or slide-like page.
@@ -141,16 +166,28 @@ agentdraw doctor --json
    - Mermaid only for structured diagram grammar;
    - restricted SVG for explanatory visual direction and document配图.
 6. Select and read the closest playbook. State the provider and playbook choice with a reason.
-7. Run `agentdraw guide styles --json` and choose one design style by audience, density, and tone.
-8. Choose one layout style from `method/layout-styles.md`, such as `L01 Contrast Split`,
-   `L02 Center Mechanism`, `L03 Layered Stack`, `L06 Matrix`, `L09 Assertion Pillars`,
-   `L10 Hero Evidence`, `L11 Bento Brief`, or `L12 Decision Ladder`.
-9. State the design style and layout style before generating. If the user did not express a visual
+7. Choose one layout system:
+   - for architecture, mechanism, matrix, pipeline, timeline, and formal structure maps, choose from
+     `method/layout-styles.md`; read that file only for this path;
+   - for article配图, concept visuals, thinking notes, executive one-pagers, public-facing review
+     visuals, or requests that should feel "magazine-like" or less generic, choose from
+     `method/editorial-layouts.md`, such as `E01 Monochrome Big Number`,
+     `E02 Reading Room Overlap`, `E03 Swiss Statement Grid`, `E04 Editorial Sidebar`,
+     `E05 Poster Ledger`, `E06 Reading Room Index`, `E07 Strategic Quadrant`,
+     `E08 Editorial Timeline`, `E09 Roadmap Terrace`, `E10 Decision Scoreboard`,
+     `E11 Ecosystem Orbit`, or `E12 Pyramid Stack`; read that file only for this path.
+   Treat editorial layouts as adaptable references. Do not copy them mechanically when the source
+   needs different proportions, but do not remove the layout's defining composition device.
+8. Run `agentdraw guide styles --json` and choose one design style by audience, density, tone, and
+   the recommended styles for the chosen layout.
+9. State the layout system and design style before generating. If the user did not express a visual
    preference and the choice is not obvious, run `agentdraw gallery --open --format json` and ask
    which visual direction they prefer. In headless mode, run `agentdraw gallery --no-open --format json`
    and return the generated URL or path.
 10. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the guide and treat the contract as hard design constraints.
-11. Write a short layout plan using the template in `method/drawing-method.md`.
+11. Write a short layout plan using the template in `method/drawing-method.md`. If using an
+    editorial layout, include the required `Editorial layout`, `Design style`, and
+    `Composition device` lines from `method/editorial-layouts.md`.
 12. Create the source:
    - Mermaid provider: create `.agentdraw/diagram.mmd`;
    - SVG provider: create `.agentdraw/board.svg`.
@@ -260,10 +297,15 @@ Before delivering:
 - The board has a clear title and reading path.
 - The provider matches the type direction: Mermaid for structured diagram grammar, SVG for custom
   explanatory visuals.
-- The SVG layout style is one of the locked layout styles from `method/layout-styles.md`, or the
-  notes explain why a custom layout was necessary.
+- The SVG layout style is one of the locked layout styles from `method/layout-styles.md` or one of
+  the editorial layouts from `method/editorial-layouts.md`; the notes state why that layout fits the
+  source.
 - For explanatory visuals, the board has one memorable core message. It should not read like a
   generic collection of cards.
+- For article images, concept visuals, and slide-like review visuals, prefer an editorial layout
+  when a normal card grid would look generic. The board should have one visible composition device:
+  giant number, asymmetric sidebar, poster ledger, field-guide index, statement grid, quadrant,
+  timeline rail, roadmap terrace, scoreboard, orbit, or pyramid.
 - Major sections are grouped into visible regions.
 - In columns, lanes, and comparison panels, inner cards should use the available width deliberately. Avoid tiny centered cards floating inside a large column; target roughly 70-85% of the lane width unless the design intentionally needs small chips.
 - Align repeated cards to a shared x, width, and rhythm. Uneven card widths inside the same lane usually read as weak layout unless they encode data.
@@ -311,11 +353,14 @@ agentdraw open .agentdraw/board.agentdraw.json --background --no-open --format j
 - Convert Mermaid with `agentdraw import-mermaid` or SVG with `agentdraw import-svg`; do not hand-write `.agentdraw.json` as the primary generation path.
 - Decide provider first: Mermaid for Mermaid-supported structured diagram types; SVG for explanatory
   visuals, architecture, structure, and slide-like single visuals.
-- Choose design style and layout style separately.
-- Read `method/provider-routing.md`, `method/layout-styles.md`, and `method/quality-levels.md`
-  before generating important boards.
+- Choose layout system and design style separately, but respect recommended style bindings in
+  `method/editorial-layouts.md`.
+- Read `method/provider-routing.md` and `method/quality-levels.md` before generating important
+  boards. Then read either `method/layout-styles.md` or `method/editorial-layouts.md`, depending on
+  the selected layout system.
 - Do not turn every SVG source into a card wall. Choose a contrast split, mechanism, loop, stack,
-  map, matrix, timeline, or assertion layout.
+  map, matrix, timeline, assertion layout, or editorial layout. If the result feels generic, switch
+  to `method/editorial-layouts.md` before changing colors.
 - Do not route into hand-drawn education/sketch-note boards as a default capability.
 - Do not use a design style as a palette swap; load its guide and contract before generating.
 - Do not silently default to the same style every time. Do not choose `system-formal` just because examples or previous runs used it. State the selected style and reason; if unsure, show the theme gallery and ask.

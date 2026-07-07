@@ -38,6 +38,13 @@ Built-in cases:
 - `technical-article`: SVG-first technical article / engineering explainer
 - `ppt`: SVG-first slide-like single visual
 - `self-media`: SVG-first public article illustration
+- `editorial`: SVG-first magazine-like article visual; should use an editorial layout and one clear
+  composition device
+- `longform-editorial`: SVG-first long-form synthesis board; should avoid dense tables and generic
+  card walls
+- `swot`: SVG-first strategic quadrant board; should use meaningful axes and a highlighted move
+- `timeline`: SVG-first editorial timeline; should emphasize one inflection point instead of plain
+  milestone cards
 - `architecture`: SVG-first system architecture board
 - `all`: every case above
 
@@ -45,10 +52,11 @@ Each generated prompt asks the agent to read:
 
 - `skills/agentdraw/method/provider-routing.md`
 - `skills/agentdraw/method/layout-styles.md`
+- `skills/agentdraw/method/editorial-layouts.md`
 - `skills/agentdraw/method/quality-levels.md`
 
 The output notes should state the provider decision, selected playbook, selected design style,
-locked layout style, and P0/P1 fixes.
+locked layout system, editorial composition device when used, and P0/P1 fixes.
 
 Each run writes a self-contained folder under `.agentdraw/evals/<run-name>/`:
 

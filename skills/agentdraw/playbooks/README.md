@@ -6,8 +6,9 @@ AgentDraw has two reliable directions:
 - structured diagrams, routed to Mermaid;
 - explanatory visuals, routed to restricted SVG.
 
-Choose provider first, then design style, then a locked layout style from
-`../method/layout-styles.md`.
+Choose provider first, then layout system, then design style. Formal structures use
+`../method/layout-styles.md`; article/review/concept visuals that should feel more memorable use
+`../method/editorial-layouts.md`.
 
 ## Available Playbooks
 
@@ -36,6 +37,8 @@ For important boards, read these before generating:
 - `../method/provider-routing.md`: Mermaid vs SVG decision rules.
 - `../method/layout-styles.md`: reusable layout styles such as contrast split, layered stack,
   hero evidence, bento brief, and decision ladder.
+- `../method/editorial-layouts.md`: magazine-like article, review, and concept visual recipes such
+  as big-number editorials, statement grids, sidebars, poster ledgers, and reading-room indexes.
 - `../method/quality-levels.md`: P0/P1/P2/P3 gates and self-report format.
 
 ## Provider Bias
