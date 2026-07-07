@@ -38,7 +38,7 @@ Title 32-38px, row heading 18-22px, body 15-17px. Use medium-weight labels and c
 
 Use long horizontal rows, ruled sections, narrow badges, and table-like card stacks. Corners can be 0-6px. Use rust rules instead of heavy boxes.
 
-## Layout
+## Layout Affinity
 
 Best as a long table, timeline, checklist, or side-by-side comparison. Align columns carefully and keep row height consistent.
 

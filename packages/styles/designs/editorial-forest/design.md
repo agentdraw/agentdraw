@@ -34,7 +34,7 @@ Title 36-44px, section heading 21-26px, body 16-18px. Use polished, concise writ
 
 Use forest header panels, cream cards, rose annotation marks, and quiet dividers. Mostly square corners.
 
-## Layout
+## Layout Affinity
 
 Good for thesis-plus-evidence layouts, research maps, and executive one-pagers. Use rose only as punctuation.
 

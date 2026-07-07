@@ -1,188 +1,60 @@
 # Playbook: Article Visual
 
-Use this for SVG-based article, document, technical note, review brief, newsletter, blog post,
-explainer, and concept visuals. The goal is not to document every detail; the goal is to make the
-source's core idea memorable in one editable visual.
+Use this for article, document, technical note, review brief, newsletter, blog post, concept, and
+argument visuals. The output is usually restricted SVG.
 
-## Communication Job
+## Content Job
 
-Help a reader quickly grasp the article's core insight, remember the structure, and discuss the idea
-in review or sharing contexts.
-
-Use Mermaid instead when the source is asking for a standard flowchart, sequence diagram, class
-diagram, state diagram, ER diagram, journey, or timeline. Use this playbook when the source needs a
-designed explanatory composition.
-
-If the source is a thinking piece, strategy note, concept explanation, or product/agent analysis,
-do not turn it into Mermaid just because the document has sections, numbered ideas, or an implied
-logical order. Extract the claim, tension, mechanism, and takeaway, then design an SVG visual.
-
-## Information Model
+Make one editable visual that helps a reader understand and remember the source's core idea.
 
 Extract:
 
-- One headline insight: what should the reader remember after 5 seconds?
-- The article's tension: old model vs new model, problem vs solution, hidden mechanism, or tradeoff.
-- 2-4 supporting ideas that prove or explain the insight.
-- A locked layout system. Prefer `../method/editorial-layouts.md` when the output should be
-  public-facing, memorable, magazine-like, or more designed than a normal diagram. Use
-  `../method/layout-styles.md` when the source needs a formal structure map.
-- A memorable metaphor only if the source naturally supports it.
-- One takeaway or implication.
+- one headline insight, phrased as a claim;
+- the main tension, shift, mechanism, or tradeoff;
+- 2-4 supporting ideas;
+- one takeaway or implication;
+- the minimum context needed to make the visual self-contained.
 
-Do not include every section from the article. A strong visual image is selective.
+Omit:
 
-## Editorial Layout First
+- section-by-section summaries;
+- every bullet from the source;
+- decorative ideas that do not clarify the claim;
+- generic "Step 1 / Step 2" labels when reader-facing labels are possible.
 
-For article images, document配图, public explainers, review visuals, and thinking notes, start by
-testing whether one editorial layout fits before falling back to formal layout styles:
+## Provider
 
-- `E01 Monochrome Big Number`: 3-stage explanation, serious training note, refined argument.
-- `E02 Reading Room Overlap`: calm conceptual argument, tension/thesis/implication.
-- `E03 Swiss Statement Grid`: crisp old-vs-new claim, executive principle, strategic assertion.
-- `E04 Editorial Sidebar`: article hero with one large claim and 3 supporting notes.
-- `E05 Poster Ledger`: punchy migration, launch, contrast, or public social/article graphic.
-- `E06 Reading Room Index`: long document with 5-6 memorable anchors.
-- `E07 Strategic Quadrant`: SWOT, 2x2 analysis, positioning, tradeoff maps.
-- `E08 Editorial Timeline`: evolution, migration phases, incident narrative.
-- `E09 Roadmap Terrace`: phased plan, maturity ladder, rollout strategy.
-- `E10 Decision Scoreboard`: option comparison, prioritization, buy/build/partner.
-- `E11 Ecosystem Orbit`: stakeholder, platform, product ecosystem, force maps.
-- `E12 Pyramid Stack`: hierarchy, dependency, maturity, foundation-to-outcome model.
+Use SVG unless the user explicitly asks for a Mermaid-supported formal diagram. A conceptual article
+with numbered sections is still an article visual, not automatically a flowchart.
 
-If the draft starts to look like equal cards in a row, stop and choose one of these editorial
-layouts. Do not try to solve generic composition by changing only the palette.
+## Layout
 
-## Layout Recipes
+Default to `../method/editorial-layouts.md`. The board should be good-looking, magazine-like,
+designed, focused, and clear even when the user does not request those qualities.
 
-### Contrast Split
+Good starting layouts:
 
-```text
-Left: old / weak / painful state
-Center: key shift, mechanism, or bridge
-Right: new / strong / desired state
-Bottom: why the shift matters
-```
+- `E03 Swiss Statement Grid`: sharp claim plus proof grid.
+- `E04 Editorial Sidebar`: one large claim with supporting notes.
+- `E05 Poster Ledger`: punchy public/article visual.
+- `E06 Reading Room Index`: long document with several memorable anchors.
+- `E08 Editorial Timeline`: evolution, migration, or incident narrative.
+- `E11 Ecosystem Orbit`: stakeholder or force-map article.
 
-Use when the article argues that readers should change how they think.
+Use `../method/layout-styles.md` only when the article truly needs a formal mechanism map, matrix,
+pipeline, or architecture-like structure.
 
-### Center Mechanism
+## Style
 
-```text
-Top: sharp article claim
-Center: one mechanism, loop, or engine
-Around it: 3-4 causes, effects, controls, or failure modes
-Bottom: practical takeaway
-```
-
-Use when the article explains why something happens.
-
-### Before / After
-
-```text
-Left: old mental model
-Center: shift / mechanism
-Right: new mental model
-Bottom: why it matters
-```
-
-### Loop Or Flywheel
-
-```text
-Stage 1 -> Stage 2 -> Stage 3 -> Stage 4 -> back to Stage 1
-Center: what compounds or breaks the loop
-Side: one warning or leverage point
-```
-
-Use when the article describes a quality loop, operating cycle, growth loop, or feedback system.
-
-### Map Or Stack
-
-```text
-Top: headline claim
-Main: landscape zones, layers, or responsibility bands
-Side: reader orientation notes
-Bottom: takeaway / next action
-```
-
-## Recommended Styles
-
-- `soft-editorial`: polished long-form article visuals.
-- `editorial-forest`: thoughtful analysis and knowledge work.
-- `riso-brut`: energetic public explainers.
-- `bold-poster`: strong social graphic with a clear claim.
-- `cut-bloom`: friendly product/agent articles.
-- `archive-shelf`: research synthesis and reading-room tone.
-
-## Example Plan
-
-```text
-Scene: article-visual
-Provider: SVG because this is an explanatory article image, not a Mermaid grammar diagram
-Audience: technical newsletter readers
-Reader question: Why do agent diagrams still look weak?
-Main message: Output quality depends on expression strategy, not just visual style.
-Layout style: L01 Contrast Split because the source argues weak theme-only output versus stronger
-playbook-led output.
-Editorial layout: E03 Swiss Statement Grid because the article's core idea is a sharp contrast
-between theme-only output and playbook-led output.
-Composition device: statement grid with a dominant left claim and four right-side proof cells.
-Reading path: headline -> contrast -> 3-part loop -> takeaway
-Regions:
-- Header: "Style is not strategy"
-- Left panel: weak approach, "theme-only"
-- Right panel: strong approach, "playbook + style + validation"
-- Middle bridge: arrow labeled "expression strategy"
-- Bottom: three reusable practices
-Connectors: one central contrast arrow, no dense network
-Style: soft-editorial because the board supports an article argument
-Risks: avoid making it look like a technical architecture diagram
-```
-
-## Mini SVG Skeleton
-
-```svg
-<svg width="1280" height="760" viewBox="0 0 1280 760" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1280" height="760" fill="#FFFDF8"/>
-  <text x="80" y="104" font-family="Inter, Arial" font-size="44" font-weight="750" fill="#1F2937">Style is not strategy</text>
-  <text x="82" y="145" font-family="Inter, Arial" font-size="19" fill="#5B6472">Better diagrams start with expression patterns, then visual design.</text>
-  <rect x="80" y="210" width="500" height="300" rx="12" fill="#F5F1E8" stroke="#1F2937" stroke-width="2"/>
-  <text x="120" y="270" font-family="Inter, Arial" font-size="28" font-weight="700" fill="#1F2937">Theme-only output</text>
-  <text x="120" y="324" font-family="Inter, Arial" font-size="18" fill="#5B6472">Same boxes, new colors</text>
-  <text x="120" y="360" font-family="Inter, Arial" font-size="18" fill="#5B6472">No reading path</text>
-  <text x="120" y="396" font-family="Inter, Arial" font-size="18" fill="#5B6472">Weak alignment discipline</text>
-  <rect x="700" y="210" width="500" height="300" rx="12" fill="#EAF2FF" stroke="#1F2937" stroke-width="2"/>
-  <text x="740" y="270" font-family="Inter, Arial" font-size="28" font-weight="700" fill="#1F2937">Playbook-led output</text>
-  <text x="740" y="324" font-family="Inter, Arial" font-size="18" fill="#5B6472">Scene structure first</text>
-  <text x="740" y="360" font-family="Inter, Arial" font-size="18" fill="#5B6472">Style supports intent</text>
-  <text x="740" y="396" font-family="Inter, Arial" font-size="18" fill="#5B6472">Validation closes the loop</text>
-  <rect x="80" y="588" width="1120" height="76" rx="10" fill="#1F2937"/>
-  <text x="640" y="626" text-anchor="middle" dominant-baseline="middle" font-family="Inter, Arial" font-size="22" font-weight="700" fill="#FFFFFF">Choose the scene playbook before choosing the style.</text>
-</svg>
-```
-
-## Anti-Patterns
-
-- Trying to include every paragraph from the source.
-- Starting with a style or theme before extracting the article's core message.
-- Making a three-card row by default.
-- Dense tables unless the article is explicitly data-heavy.
-- Decorative icons that do not carry meaning.
-- Vague labels such as "Step 1" and "Step 2" instead of reader-facing ideas.
-- A generic architecture layout for an opinion or explanatory article.
-- A slide-like executive layout unless the user explicitly asked for a slide.
-- A Mermaid-style flowchart for a conceptual or argumentative document.
-- A palette-swapped card wall when an editorial layout would make the article's point more
-  memorable.
+Choose style after layout. Recommended styles include `soft-editorial`, `editorial-forest`,
+`riso-brut`, `bold-poster`, `cut-bloom`, and `archive-shelf`. If the user names another style, keep
+it, but still use a strong layout.
 
 ## Quality Checklist
 
-- The board has one sharp headline or central claim.
-- It has one clear layout style.
-- It contains 2-4 supporting ideas, not 12.
-- It is legible as a thumbnail.
-- The visual metaphor or contrast supports the article argument.
-- The board uses either a clearly justified formal layout or one explicit editorial layout from
-  `editorial-layouts.md`.
-- The takeaway is visible without reading every card.
-- A reader can explain why this visual belongs to this article specifically.
+- The headline says something, not just names the topic.
+- The visual has one focal point before the reader reads details.
+- Supporting ideas are selective and visibly subordinate.
+- The takeaway is visible.
+- The board would still make sense as an article image or review-room visual.
+- It does not collapse into a palette-swapped card wall.

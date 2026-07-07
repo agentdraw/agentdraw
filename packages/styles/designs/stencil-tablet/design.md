@@ -34,7 +34,7 @@ Title 38-50px, stencil labels 20-28px, body 16-18px. Short labels work best.
 
 Use poster slabs, stencil-like labels, hard shadows, offset cards, and saturated route markers. Corners mostly square.
 
-## Layout
+## Layout Affinity
 
 Best for expressive 4-step flows, campaign maps, and creative pipelines. Assign each accent to a role.
 

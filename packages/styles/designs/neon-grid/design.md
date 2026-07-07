@@ -49,7 +49,7 @@ technical boards where high contrast is appropriate.
 - **Alert chip:** magenta small label for anomaly or human approval.
 - **Telemetry strip:** bottom row of small metrics.
 
-## Layout
+## Layout Affinity
 
 - Use strict grid and circuit-like routes.
 - Major gaps 28-42px. Keep enough negative dark space.

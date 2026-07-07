@@ -53,7 +53,7 @@ Keep type scale disciplined: 3 sizes per board is ideal, 4 maximum.
 - **Callout block:** deep note fill with white text, used once for the conclusion or selected answer.
 - **Outer frame:** single 1.5-2px rectangular frame, radius 0-2px.
 
-## Layout
+## Layout Affinity
 
 - Use a strict 12px or 16px grid.
 - Prefer columns, rows, matrices, and stepped sequences.

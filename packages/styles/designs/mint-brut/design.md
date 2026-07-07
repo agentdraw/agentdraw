@@ -44,7 +44,7 @@ Use this style for product roadmaps, creator tools, early-stage plans, and optim
 - `roadmap-connector`: black arrow, slightly diagonal when it reinforces motion.
 - `base-strip`: rounded summary strip at the bottom.
 
-## Layout
+## Layout Affinity
 
 Stagger cards vertically. Shadows can be colored and visible. Keep all text centered inside its card and give two-line labels generous height.
 

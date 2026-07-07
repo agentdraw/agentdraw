@@ -34,7 +34,7 @@ Title 34-40px, section 18-22px, body 15-17px. Short labels, strong hierarchy.
 
 Use rounded cards, berry sidebars, periwinkle lanes, small pill tags, and clean connectors.
 
-## Layout
+## Layout Affinity
 
 Best for audience journeys, content maps, and activation funnels. Alternate berry emphasis with periwinkle support.
 

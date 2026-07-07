@@ -34,7 +34,7 @@ Title 40-54px, specimen labels 24-32px, body 16-18px. Use large labels, short su
 
 Use type blocks, numbered specimens, thick rules, green category cards, and yellow emphasis tags.
 
-## Layout
+## Layout Affinity
 
 Best for taxonomies, comparisons, and concept breakdowns. Let one huge label anchor each region.
 

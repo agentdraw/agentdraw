@@ -1,7 +1,13 @@
 # AgentDraw Drawing Method
 
-Use this method before choosing a visual style. A design style controls how the board looks; a
-playbook controls how the information is organized.
+Use this method before choosing a visual style. Keep the layers separate:
+
+- a playbook controls content strategy: what to say, what to omit, and what the reader should
+  remember;
+- a layout system controls composition: reading path, focal point, proportion, grouping, and
+  alignment;
+- a design style controls visual language: palette, typography, stroke, geometry, components, and
+  signature motifs.
 
 AgentDraw's reliable scope has two directions:
 
@@ -215,7 +221,8 @@ Ask these questions after exporting a PNG:
 - Are connectors attached to shape edges and free of label collisions?
 - Is any card floating in a huge container with excessive empty space?
 - Does any text touch the top edge or overflow its container?
-- Does the selected style affect layout, typography, geometry, and connectors, not only colors?
+- Is the selected design style visibly applied to the chosen layout through typography, geometry,
+  components, connector treatment, and signature motifs, not only colors?
 - If this is an article/review/concept visual, did it use an editorial layout or another clearly
   justified non-generic composition?
 - Would a user want to manually edit this, or is it a static poster pretending to be a board?

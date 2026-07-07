@@ -65,7 +65,7 @@ For Chinese incident boards, keep body text at least 15px and avoid cramming ful
 - **Action item:** numbered card with green or amber marker, aligned in a vertical list.
 - **Outer frame:** optional single dark frame. Avoid double borders.
 
-## Layout
+## Layout Affinity
 
 - Use a dashboard-report composition: title, tabs, verdict, evidence cards, then action steps.
 - 2-column evidence grids work well; keep columns equal width.

@@ -34,7 +34,7 @@ Title 38-48px, panel title 22-28px, body 16-18px. Use command-like labels.
 
 Use large panel blocks, dark dividers, lavender focus cards, and high-contrast status chips. Strokes 3-4px.
 
-## Layout
+## Layout Affinity
 
 Works as a dashboard grid, campaign board, or action matrix. Use yellow as the field and white/lavender as readable surfaces.
 

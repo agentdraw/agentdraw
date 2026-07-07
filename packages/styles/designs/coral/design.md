@@ -43,7 +43,7 @@ Use this style for customer journeys, onboarding maps, activation funnels, and e
 - `signal-dot`: coral circle aligned to the journey path.
 - `summary-panel`: dark strip with light text for the main insight.
 
-## Layout
+## Layout Affinity
 
 Alternate cards above and below the band. Keep the path readable and route arrows between card edges, not through body text.
 

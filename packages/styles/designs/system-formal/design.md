@@ -120,9 +120,12 @@ frames, lanes, tables, section headers, matched card sizes, and restrained conne
 - `module-row`: repeated cards with identical width and height, used for agents, services, skills,
   layers, or responsibilities.
 
-## Layout
+## Layout Affinity
 
-Good structures:
+This section describes which layout systems System Formal supports well. Choose the layout from
+`method/layout-styles.md` or `method/editorial-layouts.md` first, then apply these visual rules.
+
+Good layout families:
 
 - left-to-right pipeline;
 - layered architecture;
@@ -132,17 +135,7 @@ Good structures:
 
 Use an 8px spacing grid. Keep at least 32px between major regions and at least 16px between a connector and nearby text.
 
-Strong System Formal compositions:
-
-- **Architecture frame**: one outer system boundary, 2-4 internal lanes, modules inside each lane,
-  and elbow connectors only between lane edges.
-- **Pipeline**: 4-7 equal cards in one row, one accent rail or header band, side notes below.
-- **Layered map**: stacked full-width horizontal layers with short labels, not scattered boxes.
-- **Comparison**: two or three matched columns with identical row heights and a footer decision bar.
-- **Operating model**: central service/module with four surrounding capability groups; connectors
-  attach to card edges, not card centers.
-
-Rules that matter:
+Style application rules:
 
 - Repeated modules in the same group must share x/y rhythm and dimensions.
 - If a lane is wide, inner modules should use the available width deliberately. Avoid tiny centered

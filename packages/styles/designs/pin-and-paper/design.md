@@ -34,7 +34,7 @@ Title 34-42px, card title 20-24px, note text 15-17px. Labels may be casual but m
 
 Use paper cards, small blue pin badges, yellow highlighter strips, and simple arrow routes. Rounded corners 4-10px.
 
-## Layout
+## Layout Affinity
 
 Works for kanban-like flows, note clusters, and review boards. Use yellow to highlight decisions, not every note.
 

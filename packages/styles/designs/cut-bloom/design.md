@@ -34,7 +34,7 @@ Title 34-42px, section 19-23px, body 15-17px. Prefer balanced labels and moderat
 
 Use overlapping-but-clear panels, small color tabs, rounded content cards, and soft callouts. Hard shadows are optional and subtle.
 
-## Layout
+## Layout Affinity
 
 Works for layered maps, discovery boards, and narrative flows. Use one color per content role.
 

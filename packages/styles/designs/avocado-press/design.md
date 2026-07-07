@@ -39,7 +39,7 @@ Title 32-38px, card titles 20-24px, body labels 15-17px. Use sentence case. Keep
 
 Use rounded cards with 6-10px radius, thin blue borders, lime tags, and clean straight connectors. A good component is a white card with a small lime header tab.
 
-## Layout
+## Layout Affinity
 
 Works well as a 3-5 step pipeline, feature map, or onboarding flow. Leave at least 28px between cards and 18px internal padding.
 

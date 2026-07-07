@@ -4,9 +4,11 @@ Use these layouts when the user wants an article image, document visual, review 
 one-pager, or slide-like explanatory board and the result should feel more designed than a normal
 diagram.
 
-Use this file whenever the user asks for something "good-looking", "designed", "magazine-like",
-"presentation-ready", "重点突出", "有设计感", "像杂志", or "好看的配图". These requests are
-layout-quality requirements, not merely theme requests.
+This is the default quality bar for explanatory whiteboards, even when the user does not ask for it
+explicitly: make the board good-looking, magazine-like, designed, focused, and clear about the
+important message. User phrases such as "good-looking", "designed", "magazine-like",
+"presentation-ready", "重点突出", "有设计感", "像杂志", or "好看的配图" are stronger signals to use this
+file, but the same standard still applies by default.
 
 These layouts are still editable whiteboards. They use only `rect`, `circle`, `line`, `polyline`,
 and `text`. The goal is controlled visual drama: memorable composition without losing alignment,
@@ -18,7 +20,8 @@ mechanically.
 
 ## When To Use
 
-Prefer an editorial layout when the task contains words like:
+Prefer an editorial layout for most explanatory/document visuals, especially when the task contains
+words like:
 
 - 配图, article image, blog visual, newsletter image
 - 观点, 思考, concept visual, argument map

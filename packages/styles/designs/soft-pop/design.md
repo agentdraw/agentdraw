@@ -49,7 +49,7 @@ explainers that should feel optimistic without becoming childish.
 - **Journey lane:** soft gray horizontal band behind cards.
 - **Decision footer:** wide white panel with one clear recommendation.
 
-## Layout
+## Layout Affinity
 
 - Use friendly but aligned composition: lanes, cards, and chips.
 - Major gaps 24-36px. Inner padding 18-24px.

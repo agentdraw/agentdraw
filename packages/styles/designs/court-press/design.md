@@ -34,7 +34,7 @@ Title 36-46px, play label 18-22px, body 15-17px. Use active verbs.
 
 Use court lanes, route arrows, numbered plays, score strips, and compact cards. Rounded corners 4-8px.
 
-## Layout
+## Layout Affinity
 
 Works as a tactical map or play sequence. Route arrows can be energetic but must not cross labels.
 

@@ -34,7 +34,7 @@ Title 34-42px, card title 20-24px, body 15-17px. Use warm, direct labels.
 
 Use rounded cards, arc-like sequences approximated with stepped rectangles or circular markers, apricot header strips, and pink secondary panels.
 
-## Layout
+## Layout Affinity
 
 Good for circular loops, lifecycle maps, and 3-5 stage flows. Keep warm accents large but sparse.
 

@@ -34,7 +34,7 @@ Title 40-52px, section labels 20-26px, body 16-18px. Large type is the decoratio
 
 Use poster blocks, red banners, numbered badges, and thick dividers. Corners mostly square. Strokes 2-4px.
 
-## Layout
+## Layout Affinity
 
 Works best with one large headline panel and 3-4 supporting blocks. Use red once as the loud element.
 

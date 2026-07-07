@@ -34,7 +34,7 @@ Title 34-42px, section 20-24px, body 15-17px. Editorial but not precious.
 
 Use magazine panels, soft callouts, rose pull quotes, lime decision markers, and gentle dividers. Corners 8-12px.
 
-## Layout
+## Layout Affinity
 
 Best for synthesis, journey maps, and priority boards. Use one large editorial panel plus smaller supporting cards.
 

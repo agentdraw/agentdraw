@@ -107,20 +107,20 @@ labels, numbers, and short line stacks.
 - Use arrows sparingly. Raw Grid usually looks stronger with a single axis, dependency strip, or
   table relationship than with many crossing connectors.
 
-## Layout
+## Layout Affinity
 
-Work in a logical SVG around 1500-1700px wide. Snap x/y/width/height to a 4px or 8px grid.
+This section describes how Raw Grid should be applied to a chosen layout system. Choose the layout
+from `method/layout-styles.md` or `method/editorial-layouts.md` first; Raw Grid then supplies the
+hard grid, black structure, header bars, and dense editorial tone.
 
-Strong Raw Grid compositions:
+Raw Grid works well with:
 
-- **Report board**: title block, thick black divider, 2-column or 3-column section grid, bottom
-  summary strip.
-- **Phase roadmap**: 2 x 3 phase cards, each with a black header band; add a dependency strip below.
-- **Tier list**: 3 equal columns with header bars and repeated full-width rows.
-- **Comparison board**: left/right panels with matched row heights and one pale contrast fill.
-- **System memo**: top axis band, central modules, bottom risk/decision table.
+- report-style layouts with section grids and a bottom summary strip;
+- roadmap, timeline, and phase layouts with visible structure;
+- tier lists, comparison boards, and decision matrices;
+- system memo layouts where black bars and tables clarify hierarchy.
 
-Rules that matter:
+Style application rules:
 
 - Repeated cards in the same row should share the same y, height, and width.
 - Repeated cards in the same column should share the same x and width.

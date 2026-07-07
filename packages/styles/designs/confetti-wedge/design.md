@@ -34,7 +34,7 @@ Title 34-42px, card title 20-24px, body 15-17px. Keep labels bright but readable
 
 Use rounded cards, small color wedges approximated with rectangles/diamonds, colored dot counters, and airy connectors.
 
-## Layout
+## Layout Affinity
 
 Best for journey maps, milestone boards, and lightweight pipelines. Scatter accents around content groups, not behind text.
 

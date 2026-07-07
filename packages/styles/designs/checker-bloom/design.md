@@ -34,7 +34,7 @@ Title 34-42px, card title 20-24px, note text 15-17px. Friendly wording works wel
 
 Use alternating tiles, soft rounded cards, green check blocks, blue emphasis labels, and light roughness.
 
-## Layout
+## Layout Affinity
 
 Good for matrices, workshop boards, and grouped idea maps. Checker rhythm should organize content, not become background noise.
 

@@ -39,7 +39,7 @@ Title 32-40px, section labels 17-20px, card body 15-17px. Use calm sentence case
 
 Prefer border-light cards, jade side rails, lens-like circular counters, and quiet table rows. Corners 8-12px are acceptable; strokes stay 1-2px.
 
-## Layout
+## Layout Affinity
 
 Use radial maps, service blueprints, or soft comparison matrices. Keep generous margins and avoid filling the canvas edge-to-edge.
 

@@ -71,6 +71,11 @@ After the provider decision, choose two separate visual layers:
 - Design style: how the board should look and feel. Editorial layouts recommend compatible styles;
   choose from those recommendations unless the user gave a clear preference.
 
+These layers do not conflict. The layout system decides composition, reading path, region
+proportions, and information priority. The selected `design.md` decides visual language: palette,
+type, stroke, component treatment, and style signature. Apply the design style to the chosen layout;
+do not let a style document replace the layout decision.
+
 Editorial layouts are reference composition systems, not rigid templates. You may adapt
 proportions, region sizes, emphasis, and content density to fit the source, but preserve the
 layout's core composition device, reading path, alignment discipline, and quality rules.
@@ -174,8 +179,8 @@ agentdraw doctor --json
    - for architecture, mechanism, matrix, pipeline, timeline, and formal structure maps, choose from
      `method/layout-styles.md`; read that file only for this path;
    - for article配图, concept visuals, thinking notes, executive one-pagers, public-facing review
-     visuals, or requests that should feel "magazine-like" or less generic, choose from
-     `method/editorial-layouts.md`, such as `E01 Monochrome Big Number`,
+     visuals, and most explanatory/document visuals where the goal is reader understanding, choose
+     from `method/editorial-layouts.md`, such as `E01 Monochrome Big Number`,
      `E02 Reading Room Overlap`, `E03 Swiss Statement Grid`, `E04 Editorial Sidebar`,
      `E05 Poster Ledger`, `E06 Reading Room Index`, `E07 Strategic Quadrant`,
      `E08 Editorial Timeline`, `E09 Roadmap Terrace`, `E10 Decision Scoreboard`,
@@ -322,7 +327,8 @@ Before delivering:
 - Snap important SVG coordinates and dimensions to a consistent 4/8/16px rhythm. Random pixel drift makes generated boards look unprofessional even when content is correct.
 - Architecture, layered system, and workflow boards have one outer frame, titled system boundary, or enclosing region unless the selected design guide says to keep the canvas open.
 - The agent states why it selected the theme. If the user has no clear preference, the agent offers `agentdraw gallery` before committing to a style.
-- The selected style changes layout, typography, spacing, components, connector treatment, and geometry, not only colors.
+- The selected design style is visibly applied to the chosen layout through typography, spacing,
+  components, connector treatment, geometry, and signature motifs, not only colors.
 - Text hierarchy comes from title/heading/body sizes, weight, contrast, and spacing.
 - For Chinese or multilingual boards, use body text around 16-18px, card headings around 20-24px, and titles around 34-44px unless the selected design guide says otherwise.
 - Colors are constrained by the selected contract. Avoid ad hoc success green, warning orange, and danger red in restrained themes.

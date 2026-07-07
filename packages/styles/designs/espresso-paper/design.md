@@ -53,7 +53,7 @@ Use sentence case. Avoid oversized novelty type and handwritten fonts.
 - **Comparison table:** low-contrast rows with rule lines, not heavy boxes.
 - **Outer frame:** one rectangular frame, radius 2-6px. Avoid double frames.
 
-## Layout
+## Layout Affinity
 
 - Best composition is a calm one-pager: masthead, 2-3 content columns, bottom decision band.
 - Major gaps: 28-44px. Inner padding: 18-24px.

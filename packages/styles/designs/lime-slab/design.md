@@ -34,7 +34,7 @@ Title 38-48px, card title 21-26px, body 16-18px. Use clear product language.
 
 Use slab panels, thick black borders, rectangular status chips, and strong straight arrows. Corners 0-4px.
 
-## Layout
+## Layout Affinity
 
 Best for dashboards, system maps, and 4-6 block operating models. Let lime be the canvas; avoid filling every card with lime.
 

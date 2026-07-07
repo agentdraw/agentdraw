@@ -39,7 +39,7 @@ Title 34-42px, block title 20-24px, body 15-17px. Use short poetic labels, not p
 
 Use floating panels, blue rules, circular lenses, and sparse accent blocks. Rounded rectangles 8-12px are fine. Keep connectors thin and graceful.
 
-## Layout
+## Layout Affinity
 
 Works well as a loose concept map, three-part explanation, or calm journey. Leave large breathing room between clusters.
 

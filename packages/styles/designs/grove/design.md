@@ -54,16 +54,25 @@ Green is the main voice. Coral is rare: use it for a short rule, number, or smal
 - `quiet-table`: low-contrast body rows, green header, large row padding.
 - `connector`: thin green connector, preferably straight or elbow, never crossing headings.
 
-## Layout
+## Layout Affinity
 
-Good structures:
+This section describes where Grove tends to work well after a layout system has already been
+chosen. Grove should not replace the layout decision; it adds a calm editorial voice, warm paper
+surfaces, restrained green hierarchy, and one terracotta emphasis.
 
-- strategy map with a large thesis panel;
-- research synthesis wall;
-- operating cadence timeline;
-- decision matrix.
+Grove works well with:
 
-Use wide margins. Keep density moderate and let the parchment show through.
+- strategy maps with a large thesis panel;
+- research synthesis walls;
+- operating cadence timelines;
+- decision matrices.
+
+Style application rules:
+
+- Use wide margins and let the parchment show through.
+- Keep density moderate; Grove should feel composed, not packed.
+- Preserve the chosen layout's alignment system while softening it with paper-like panels and quiet
+  separators.
 
 ## Avoid
 

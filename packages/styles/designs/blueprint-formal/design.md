@@ -48,7 +48,7 @@ Use this style for technical maps where the relationships matter more than decor
 - `projection-card`: secondary module aligned to a backbone station. It must share the same center x as the related top module or rail tap.
 - `constraint-strip`: full-width white rule panel near the bottom, aligned to the rail width and frame gutters.
 
-## Layout
+## Layout Affinity
 
 Blueprint Formal should read like an engineering drawing: exact stations, repeated dimensions, and visible alignment. Use a central bus or rail only when all related modules snap to it.
 

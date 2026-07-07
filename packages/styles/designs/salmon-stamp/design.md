@@ -39,7 +39,7 @@ Title 32-40px, stamp labels 15-18px, body 15-17px. Short uppercase labels can wo
 
 Use stamp-like badges, bordered cards, small green verification marks, and simple flow arrows. Rounded corners 6-10px. Light roughness is acceptable.
 
-## Layout
+## Layout Affinity
 
 Good for four-step guides, onboarding notes, and small system explainers. Use salmon as a background mark, green as the action or success mark.
 

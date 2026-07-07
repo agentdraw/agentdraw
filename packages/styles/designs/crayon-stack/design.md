@@ -34,7 +34,7 @@ Title 38-48px, block title 22-28px, body 16-18px. Use simple words and strong la
 
 Use stacked cards, large colored labels, hard offset shadows, and thick black outlines. Light roughness is allowed.
 
-## Layout
+## Layout Affinity
 
 Best for 3-part explanations, teaching boards, and playful process maps. Use one primary color per stage.
 

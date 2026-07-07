@@ -63,7 +63,7 @@ Chinese text should be at least 16px in body cards. Avoid tiny footnote walls.
 - **Callout:** white or pale blue panel with a 4-6px blue left rule. Use amber/red variants only for warnings.
 - **Code chip:** small inline rounded rectangle, dark text on pale warm fill.
 
-## Layout
+## Layout Affinity
 
 - Prefer a document-like composition: left rail plus right content panels.
 - Keep top header outside cards: eyebrow, title, subtitle.

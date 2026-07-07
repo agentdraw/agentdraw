@@ -34,7 +34,7 @@ Title 38-48px, hero label 26-34px, body 16-18px. Keep the number of labels low.
 
 Use one large cobalt feature block, white cards, thick connectors, and strong section dividers. Corners 0-8px.
 
-## Layout
+## Layout Affinity
 
 Works as a central thesis with satellites or a low-density 3-step flow. Leave large margins.
 

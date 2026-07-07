@@ -34,7 +34,7 @@ Title 38-50px, card titles 22-28px, body 16-18px. Short punchy text only.
 
 Use thick black borders, sticker-like cards, hard colored shadows, large badges, and framed regions. Rounded corners 8-14px.
 
-## Layout
+## Layout Affinity
 
 Best for 3-5 chunky blocks with visible overlap. Make overlap intentional and keep text clear.
 

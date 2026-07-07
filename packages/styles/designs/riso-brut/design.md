@@ -56,16 +56,25 @@ Use two or three accents per board. Do not use every bright color in every compo
 - `connector`: thick straight connector, preferably horizontal, routed outside text boxes.
 - `callout`: one large accent panel with a hard shadow; use sparingly.
 
-## Layout
+## Layout Affinity
 
-Good structures:
+This section describes where Riso Brut tends to work well after a layout system has already been
+chosen. Riso Brut should not replace the layout decision; it adds heavy ink, hard shadows, saturated
+blocks, and a bold editorial attitude to the selected composition.
+
+Riso Brut works well with:
 
 - strong left-to-right stages;
-- poster-like quadrant map;
-- chunky table with loud header;
-- central thesis with surrounding proof blocks.
+- poster-like quadrant maps;
+- chunky tables with loud headers;
+- central thesis layouts with surrounding proof blocks.
 
-Leave more whitespace than the colors imply: at least 40px between major blocks and 24px between cards.
+Style application rules:
+
+- Leave more whitespace than the colors imply: at least 40px between major blocks and 24px between
+  cards.
+- Keep same-rank blocks equal in size even when the style uses intentionally loud color.
+- Use offset shadows as a style signature, not as a substitute for alignment or content hierarchy.
 
 ## Avoid
 

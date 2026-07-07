@@ -48,7 +48,7 @@ should feel like a precise printed manual.
 - **Rule table:** thick header row, thin internal rules.
 - **Warning stamp:** muted rust accent, used once.
 
-## Layout
+## Layout Affinity
 
 - Prefer numbered rows or left-to-right procedure lanes.
 - Use strong alignment and consistent card dimensions.

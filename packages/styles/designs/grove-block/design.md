@@ -34,7 +34,7 @@ Title 36-46px, block title 22-28px, body 16-18px. Use strong but clean phrasing.
 
 Use flat green hero panels, white cards, pink/yellow small tags, and thick clean dividers. Corners 0-8px.
 
-## Layout
+## Layout Affinity
 
 Works as a hero thesis plus supporting map, or a blocky roadmap. Green should carry the primary story.
 

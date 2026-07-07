@@ -49,7 +49,7 @@ that should feel clean, modern, and easy to scan.
 - **Decision strip:** low-contrast full-width band for the conclusion.
 - **Grouped region:** dashed or light bordered region, never heavy black.
 
-## Layout
+## Layout Affinity
 
 - Use product-doc rhythm: title, short subtitle, 2-3 columns, then decision strip.
 - Align repeated cards to a strict 12px grid.

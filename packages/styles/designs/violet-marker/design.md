@@ -44,7 +44,7 @@ Use this style for research synthesis, interview clustering, brainstorm cleanup,
 - `synthesis-arrow`: bold black arrow between clusters.
 - `decision-strip`: final takeaway in a lime rounded panel.
 
-## Layout
+## Layout Affinity
 
 Use three clusters left to right: raw notes, themes, insights. Stagger notes inside the cluster, but keep them fully inside the frame.
 

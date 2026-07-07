@@ -226,7 +226,8 @@ export function getDesignContract(styleOrId: AgentDrawStyle | string): DesignCon
     },
     agentRules: [
       "Use the design contract as a constraint, not inspiration.",
-      "The selected style must change layout, typography, geometry, components, and connector treatment.",
+      "Design style and layout system are separate decisions. Choose the layout from AgentDraw layout methods, then apply this style as the visual language.",
+      "The selected style must influence palette, typography, geometry, components, connector treatment, and style signature, but it must not replace the selected layout system.",
       "Use only contract palette colors unless the user explicitly asks for a custom brand color.",
       "Do not introduce generic success green, warning orange, or random semantic colors unless they are part of the selected palette.",
       "Use the contract font family; default AgentDraw themes use sans text for multilingual readability.",

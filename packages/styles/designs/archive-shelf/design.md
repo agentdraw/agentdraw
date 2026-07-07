@@ -55,7 +55,7 @@ Chinese text should use the same sans stack and stay at least 16px in exported P
 - **Margin note:** narrow ivory card aligned to the outer edge, connected with a plain line rather than an arrow.
 - **Outer frame:** one thin rectangular frame only, radius 0-4px. Do not add a second decorative border.
 
-## Layout
+## Layout Affinity
 
 - Prefer two or three vertical shelves with consistent column widths.
 - Align card tops and shelf rails on a 12px grid.

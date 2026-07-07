@@ -34,7 +34,7 @@ Title 40-54px, block title 24-30px, body 16-18px. Let scale create drama.
 
 Use large cobalt feature panels, white quote cards, oversized numerals, and limited borders. Corners 0-8px.
 
-## Layout
+## Layout Affinity
 
 Best as a feature block plus supporting cards, or a 2x2 editorial grid. Keep density low.
 

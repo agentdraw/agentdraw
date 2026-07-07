@@ -34,7 +34,7 @@ Title 38-50px, grid header 18-24px, body 15-17px. Use compact labels and strong 
 
 Use strict grid cells, black frames, lime highlights, oversized row numbers, and straight connectors. Corners 0.
 
-## Layout
+## Layout Affinity
 
 Best for matrices, system maps, and feature prioritization. Keep all edges aligned.
 

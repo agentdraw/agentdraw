@@ -48,11 +48,14 @@ Use this style when the audience needs to scan priority, ownership, status, and 
 - `timeline`: one compact horizontal row with timestamps.
 - `route`: elbow or straight connector, accent stroke, no crossing status text.
 
-## Layout
+## Layout Affinity
 
-Put the most urgent status block on the left. Put decision cards in a 2x2 grid to the right. Use a bottom timeline for temporal context.
+This section describes how Boardroom applies to an already chosen layout system. It is not a
+replacement for `method/layout-styles.md` or `method/editorial-layouts.md`.
 
-For document visuals and executive summaries, prefer one of these Boardroom compositions:
+Boardroom works best when the chosen layout has a decisive focal region, clear evidence/support
+regions, and a final action or decision surface. For document visuals and executive summaries,
+prefer applying Boardroom to these layout systems:
 
 - `E03 Swiss Statement Grid`: large dark/ink statement or decision block plus compact proof grid.
 - `E07 Strategic Quadrant`: four equal analysis quadrants plus a dark recommendation strip.
@@ -61,7 +64,10 @@ For document visuals and executive summaries, prefer one of these Boardroom comp
 
 Avoid using Boardroom as a light-blue palette on ordinary rows. Boardroom needs a visible contrast move: dark command panel, dark decision strip, or dominant statement block.
 
-For comparison panels and lanes, repeated inner cards should share the same x-position, width, and vertical rhythm. Avoid small centered cards floating in a wide lane; use about 70-85% of the lane width so the structure feels intentional and scan-friendly.
+When the chosen layout contains comparison panels or lanes, apply Boardroom with matched card
+widths, consistent rhythm, and deliberate use of available space. Avoid small centered cards
+floating in a wide lane; use about 70-85% of the lane width unless the layout intentionally uses
+small chips.
 
 ## Avoid
 

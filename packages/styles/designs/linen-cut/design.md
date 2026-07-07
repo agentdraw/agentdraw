@@ -34,7 +34,7 @@ Title 34-42px, section 19-24px, body 15-17px. Use composed, spare language.
 
 Use cut-paper rectangles, color-block headers, small circular counters, and clean tables. Corners 0-8px.
 
-## Layout
+## Layout Affinity
 
 Good for layered architecture, roadmaps, and comparisons. Keep blue and green in separate roles.
 

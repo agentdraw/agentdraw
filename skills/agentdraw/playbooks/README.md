@@ -1,51 +1,47 @@
 # AgentDraw Scene Playbooks
 
-Scene playbooks describe how to organize information. Design styles describe how the board looks.
-AgentDraw has two reliable directions:
+Playbooks describe **content strategy and scene routing**. They do not define visual style.
 
-- structured diagrams, routed to Mermaid;
-- explanatory visuals, routed to restricted SVG.
+Keep the responsibilities separate:
 
-Choose provider first, then layout system, then design style. Formal structures use
-`../method/layout-styles.md`; article/review/concept visuals that should feel more memorable use
-`../method/editorial-layouts.md`.
+- **Content**: what the board must say, what to omit, what the reader should remember.
+- **Provider**: Mermaid for standard grammar diagrams; restricted SVG for editable explanatory visuals.
+- **Layout**: composition, reading path, focal point, proportion, and hierarchy.
+- **Design style**: palette, typography, stroke, mood, and theme constraints.
+
+For explanatory/document/article/review visuals, a polished magazine-like composition is the default
+quality bar even if the user does not ask for it. Do not wait for words such as "好看", "有设计感",
+or "像杂志".
 
 ## Available Playbooks
 
-- `technical-flowchart.md`: Mermaid-first structured processes, flows, decisions, and retry loops.
-- `article-visual.md`: SVG-first article, document, review, and idea visuals.
-- `layered-architecture.md`: SVG-first architecture, structure, and responsibility maps.
-- `ppt-visual.md`: SVG-first slide-like single-page visuals.
+- `technical-flowchart.md`: process logic, decisions, branches, loops. Usually Mermaid.
+- `article-visual.md`: article, document, review, newsletter, concept, and argument visuals. Usually SVG.
+- `layered-architecture.md`: systems, layers, responsibilities, boundaries, and capability maps. Usually SVG.
+- `ppt-visual.md`: one-page presentation, executive summary, strategy page, or board-update visual. Usually SVG.
 
-## Routing Rules
+## Routing
 
-- If the user asks for a flowchart, sequence diagram, class diagram, state diagram, ER diagram,
-  journey, or timeline, use Mermaid and the closest structured playbook.
-- If the user asks for a good image for an article, document, technical note, or review brief, use
-  SVG and `article-visual.md`.
-- If the user asks for architecture, structure, layers, capability map, or system explanation, use
-  SVG and `layered-architecture.md` unless Mermaid clearly fits better.
-- If the user asks for a slide-like single visual, use SVG and `ppt-visual.md`.
-
-If two playbooks fit, choose the one that best matches the provider decision. Do not route into
-freehand education/sketch-note work; that is outside the current reliable scope.
+1. If the source is a formal flowchart, sequence diagram, class diagram, state diagram, ER diagram,
+   journey, or other Mermaid-supported grammar, choose Mermaid.
+2. If the source is an article, document, review brief, concept explanation, architecture explainer,
+   or presentation-style visual, choose restricted SVG.
+3. If the source has sections or numbered ideas but is really conceptual or argumentative, do not
+   route to Mermaid just because it has an order. Extract the claim and design an explanatory SVG.
 
 ## Required Method Files
 
-For important boards, read these before generating:
+Read only what is needed:
 
-- `../method/provider-routing.md`: Mermaid vs SVG decision rules.
-- `../method/layout-styles.md`: reusable layout styles such as contrast split, layered stack,
-  hero evidence, bento brief, and decision ladder.
-- `../method/editorial-layouts.md`: magazine-like article, review, and concept visual recipes such
-  as big-number editorials, statement grids, sidebars, poster ledgers, and reading-room indexes.
-- `../method/quality-levels.md`: P0/P1/P2/P3 gates and self-report format.
+- `../method/provider-routing.md`: provider decision.
+- `../method/editorial-layouts.md`: default for explanatory/document/article/review visuals.
+- `../method/layout-styles.md`: formal structures, architecture maps, mechanisms, matrices, and pipelines.
+- `../method/quality-levels.md`: validation and self-review gates.
 
-## Provider Bias
+## Non-Negotiables
 
-- Prefer restricted SVG for article visuals, architecture explainers, mechanism maps, and custom
-  editable layouts.
-- Prefer Mermaid for standard flowcharts, sequence diagrams, or state diagrams.
-- Avoid HTML/page design unless the user explicitly says the output does not need to be editable as
-  a drawing.
-- Avoid hand-drawn teaching/sketch-note scenarios for now.
+- Always choose both a layout system and a design style.
+- A theme is not a layout. `boardroom` does not mean "make ordinary cards blue".
+- Explanatory boards must have one obvious focal point and one clear takeaway.
+- Avoid generic equal-card walls unless the content is genuinely a peer comparison.
+- Use fewer, stronger elements rather than copying every paragraph.
