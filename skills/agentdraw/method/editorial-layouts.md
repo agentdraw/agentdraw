@@ -4,6 +4,10 @@ Use these layouts when the user wants an article image, document visual, review 
 one-pager, or slide-like explanatory board and the result should feel more designed than a normal
 diagram.
 
+Use this file whenever the user asks for something "good-looking", "designed", "magazine-like",
+"presentation-ready", "重点突出", "有设计感", "像杂志", or "好看的配图". These requests are
+layout-quality requirements, not merely theme requests.
+
 These layouts are still editable whiteboards. They use only `rect`, `circle`, `line`, `polyline`,
 and `text`. The goal is controlled visual drama: memorable composition without losing alignment,
 text containment, or editability.
@@ -25,6 +29,11 @@ Do not use these layouts for formal flowcharts, sequence diagrams, class diagram
 branch-heavy processes. Those belong to Mermaid.
 
 ## Design Principle
+
+Style and layout are separate. A style controls palette, type, stroke, and mood; a layout controls
+reading path, focal point, proportion, and information priority. Never treat a named style as enough
+design work. Even a `boardroom`, `system-formal`, or `raw-grid` visual should still have a clear
+magazine-like composition when the task is explanatory or article-facing.
 
 Do not make a wall of equal cards. Choose one memorable composition device:
 

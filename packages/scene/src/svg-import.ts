@@ -200,13 +200,25 @@ const walkChildren = (nodes: XmlNode[], context: WalkContext) => {
 };
 
 const rectElement = (attrs: XmlNode, context: WalkContext) => {
-  const x = num(attrs.x) + context.transform.x;
+  let x = num(attrs.x) + context.transform.x;
   const y = num(attrs.y) + context.transform.y;
-  const width = num(attrs.width);
+  let width = num(attrs.width);
   const height = num(attrs.height);
   const rx = Math.max(num(attrs.rx), num(attrs.ry));
+  const fill = normalizeFill(context.style.fill);
+  const explicitStroke = hasExplicitStroke(attrs);
+  const fullCanvasBackground =
+    !explicitStroke && rx === 0 && x === 0 && y === 0 && width >= 1000 && height >= 500 && fill !== "transparent";
+  const fillOnlyFlatRect = !explicitStroke && rx === 0 && fill !== "transparent";
+  if (!fullCanvasBackground && fillOnlyFlatRect) {
+    const inset = Math.max(1, context.style.strokeWidth ?? 2);
+    x += inset;
+    width = Math.max(1, width - inset * 2);
+  }
   return baseElement("rectangle", x, y, width, height, context.style, {
     ...customDataFromAttrs(attrs),
+    ...(fullCanvasBackground ? { strokeColor: fill, strokeWidth: 0 } : {}),
+    ...(!fullCanvasBackground && fillOnlyFlatRect ? { strokeColor: fill } : {}),
     roundness: rx > 0 ? { type: 3 } : null,
   });
 };
@@ -722,11 +734,12 @@ const directText = (node: XmlNode): string => {
 
 const styleFrom = (attrs: XmlNode, parent: Style): Style => {
   const inline = parseStyle(attrs.style);
+  const strokeWidth = inline["stroke-width"] ?? attrs["stroke-width"];
   return {
     ...parent,
     fill: colorValue(inline.fill) ?? colorValue(attrs.fill) ?? parent.fill,
     stroke: colorValue(inline.stroke) ?? colorValue(attrs.stroke) ?? parent.stroke,
-    strokeWidth: num(inline["stroke-width"] ?? attrs["stroke-width"], parent.strokeWidth),
+    strokeWidth: strokeWidth === undefined ? parent.strokeWidth : num(strokeWidth, parent.strokeWidth),
     opacity: num(inline.opacity ?? attrs.opacity, parent.opacity ?? 1),
     fontSize: num(inline["font-size"] ?? attrs["font-size"], parent.fontSize),
     fontWeight: stringValue(inline["font-weight"] ?? attrs["font-weight"]) ?? parent.fontWeight,
@@ -749,6 +762,11 @@ const parseStyle = (style: unknown): Record<string, string> => {
         return [key.trim(), rest.join(":").trim()];
       }),
   );
+};
+
+const hasExplicitStroke = (attrs: XmlNode) => {
+  const inline = parseStyle(attrs.style);
+  return Boolean(colorValue(inline.stroke) ?? colorValue(attrs.stroke));
 };
 
 const parseTranslate = (value: unknown): Transform => {
@@ -836,7 +854,7 @@ const normalizeFill = (value: string | undefined) =>
 
 const colorValue = (value: unknown) => {
   if (typeof value !== "string") return undefined;
-  if (!value || value === "currentColor") return undefined;
+  if (!value || value === "none" || value === "currentColor") return undefined;
   return value;
 };
 

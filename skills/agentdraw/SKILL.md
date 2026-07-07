@@ -159,6 +159,10 @@ agentdraw doctor --json
 1. Run `agentdraw guide` for the current workflow.
 2. Read `method/drawing-method.md`.
 3. Read `method/provider-routing.md` and `method/quality-levels.md`.
+   For explanatory visuals, document配图, article images, review visuals, and slide-like boards,
+   optimize for a polished magazine-like composition: clear visual hierarchy, one obvious focal
+   point, strong whitespace, and an information structure that highlights the user's key message.
+   A named theme such as `boardroom` is a visual language, not a replacement for layout design.
 4. Decide the type direction:
    - structured diagram: explicit Mermaid-supported flow/sequence/class/state/ER/timeline/journey diagrams;
    - explanatory visual: article image, concept/argument visual, architecture/structure explanation, mechanism map, review visual, or slide-like page.
@@ -180,6 +184,9 @@ agentdraw doctor --json
    needs different proportions, but do not remove the layout's defining composition device.
 8. Run `agentdraw guide styles --json` and choose one design style by audience, density, tone, and
    the recommended styles for the chosen layout.
+   Style and layout are separate decisions. Even when the user names a style, still choose a strong
+   layout system and make the board feel intentional, designed, and focused rather than like a
+   generic card wall.
    If choosing `boardroom`, the board must include a visible dark command panel, dominant statement
    block, or decision strip. A light-only blue card grid is not enough to satisfy the style.
 9. State the layout system and design style before generating. If the user did not express a visual
