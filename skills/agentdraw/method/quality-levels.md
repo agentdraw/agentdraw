@@ -23,8 +23,13 @@ Fix before showing the result:
 Fix before delivery unless the user explicitly accepts:
 
 - layout style does not match the source's communication job;
+- design read or board dials are missing for an important board;
 - no clear title, main message, or reading path;
 - SVG explanatory visual becomes a generic card wall;
+- board shows a common AgentDraw AI tell: theme-as-palette-swap, tiny floating cards, random
+  alignment drift, connector clutter, or text-as-afterthought;
+- multi-board set has unrelated styles, title scales, margins, or typography without a stated
+  scene/audience reason;
 - same-rank cards or lanes have visibly inconsistent dimensions;
 - too much whitespace inside large panels while inner cards are tiny;
 - architecture diagram lacks a clear boundary or layer structure;
@@ -68,5 +73,9 @@ Quality levels:
 2. Read the title and main message: is the point obvious?
 3. Check provider fit: Mermaid for structured grammar, SVG for custom explanation.
 4. Check layout style: does it match the source?
-5. Check text fit, overlaps, and connector endpoints.
-6. Check style contract drift: colors, typography, geometry, and spacing.
+5. Check design read and board dials: does the preview match the intended audience, density,
+   composition variance, and editability strictness?
+6. Check AI tells: generic card wall, palette-swap theme, tiny floating cards, random drift,
+   connector clutter, text-as-afterthought, or unrelated styles across a set.
+7. Check text fit, overlaps, and connector endpoints.
+8. Check style contract drift: colors, typography, geometry, and spacing.

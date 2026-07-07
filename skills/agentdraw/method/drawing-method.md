@@ -26,20 +26,49 @@ hand-drawn education board generator.
 
 ## Decision Order
 
-1. Identify the type direction: structured diagram or explanatory visual.
-2. Choose the provider: Mermaid or SVG.
-3. Select one scene playbook.
-4. Select one layout system:
+1. Write the design read: what the board is for, who reads it, and what visual language fits.
+2. Set the board dials: composition variance, information density, and editability strictness.
+3. Identify the type direction: structured diagram or explanatory visual.
+4. Choose the provider: Mermaid or SVG.
+5. Select one scene playbook.
+6. Select one layout system:
    - formal explanatory structures use `layout-styles.md`;
    - article/review/concept visuals that should feel memorable use `editorial-layouts.md`.
-5. Select one design style that fits the audience, tone, and recommended styles for the selected
+7. Select one design style that fits the audience, tone, and recommended styles for the selected
    layout.
-6. Plan the layout before writing Mermaid or SVG.
-7. Generate Mermaid or restricted SVG.
-8. Convert, repair, validate, export, inspect, and revise.
+8. Plan the layout before writing Mermaid or SVG.
+9. Generate Mermaid or restricted SVG.
+10. Convert, repair, validate, export, inspect, and revise.
 
 Never skip from prompt directly to a style. If the provider or layout style is wrong, a beautiful
 theme will still produce a weak board.
+
+## Design Read And Dials
+
+Before choosing layout or style, state one concise design read. This is not a long explanation; it
+is a guard against defaulting to the same generic board every time.
+
+```text
+Reading this as: <scene intent> for <audience>, with <tone>, using <provider direction> because <reason>.
+```
+
+Examples:
+
+- `Reading this as: article visual for broad technical readers, with an editorial explanation tone, using SVG because the source needs hierarchy and emphasis rather than strict diagram grammar.`
+- `Reading this as: flowchart for product reviewers, with a formal process tone, using Mermaid because branches and retry paths are the main content.`
+- `Reading this as: data whiteboard for engineers, with a workshop explanation tone, using SVG because the board needs readable lineage lanes and annotations.`
+
+Then set three board dials. These are decision aids, not user-facing settings:
+
+| Dial | Low | High | Use |
+| --- | --- | --- | --- |
+| `COMPOSITION_VARIANCE` | quiet grid, strict alignment | editorial asymmetry, overlap, strong focal device | Raise for article/review visuals; lower for flowcharts and regulated technical diagrams. |
+| `INFORMATION_DENSITY` | one idea, large type, sparse labels | many regions, compact labels, reference-like | Raise for knowledge maps and architecture; lower for shareable article images. |
+| `EDITABILITY_STRICTNESS` | expressive composition | regular shapes, sparse connectors, easy manual editing | Keep high when the user will edit the board; lower only when visual impact matters more. |
+
+Default to `COMPOSITION_VARIANCE 6`, `INFORMATION_DENSITY 5`, `EDITABILITY_STRICTNESS 8`.
+Adjust them based on the source and state the adjustment in the layout plan. Do not randomize these
+values; choose them because the task demands it.
 
 For multi-board deliverables, decide the visual series before planning individual boards. The set
 should feel like one article package, review pack, or whiteboard collection:
@@ -157,6 +186,8 @@ of similar cards, switch to an editorial layout before changing colors.
 Before writing SVG, write a short plan:
 
 ```text
+Design read: <one sentence>
+Board dials: COMPOSITION_VARIANCE <1-10>, INFORMATION_DENSITY <1-10>, EDITABILITY_STRICTNESS <1-10>
 Scene: <playbook id>
 Provider: <Mermaid / SVG> because <reason>
 Audience: <engineers / executives / learners / broad readers>
@@ -212,6 +243,29 @@ Style exceptions: <none, or board-specific exception with reason>
 - When producing multiple boards for one user request, maintain series continuity. Vary the
   composition device when needed, but keep the visual language coherent.
 
+## AgentDraw AI Tells
+
+These are common model defaults that make a board feel generic or unfinished. If any appears in the
+preview, revise the source instead of only changing colors:
+
+- A generic card wall: many same-size rectangles with no dominant idea or composition device.
+- Theme as palette swap: the selected style is visible only in colors, not typography, geometry,
+  connector treatment, or signature motifs.
+- Repeated default style: every task silently uses `system-formal` or `boardroom` without a reason.
+- Weak series continuity: multiple boards in one request use unrelated themes, title scales, or
+  margins.
+- Tiny floating cards: inner content occupies a small island inside a large panel.
+- Random drift: equal-rank objects have different widths, x positions, y positions, or spacing for
+  no semantic reason.
+- Over-connector clutter: arrows cross labels, run through sections, or describe secondary details
+  the layout could imply.
+- Text-as-afterthought: labels touch borders, sit too high in shapes, or are too small to read at a
+  normal preview scale.
+- Decorative noise: icons, emoji, badges, and accent colors appear without helping the reader
+  understand the source.
+- Missing whole-board frame or boundary for architecture/review visuals where an enclosing context
+  would make the result feel complete.
+
 ## Mermaid Layout Heuristics
 
 - Use `flowchart TD` for most professional process diagrams; use `LR` only when horizontal scanning
@@ -242,6 +296,7 @@ Ask these questions after exporting a PNG:
 - Does the board reveal the source's insight, not merely list its sections?
 - Does the board still look organized when zoomed out?
 - If this is one board in a set, does it visibly belong to the same series as the other boards?
+- Does it avoid the AgentDraw AI tells above?
 - Are same-rank objects aligned and similarly sized?
 - Are connectors attached to shape edges and free of label collisions?
 - Is any card floating in a huge container with excessive empty space?
