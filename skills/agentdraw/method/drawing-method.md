@@ -41,6 +41,15 @@ hand-drawn education board generator.
 Never skip from prompt directly to a style. If the provider or layout style is wrong, a beautiful
 theme will still produce a weak board.
 
+For multi-board deliverables, decide the visual series before planning individual boards. The set
+should feel like one article package, review pack, or whiteboard collection:
+
+- keep one primary design style unless the user asks for style exploration;
+- reuse the same type family, title scale, outer margins, stroke width, and palette family;
+- vary layout systems to fit the content job of each board;
+- only switch to a different style when the scene type or audience truly changes, and keep shared
+  tokens so the set does not feel random.
+
 ## Provider Selection
 
 See `provider-routing.md` for the full routing rules and ambiguous cases.
@@ -165,6 +174,19 @@ Style: <style id> because <reason>
 Risks: <likely layout failure to avoid>
 ```
 
+For two or more boards, add a series plan before the per-board plans:
+
+```text
+Series: <article package / review pack / architecture set / data whiteboard set>
+Shared design direction: <primary style id> because <audience and tone>
+Shared tokens: <font family, title scale, palette family, stroke width, radius, margins>
+Allowed variation: <layout systems may vary by board; theme stays fixed or closely related>
+Boards:
+- <board 1>: <provider>, <layout>, <message>
+- <board 2>: <provider>, <layout>, <message>
+Style exceptions: <none, or board-specific exception with reason>
+```
+
 ## Universal Composition Rules
 
 - Match provider to diagram type before styling.
@@ -187,6 +209,8 @@ Risks: <likely layout failure to avoid>
   thumbnail size: giant number, asymmetric sidebar, poster ledger, reading-room index, field-guide
   modules, Swiss statement grid, quadrant, timeline rail, roadmap terrace, scoreboard, orbit,
   or pyramid.
+- When producing multiple boards for one user request, maintain series continuity. Vary the
+  composition device when needed, but keep the visual language coherent.
 
 ## Mermaid Layout Heuristics
 
@@ -217,6 +241,7 @@ Ask these questions after exporting a PNG:
 - Is Mermaid used for grammar-heavy structured diagrams and SVG used for custom explanatory visuals?
 - Does the board reveal the source's insight, not merely list its sections?
 - Does the board still look organized when zoomed out?
+- If this is one board in a set, does it visibly belong to the same series as the other boards?
 - Are same-rank objects aligned and similarly sized?
 - Are connectors attached to shape edges and free of label collisions?
 - Is any card floating in a huge container with excessive empty space?

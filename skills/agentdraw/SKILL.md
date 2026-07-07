@@ -80,6 +80,14 @@ Editorial layouts are reference composition systems, not rigid templates. You ma
 proportions, region sizes, emphasis, and content density to fit the source, but preserve the
 layout's core composition device, reading path, alignment discipline, and quality rules.
 
+For multi-board tasks, treat the output as one visual series unless the user explicitly asks for
+unrelated experiments. Choose a shared series direction first: audience, tone, primary design style,
+font direction, palette family, stroke/geometry treatment, and spacing rhythm. Individual boards may
+use different layout systems because their content jobs differ, but the design style should usually
+stay the same or use closely related styles. Do not make one board `boardroom`, the next `crayon`,
+and the next `infra-dark` in the same deliverable unless those scenes target clearly different
+contexts and you state the reason.
+
 Always choose in this order:
 
 ```text
@@ -233,6 +241,10 @@ agentdraw doctor --json
    frame, dashed lanes or boundaries, pastel hatch fills, readable hand-drawn typography, and short
    labels. The imported board should use Excalidraw's hand font (`fontFamily: 5`) so CJK text can
    fall back to Xiaolai; do not manually force old Virgil-style `fontFamily: 1` in generated JSON.
+   For a multi-board set, select a primary style once and reuse it across the set. If a specific
+   board needs a different style because its scene type is genuinely different, keep shared tokens
+   where possible: same typography family, related palette, similar stroke width, similar border
+   radius, and the same outer-margin rhythm. State the exception explicitly before generating.
 9. State the layout system and design style before generating. If the user did not express a visual
    preference and the choice is not obvious, run `agentdraw gallery --open --format json` and ask
    which visual direction they prefer. In headless mode, run `agentdraw gallery --no-open --format json`
@@ -263,6 +275,8 @@ agentdraw import-svg .agentdraw/board.svg --out .agentdraw/board.agentdraw.json 
     Use this for article image sets, review packs, before/after pairs, 2x2 board groups, or any
     deliverable where the user wants to browse several visuals on one canvas. Do not force unrelated
     boards into one scene when separate files are easier to review.
+    Keep the combined scene visually coherent: shared style, title scale, margins, connector weight,
+    and density. Vary layouts to fit content, not themes for novelty.
 
 ```bash
 agentdraw combine .agentdraw/board-1.agentdraw.json .agentdraw/board-2.agentdraw.json .agentdraw/board-3.agentdraw.json .agentdraw/board-4.agentdraw.json --columns 2 --gap 160 --title "<title>" --out .agentdraw/combined.agentdraw.json --format json
@@ -377,6 +391,9 @@ Before delivering:
 - Snap important SVG coordinates and dimensions to a consistent 4/8/16px rhythm. Random pixel drift makes generated boards look unprofessional even when content is correct.
 - Architecture, layered system, and workflow boards have one outer frame, titled system boundary, or enclosing region unless the selected design guide says to keep the canvas open.
 - The agent states why it selected the theme. If the user has no clear preference, the agent offers `agentdraw gallery` before committing to a style.
+- For multi-board deliverables, the set has one coherent visual direction. Layouts may vary by
+  scene type, but typography, palette family, stroke/geometry, title scale, and margin rhythm should
+  feel like one series.
 - The selected design style is visibly applied to the chosen layout through typography, spacing,
   components, connector treatment, geometry, and signature motifs, not only colors.
 - Text hierarchy comes from title/heading/body sizes, weight, contrast, and spacing.
