@@ -1,0 +1,57 @@
+# AgentDraw Design Styles
+
+These are local, agent-readable design guides bundled with the AgentDraw skill.
+
+Use these documents after choosing the provider and layout system. A design style controls palette, typography, stroke, geometry, component treatment, and mood. It does not replace the layout decision.
+
+Prefer `agentdraw guide styles --json` and `agentdraw guide style <style-id> --format text` when the CLI is available, because those commands expose the same style system together with machine-readable contracts. Use these local files when working offline or when direct file reading is easier.
+
+## Styles
+
+- [apricot-arc](./apricot-arc/design.md)
+- [archive-shelf](./archive-shelf/design.md)
+- [avocado-press](./avocado-press/design.md)
+- [berry-pop](./berry-pop/design.md)
+- [block-frame](./block-frame/design.md)
+- [blueprint-formal](./blueprint-formal/design.md)
+- [boardroom](./boardroom/design.md)
+- [bold-poster](./bold-poster/design.md)
+- [burst-panel](./burst-panel/design.md)
+- [chalk-lesson](./chalk-lesson/design.md)
+- [checker-bloom](./checker-bloom/design.md)
+- [cobalt-bloom](./cobalt-bloom/design.md)
+- [confetti-wedge](./confetti-wedge/design.md)
+- [coral](./coral/design.md)
+- [court-press](./court-press/design.md)
+- [crayon-stack](./crayon-stack/design.md)
+- [cut-bloom](./cut-bloom/design.md)
+- [editorial-forest](./editorial-forest/design.md)
+- [espresso-paper](./espresso-paper/design.md)
+- [grove](./grove/design.md)
+- [grove-block](./grove-block/design.md)
+- [hatch-whiteboard](./hatch-whiteboard/design.md)
+- [incident-dark](./incident-dark/design.md)
+- [infra-dark](./infra-dark/design.md)
+- [inkline](./inkline/design.md)
+- [jade-lens](./jade-lens/design.md)
+- [lime-slab](./lime-slab/design.md)
+- [linen-cut](./linen-cut/design.md)
+- [long-table](./long-table/design.md)
+- [manual-cream](./manual-cream/design.md)
+- [mint-brut](./mint-brut/design.md)
+- [neo-grid-bold](./neo-grid-bold/design.md)
+- [neon-grid](./neon-grid/design.md)
+- [papier-bleu](./papier-bleu/design.md)
+- [pin-and-paper](./pin-and-paper/design.md)
+- [raw-grid](./raw-grid/design.md)
+- [riptide-cobalt](./riptide-cobalt/design.md)
+- [riso-brut](./riso-brut/design.md)
+- [runtime-doc](./runtime-doc/design.md)
+- [salmon-stamp](./salmon-stamp/design.md)
+- [slate-notes](./slate-notes/design.md)
+- [soft-editorial](./soft-editorial/design.md)
+- [soft-pop](./soft-pop/design.md)
+- [specimen-bold](./specimen-bold/design.md)
+- [stencil-tablet](./stencil-tablet/design.md)
+- [system-formal](./system-formal/design.md)
+- [violet-marker](./violet-marker/design.md)

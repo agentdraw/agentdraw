@@ -104,6 +104,14 @@ Fast layout routing:
 Use progressive loading. Do not load every design document up front. First read only the routing
 and quality files, then load the one playbook and one layout system that match the task.
 
+Local reference indexes:
+
+- `layouts/README.md`: layout-system index. Read this when you need to choose or explain a layout
+  family.
+- `designs/README.md`: bundled design-style index. Read this when you need local `design.md`
+  files. Prefer CLI `agentdraw guide style <style-id> --format text` when available, but use
+  `designs/<style-id>/design.md` when working directly from skill files.
+
 Always read these method files:
 
 - `method/drawing-method.md`: overall workflow.
@@ -208,6 +216,8 @@ agentdraw doctor --json
    needs different proportions, but do not remove the layout's defining composition device.
 8. Run `agentdraw guide styles --json` and choose one design style by audience, density, tone, and
    the recommended styles for the chosen layout.
+   If the CLI is unavailable, read `designs/README.md`, then load only the selected
+   `designs/<style-id>/design.md`.
    Style and layout are separate decisions. Even when the user names a style, still choose a strong
    layout system and make the board feel intentional, designed, and focused rather than like a
    generic card wall.
@@ -227,7 +237,7 @@ agentdraw doctor --json
    preference and the choice is not obvious, run `agentdraw gallery --open --format json` and ask
    which visual direction they prefer. In headless mode, run `agentdraw gallery --no-open --format json`
    and return the generated URL or path.
-10. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the guide and treat the contract as hard design constraints.
+10. Run `agentdraw guide style <style-id> --format text` and `agentdraw guide contract <style-id> --json`. Follow the guide and treat the contract as hard design constraints. If CLI guide commands are unavailable, read `designs/<style-id>/design.md` from the skill directory and follow it as the style guide.
 11. Write a short layout plan using the template in `method/drawing-method.md`. If using an
     editorial layout, include the required `Editorial layout`, `Design style`, and
     `Composition device` lines from `method/editorial-layouts.md`.

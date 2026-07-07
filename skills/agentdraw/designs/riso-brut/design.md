@@ -1,0 +1,84 @@
+---
+version: 1.0
+name: Riso Brut
+provider: agentdraw
+description: >
+  A neo-brutalist editorial system with warm cream canvas, heavy ink borders,
+  hard offset shadows, saturated color blocks, and bold explanatory structure.
+---
+
+# Riso Brut
+
+Use this style for high-energy explanatory boards: launch plans, growth loops, bold strategy maps, and opinionated process diagrams.
+
+## Palette
+
+- `cream`: `#EFE9D9` for the canvas.
+- `panel`: `#FFF8E8` for cards and readable body surfaces.
+- `ink`: `#1E1B16` for borders, body text, and default shadows.
+- `green`: `#1F8A4C` as the dominant accent.
+- `pink`: `#F06CA8` as a high-energy secondary accent.
+- `orange`: `#E85A1F` for featured shadows, numbers, or emphasis.
+
+Use two or three accents per board. Do not use every bright color in every component.
+
+## Typography
+
+- Font family: in source SVG use `Inter, Arial, Noto Sans SC, sans-serif` or the closest available system sans. Keep text as real `<text>`/`<tspan>` and avoid handwritten fonts unless the user explicitly asks for them.
+
+- Title: 36-48px, bold, compact.
+- Stage label: 16-20px, bold, uppercase only when the label is short.
+- Card title: 24-30px, bold.
+- Body label: 16-18px.
+- Keep text short and punchy. Wrap rather than shrinking below 16px.
+
+## Geometry
+
+- Corners are square: radius 0.
+- Structural stroke: 3-4px ink.
+- Cards can intentionally collide visually through color, but text and connectors must remain clear.
+- Hard shadows are duplicate rectangles offset by 10-12px behind the real shape.
+- Avoid blur, gradients, opacity, or soft shadows.
+
+## SVG Source Rules
+
+- Generate this style as restricted SVG first, then convert with `agentdraw import-svg`.
+- Use only `svg`, `g`, `rect`, `circle`, `ellipse`, `line`, `polyline`, `polygon`, `text`, `tspan`, `defs`, and `marker` for editable boards.
+- Use `text-anchor="middle"` and `dominant-baseline="middle"` for centered labels. Use `tspan` with explicit `x` and `dy` values for multiline labels.
+- Put connector endpoints on the edge of shapes or just outside them. Do not start or end arrows deep inside cards.
+- Avoid `foreignObject`, `image`, `clipPath`, `mask`, `filter`, gradients, arbitrary `path` geometry, and text converted to outlines.
+
+## Components
+
+- `brut-card`: offset shadow, cream or accent fill, 4px ink border, 24px padding.
+- `stage-banner`: saturated fill, ink border, short bold label.
+- `stamp`: small square or pill badge used for numbers and tags.
+- `connector`: thick straight connector, preferably horizontal, routed outside text boxes.
+- `callout`: one large accent panel with a hard shadow; use sparingly.
+
+## Layout Affinity
+
+This section describes where Riso Brut tends to work well after a layout system has already been
+chosen. Riso Brut should not replace the layout decision; it adds heavy ink, hard shadows, saturated
+blocks, and a bold editorial attitude to the selected composition.
+
+Riso Brut works well with:
+
+- strong left-to-right stages;
+- poster-like quadrant maps;
+- chunky tables with loud headers;
+- central thesis layouts with surrounding proof blocks.
+
+Style application rules:
+
+- Leave more whitespace than the colors imply: at least 40px between major blocks and 24px between
+  cards.
+- Keep same-rank blocks equal in size even when the style uses intentionally loud color.
+- Use offset shadows as a style signature, not as a substitute for alignment or content hierarchy.
+
+## Avoid
+
+- subtle gray UI surfaces;
+- thin 1px borders;
+- small low-contrast labels;
+- decorative noise that does not carry meaning.
