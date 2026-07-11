@@ -23,19 +23,11 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
     const replayEnabled = replay?.enabled === true && scene.elements.length > 0;
     const suppressChangeRef = useRef(true);
     const suppressChangeUntilRef = useRef(0);
-    const fitSceneKeyRef = useRef<string | null>(null);
+    const hasAppliedInitialSceneRef = useRef(false);
+    const hasCompletedInitialFitRef = useRef(false);
     const normalizedElements = useMemo(
       () => normalizeElementsForExcalidraw(scene.elements, style),
       [scene.elements, style],
-    );
-    const sceneKey = useMemo(
-      () =>
-        normalizedElements
-          .map((element, index) =>
-            isElementRecord(element) ? elementSignature(element, index) : `unknown-${index}`,
-          )
-          .join(":"),
-      [normalizedElements],
     );
     const styledAppState = useMemo(
       () => applyStyleToAppState(sanitizeInitialAppState(scene.appState), style),
@@ -68,13 +60,13 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
       const batchSize = replay.batchSize ?? 1;
       const intervalMs = replay.intervalMs ?? 70;
       suppressChangesFor(1200);
-      fitSceneKeyRef.current = sceneKey;
 
       const startReplay = async () => {
         await loadHandwrittenCjkFonts(normalizedElements);
         if (cancelled) {
           return;
         }
+        hasAppliedInitialSceneRef.current = true;
         api.updateScene({
           elements: [],
           appState: styledAppState as AppState,
@@ -111,7 +103,13 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
           elements: normalizedElements as readonly ExcalidrawElement[],
           appState: styledAppState as AppState,
         });
-        fitBoardToContent(api, normalizedElements, boardRootRef.current);
+        if (!hasCompletedInitialFitRef.current) {
+          hasCompletedInitialFitRef.current = fitBoardToContent(
+            api,
+            normalizedElements,
+            boardRootRef.current,
+          );
+        }
         window.setTimeout(() => {
           if (!cancelled) {
             suppressChangeRef.current = false;
@@ -128,7 +126,6 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
       apiReady,
       replayEnabled,
       replay,
-      sceneKey,
       normalizedElements,
       styledAppState,
     ]);
@@ -138,7 +135,7 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
       if (!api || !apiReady || replayEnabled) {
         return;
       }
-      if (fitSceneKeyRef.current === sceneKey) {
+      if (hasAppliedInitialSceneRef.current) {
         return;
       }
       let cancelled = false;
@@ -147,13 +144,14 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
         if (cancelled) {
           return;
         }
+        hasAppliedInitialSceneRef.current = true;
         api.updateScene({
           elements: normalizedElements as readonly ExcalidrawElement[],
           appState: styledAppState as AppState,
         });
       });
       if (normalizedElements.length === 0) {
-        fitSceneKeyRef.current = sceneKey;
+        hasCompletedInitialFitRef.current = true;
         window.setTimeout(() => {
           suppressChangeRef.current = false;
         }, 350);
@@ -165,8 +163,11 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
         if (cancelled) {
           return;
         }
+        if (hasCompletedInitialFitRef.current) {
+          return;
+        }
         if (fitBoardToContent(api, normalizedElements, boardRootRef.current)) {
-          fitSceneKeyRef.current = sceneKey;
+          hasCompletedInitialFitRef.current = true;
         }
       };
       window.requestAnimationFrame(() => window.requestAnimationFrame(fitWhenReady));
@@ -193,7 +194,7 @@ export const ExcalidrawBoard = forwardRef<BoardHandle, BoardProviderProps>(
         resizeObserver?.disconnect();
         timers.forEach((timer) => window.clearTimeout(timer));
       };
-    }, [apiReady, replayEnabled, sceneKey, normalizedElements, styledAppState]);
+    }, [apiReady, replayEnabled, normalizedElements, styledAppState]);
 
     useImperativeHandle(ref, () => ({
       getSnapshot: () => snapshotFromApi(apiRef.current),
@@ -698,20 +699,6 @@ const applyStyleToElements = (
 
 const isElementRecord = (element: unknown): element is Record<string, unknown> =>
   typeof element === "object" && element !== null && "type" in element;
-
-const elementSignature = (element: Record<string, unknown>, index: number) =>
-  [
-    element.id ?? `no-id-${index}`,
-    element.type,
-    element.version,
-    element.versionNonce,
-    element.x,
-    element.y,
-    element.width,
-    element.height,
-    element.text,
-    Array.isArray(element.points) ? JSON.stringify(element.points) : "",
-  ].join(",");
 
 const bumpNumber = (value: unknown) => (typeof value === "number" ? value + 1 : 1);
 
